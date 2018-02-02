@@ -27,14 +27,4 @@ class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
             ->createOptivoMailSender()
             ->sendMail($mailTransfer);
     }
-
-    /**
-     * @param OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer
-     *
-     * @return
-     */
-    public function subscribe(OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer)
-    {
-
-    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace SprykerEco\Zed\Optivo\Cpmmunication\Plugin\MailProvider;
+namespace SprykerEco\Zed\Optivo\Communication\Plugin\MailProvider;
 
 use Generated\Shared\Transfer\MailTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
