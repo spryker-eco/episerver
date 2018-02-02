@@ -1,27 +1,13 @@
 <?php
 
-namespace SprykerEco\Zed\Optivo\Business;
+namespace SprykerEco\Zed\Optivo\Business\Api;
 
-use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\OptivoSubscribeRequestTransfer;
 use Generated\Shared\Transfer\OptivoTransactionalMailRequestTransfer;
 use Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer;
 
-interface OptivoFacadeInterface
+interface OptivoApiInterface
 {
-    /**
-     * Specification:
-     * - Receives the fully configured MailTransfer
-     * - Sends the mail
-     *
-     * @api
-     *
-     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
-     *
-     * @return void
-     */
-    public function sendMail(MailTransfer $mailTransfer);
-
     /**
      * @param OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer
      *
