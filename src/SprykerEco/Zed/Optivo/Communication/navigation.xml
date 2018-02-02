@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <optivo>
+        <label>Optivo</label>
+        <title>Optivo</title>
+        <bundle>optivo</bundle>
+        <controller>index</controller>
+        <action>index</action>
+    </optivo>
+</config>
