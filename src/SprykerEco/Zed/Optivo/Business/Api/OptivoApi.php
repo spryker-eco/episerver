@@ -61,7 +61,7 @@ class OptivoApi implements OptivoApiInterface
         $optivoRequestTransfer
             ->setMailingListToken($this->config->getTokenOperationSubscribe())
             ->setServiceType(SharedOptivoConfig::SERVICE_FORM)
-            ->setRequestType(SharedOptivoConfig::OPERATION_SUBSCRIBE)
+            ->setRequestType(SharedOptivoConfig::OPERATION_UNSUBSCRIBE)
             ->setParameters($this->buildParameters($optivoUnsubscribeRequestTransfer->toArray()))
         ;
 
@@ -79,7 +79,7 @@ class OptivoApi implements OptivoApiInterface
         $optivoRequestTransfer
             ->setMailingListToken($this->config->getTokenOperationSubscribe())
             ->setServiceType(SharedOptivoConfig::SERVICE_FORM)
-            ->setRequestType(SharedOptivoConfig::OPERATION_SUBSCRIBE)
+            ->setRequestType(SharedOptivoConfig::OPERATION_SEND_TRANSACTION_EMAIL)
             ->setParameters($this->buildParameters($optivoTransactionalMailRequestTransfer->toArray()))
         ;
 
