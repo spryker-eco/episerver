@@ -5,14 +5,13 @@ namespace SprykerEco\Zed\Optivo\Communication\Plugin\MailProvider;
 use Generated\Shared\Transfer\MailTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\Mail\Dependency\Plugin\MailProviderPluginInterface;
-use SprykerEco\Zed\Optivo\Business\OptivoFacadeInterface;
 
 /**
- * @method OptivoFacadeInterface getFacade()
+ * @method \SprykerEco\Zed\Optivo\Business\OptivoFacadeInterface getFacade()
+ * @method \SprykerEco\Zed\Optivo\Communication\OptivoCommunicationFactory getFactory()
  */
 class OptivoMailProviderPlugin extends AbstractPlugin implements MailProviderPluginInterface
 {
-
     /**
      * Specification:
      * - Receives the fully configured MailTransfer

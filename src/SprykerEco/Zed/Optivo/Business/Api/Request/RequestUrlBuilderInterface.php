@@ -7,7 +7,7 @@ use Generated\Shared\Transfer\OptivoRequestTransfer;
 interface RequestUrlBuilderInterface
 {
     /**
-     * @param OptivoRequestTransfer $optivoRequestTransfer
+     * @param \Generated\Shared\Transfer\OptivoRequestTransfer $optivoRequestTransfer
      *
      * @return string
      */

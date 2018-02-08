@@ -23,21 +23,21 @@ interface OptivoFacadeInterface
     public function sendMail(MailTransfer $mailTransfer);
 
     /**
-     * @param OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer
+     * @param \Generated\Shared\Transfer\OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer
      *
      * @return \Generated\Shared\Transfer\OptivoResponseTransfer
      */
     public function sendSubscribeRequest(OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer);
 
     /**
-     * @param OptivoUnsubscribeRequestTransfer $optivoUnsubscribeRequestTransfer
+     * @param \Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer $optivoUnsubscribeRequestTransfer
      *
      * @return \Generated\Shared\Transfer\OptivoResponseTransfer
      */
     public function sendUnsubscribeRequest(OptivoUnsubscribeRequestTransfer $optivoUnsubscribeRequestTransfer);
 
     /**
-     * @param OptivoTransactionalMailRequestTransfer $optivoTransactionalMailRequestTransfer
+     * @param \Generated\Shared\Transfer\OptivoTransactionalMailRequestTransfer $optivoTransactionalMailRequestTransfer
      *
      * @return \Generated\Shared\Transfer\OptivoResponseTransfer
      */

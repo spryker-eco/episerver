@@ -32,7 +32,7 @@ class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
     }
 
     /**
-     * @param OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer
+     * @param \Generated\Shared\Transfer\OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer
      *
      * @return \Generated\Shared\Transfer\OptivoResponseTransfer
      */
@@ -44,7 +44,7 @@ class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
     }
 
     /**
-     * @param OptivoUnsubscribeRequestTransfer $optivoUnsubscribeRequestTransfer
+     * @param \Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer $optivoUnsubscribeRequestTransfer
      *
      * @return \Generated\Shared\Transfer\OptivoResponseTransfer
      */
@@ -56,7 +56,7 @@ class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
     }
 
     /**
-     * @param OptivoTransactionalMailRequestTransfer $optivoTransactionalMailRequestTransfer
+     * @param \Generated\Shared\Transfer\OptivoTransactionalMailRequestTransfer $optivoTransactionalMailRequestTransfer
      *
      * @return \Generated\Shared\Transfer\OptivoResponseTransfer
      */

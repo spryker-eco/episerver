@@ -10,15 +10,14 @@ class ResponseConverter implements ResponseConverterInterface
     /**
      * @param $response
      *
-     * @return OptivoResponseTransfer
+     * @return \Generated\Shared\Transfer\OptivoResponseTransfer
      */
     public function convertResponse($response)
     {
         $responseTransfer = new OptivoResponseTransfer();
         $responseTransfer
             ->setStatus($response)
-            ->setIsSuccessful($this->isSuccessful($response))
-        ;
+            ->setIsSuccessful($this->isSuccessful($response));
 
         return $responseTransfer;
     }

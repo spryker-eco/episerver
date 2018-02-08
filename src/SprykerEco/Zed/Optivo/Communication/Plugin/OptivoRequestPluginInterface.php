@@ -7,7 +7,7 @@ use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 interface OptivoRequestPluginInterface
 {
     /**
-     * @param AbstractTransfer $transfer
+     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer $transfer
      *
      * @return mixed
      */

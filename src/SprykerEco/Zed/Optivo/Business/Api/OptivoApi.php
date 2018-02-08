@@ -7,13 +7,13 @@ use Generated\Shared\Transfer\OptivoSubscribeRequestTransfer;
 use Generated\Shared\Transfer\OptivoTransactionalMailRequestTransfer;
 use Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer;
 use SprykerEco\Shared\Optivo\OptivoConfig as SharedOptivoConfig;
-use SprykerEco\Zed\Optivo\OptivoConfig;
 use SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapterInterface;
+use SprykerEco\Zed\Optivo\OptivoConfig;
 
 class OptivoApi implements OptivoApiInterface
 {
     /**
-     * @var OptivoApiAdapterInterface
+     * @var \SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapterInterface
      */
     protected $apiAdapter;
 
@@ -23,8 +23,8 @@ class OptivoApi implements OptivoApiInterface
     protected $config;
 
     /**
-     * @param OptivoApiAdapterInterface $apiAdapter
-     * @param OptivoConfig $config
+     * @param \SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapterInterface $apiAdapter
+     * @param \SprykerEco\Zed\Optivo\OptivoConfig $config
      */
     public function __construct(OptivoApiAdapterInterface $apiAdapter, OptivoConfig $config)
     {
@@ -33,7 +33,7 @@ class OptivoApi implements OptivoApiInterface
     }
 
     /**
-     * @param OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer
+     * @param \Generated\Shared\Transfer\OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer
      *
      * @return \Generated\Shared\Transfer\OptivoResponseTransfer
      */
@@ -44,14 +44,13 @@ class OptivoApi implements OptivoApiInterface
             ->setMailingListToken($this->config->getTokenOperationSubscribe())
             ->setServiceType(SharedOptivoConfig::SERVICE_FORM)
             ->setRequestType(SharedOptivoConfig::OPERATION_SUBSCRIBE)
-            ->setParameters($this->buildParameters($optivoSubscribeRequestTransfer->toArray()))
-        ;
+            ->setParameters($this->buildParameters($optivoSubscribeRequestTransfer->toArray(false, true)));
 
         return $this->apiAdapter->sendRequest($optivoRequestTransfer);
     }
 
     /**
-     * @param OptivoUnsubscribeRequestTransfer $optivoUnsubscribeRequestTransfer
+     * @param \Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer $optivoUnsubscribeRequestTransfer
      *
      * @return \Generated\Shared\Transfer\OptivoResponseTransfer
      */
@@ -62,14 +61,13 @@ class OptivoApi implements OptivoApiInterface
             ->setMailingListToken($this->config->getTokenOperationSubscribe())
             ->setServiceType(SharedOptivoConfig::SERVICE_FORM)
             ->setRequestType(SharedOptivoConfig::OPERATION_UNSUBSCRIBE)
-            ->setParameters($this->buildParameters($optivoUnsubscribeRequestTransfer->toArray()))
-        ;
+            ->setParameters($this->buildParameters($optivoUnsubscribeRequestTransfer->toArray(false, true)));
 
         return $this->apiAdapter->sendRequest($optivoRequestTransfer);
     }
 
     /**
-     * @param OptivoTransactionalMailRequestTransfer $optivoTransactionalMailRequestTransfer
+     * @param \Generated\Shared\Transfer\OptivoTransactionalMailRequestTransfer $optivoTransactionalMailRequestTransfer
      *
      * @return \Generated\Shared\Transfer\OptivoResponseTransfer
      */
@@ -77,11 +75,10 @@ class OptivoApi implements OptivoApiInterface
     {
         $optivoRequestTransfer = new OptivoRequestTransfer();
         $optivoRequestTransfer
-            ->setMailingListToken($this->config->getTokenOperationSubscribe())
+            ->setMailingListToken($this->config->getTokenOperationSendTransactionEmail())
             ->setServiceType(SharedOptivoConfig::SERVICE_FORM)
             ->setRequestType(SharedOptivoConfig::OPERATION_SEND_TRANSACTION_EMAIL)
-            ->setParameters($this->buildParameters($optivoTransactionalMailRequestTransfer->toArray()))
-        ;
+            ->setParameters($this->buildParameters($optivoTransactionalMailRequestTransfer->toArray(false, true)));
 
         return $this->apiAdapter->sendRequest($optivoRequestTransfer);
     }
@@ -95,9 +92,9 @@ class OptivoApi implements OptivoApiInterface
     {
         $result = [];
 
-        foreach ($parameters as $key=>$value) {
+        foreach ($parameters as $key => $value) {
             if (is_array($value)) {
-                $result+= $value;
+                $result += $value;
 
                 continue;
             }

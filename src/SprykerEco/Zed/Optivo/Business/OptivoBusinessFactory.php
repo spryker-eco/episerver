@@ -5,28 +5,20 @@ namespace SprykerEco\Zed\Optivo\Business;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use SprykerEco\Zed\Optivo\Business\Api\Adapter\Http\Guzzle;
 use SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapter;
-use SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapterInterface;
-use SprykerEco\Zed\Optivo\Business\Api\Http\HttpAdapterInterface;
 use SprykerEco\Zed\Optivo\Business\Api\OptivoApi;
-use SprykerEco\Zed\Optivo\Business\Api\OptivoApiInterface;
 use SprykerEco\Zed\Optivo\Business\Api\Request\RequestUrlBuilder;
-use SprykerEco\Zed\Optivo\Business\Api\Request\RequestUrlBuilderInterface;
 use SprykerEco\Zed\Optivo\Business\Api\Response\ResponseConverter;
-use SprykerEco\Zed\Optivo\Business\Api\Response\ResponseConverterInterface;
 use SprykerEco\Zed\Optivo\Business\Model\OptivoMailSender;
-use SprykerEco\Zed\Optivo\Business\Model\OptivoMailSenderInterface;
-use SprykerEco\Zed\Optivo\Communication\Plugin\OptivoRequestPluginInterface;
 use SprykerEco\Zed\Optivo\OptivoDependencyProvider;
 
 /**
  * @method \SprykerEco\Zed\Optivo\OptivoConfig getConfig()
- * @method \SprykerEco\Zed\Optivo\Persistence\OptivoQueryContainer getQueryContainer()
+ * @method \SprykerEco\Zed\Optivo\Persistence\OptivoQueryContainerInterface getQueryContainer()
  */
 class OptivoBusinessFactory extends AbstractBusinessFactory
 {
-
     /**
-     * @return OptivoMailSenderInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Model\OptivoMailSenderInterface
      */
     public function createOptivoMailSender()
     {
@@ -36,7 +28,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return OptivoRequestPluginInterface[]
+     * @return \SprykerEco\Zed\Optivo\Communication\Plugin\OptivoRequestPluginInterface[]
      */
     protected function getRequestPluginsMap()
     {
@@ -44,7 +36,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return OptivoApiInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Api\OptivoApiInterface
      */
     public function createOptivoApi()
     {
@@ -55,7 +47,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return OptivoApiAdapterInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapterInterface
      */
     protected function createOptivoApiAdapter()
     {
@@ -67,7 +59,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return HttpAdapterInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Api\Adapter\Http\HttpAdapterInterface
      */
     protected function createGuzzle()
     {
@@ -75,7 +67,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return RequestUrlBuilderInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Api\Request\RequestUrlBuilderInterface
      */
     protected function createRequestUrlBuilder()
     {
@@ -85,7 +77,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return ResponseConverterInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Api\Response\ResponseConverterInterface
      */
     protected function createResponseConverter()
     {

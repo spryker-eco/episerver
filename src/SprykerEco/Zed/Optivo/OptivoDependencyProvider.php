@@ -13,7 +13,6 @@ use SprykerEco\Zed\Optivo\Communication\Plugin\MailOperation\OptivoUnsubscribeRe
 
 class OptivoDependencyProvider extends AbstractBundleDependencyProvider
 {
-
     const OPERATION_PLUGINS_MAP = 'OPERATION_PLUGINS_MAP';
 
     /**
@@ -35,7 +34,7 @@ class OptivoDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function provideBusinessLayerDependencies(Container $container)
     {
-        $container[self::OPERATION_PLUGINS_MAP] = function(Container $container) {
+        $container[self::OPERATION_PLUGINS_MAP] = function (Container $container) {
             return [
                 OptivoSubscribeRequestTransfer::class => new OptivoSubscribeRequestPlugin(),
                 OptivoUnsubscribeRequestTransfer::class => new OptivoUnsubscribeRequestPlugin(),
@@ -57,5 +56,4 @@ class OptivoDependencyProvider extends AbstractBundleDependencyProvider
 
         return $container;
     }
-
 }

@@ -11,12 +11,12 @@ use SprykerEco\Zed\Optivo\OptivoConfig;
 class Guzzle extends AbstractHttpAdapter
 {
     /**
-     * @var OptivoConfig
+     * @var \SprykerEco\Zed\Optivo\OptivoConfig
      */
     protected $config;
 
     /**
-     * @param OptivoConfig $config
+     * @param \SprykerEco\Zed\Optivo\OptivoConfig $config
      */
     public function __construct(OptivoConfig $config)
     {

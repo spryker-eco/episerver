@@ -1,6 +1,6 @@
 <?php
 
-namespace SprykerEco\Zed\Optivo\Business\Api\Http;
+namespace SprykerEco\Zed\Optivo\Business\Api\Adapter\Http;
 
 interface HttpAdapterInterface
 {

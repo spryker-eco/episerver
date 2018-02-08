@@ -12,7 +12,7 @@ class OptivoConfig extends AbstractBundleConfig
      */
     public function getRequestBaseUrl()
     {
-        return $this->get(OptivoConstants::REQUEST_BASE_URL);
+        return rtrim($this->get(OptivoConstants::REQUEST_BASE_URL), '/');
     }
 
     /**
@@ -29,5 +29,21 @@ class OptivoConfig extends AbstractBundleConfig
     public function getTokenOperationSubscribe()
     {
         return $this->get(OptivoConstants::TOKEN_OPERATION_SUBSCRIBE);
+    }
+
+    /**
+     * @return string
+     */
+    public function getTokenOperationUnsubscribe()
+    {
+        return $this->get(OptivoConstants::TOKEN_OPERATION_UNSUBSCRIBE);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTokenOperationSendTransactionEmail()
+    {
+        return $this->get(OptivoConstants::TOKEN_OPERATION_SEND_TRANSACTION_EMAIL);
     }
 }

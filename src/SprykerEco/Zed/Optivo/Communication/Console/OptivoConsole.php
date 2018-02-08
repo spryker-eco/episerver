@@ -7,11 +7,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @method \SprykerEco\Zed\Optivo\Business\OptivoFacade getFacade()
+ * @method \SprykerEco\Zed\Optivo\Business\OptivoFacadeInterface getFacade()
  */
 class OptivoConsole extends Console
 {
-
     const COMMAND_NAME = 'some:command';
     const DESCRIPTION = 'Describe me!';
 
@@ -41,5 +40,4 @@ class OptivoConsole extends Console
 
         return static::CODE_SUCCESS;
     }
-
 }

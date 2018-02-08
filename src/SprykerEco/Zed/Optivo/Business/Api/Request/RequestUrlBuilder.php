@@ -8,12 +8,12 @@ use SprykerEco\Zed\Optivo\OptivoConfig;
 class RequestUrlBuilder implements RequestUrlBuilderInterface
 {
     /**
-     * @var OptivoConfig
+     * @var \SprykerEco\Zed\Optivo\OptivoConfig
      */
     protected $config;
 
     /**
-     * @param OptivoConfig $config
+     * @param \SprykerEco\Zed\Optivo\OptivoConfig $config
      */
     public function __construct(OptivoConfig $config)
     {
@@ -21,7 +21,7 @@ class RequestUrlBuilder implements RequestUrlBuilderInterface
     }
 
     /**
-     * @param OptivoRequestTransfer $optivoRequestTransfer
+     * @param \Generated\Shared\Transfer\OptivoRequestTransfer $optivoRequestTransfer
      *
      * @return string
      */

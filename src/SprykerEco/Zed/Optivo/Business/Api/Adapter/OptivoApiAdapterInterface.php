@@ -3,14 +3,13 @@
 namespace SprykerEco\Zed\Optivo\Business\Api\Adapter;
 
 use Generated\Shared\Transfer\OptivoRequestTransfer;
-use Generated\Shared\Transfer\OptivoResponseTransfer;
 
 interface OptivoApiAdapterInterface
 {
     /**
-     * @param OptivoRequestTransfer $optivoRequestTransfer
+     * @param \Generated\Shared\Transfer\OptivoRequestTransfer $optivoRequestTransfer
      *
-     * @return OptivoResponseTransfer
+     * @return \Generated\Shared\Transfer\OptivoResponseTransfer
      */
     public function sendRequest(OptivoRequestTransfer $optivoRequestTransfer);
 }

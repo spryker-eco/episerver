@@ -2,22 +2,20 @@
 
 namespace SprykerEco\Zed\Optivo\Communication\Plugin\MailOperation;
 
-use Generated\Shared\Transfer\OptivoResponseTransfer;
-use Generated\Shared\Transfer\OptivoTransactionalMailRequestTransfer;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
-use SprykerEco\Zed\Optivo\Business\OptivoFacadeInterface;
 use SprykerEco\Zed\Optivo\Communication\Plugin\OptivoRequestPluginInterface;
 
 /**
- * @method OptivoFacadeInterface getFacade()
+ * @method \SprykerEco\Zed\Optivo\Business\OptivoFacadeInterface getFacade()
+ * @method \SprykerEco\Zed\Optivo\Communication\OptivoCommunicationFactory getFactory()
  */
 class OptivoUnsubscribeRequestPlugin extends AbstractPlugin implements OptivoRequestPluginInterface
 {
     /**
-     * @param AbstractTransfer|OptivoTransactionalMailRequestTransfer $transfer
+     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer|\Generated\Shared\Transfer\OptivoTransactionalMailRequestTransfer $transfer
      *
-     * @return OptivoResponseTransfer
+     * @return \Generated\Shared\Transfer\OptivoResponseTransfer
      */
     public function send(AbstractTransfer $transfer)
     {

@@ -3,18 +3,16 @@
 namespace SprykerEco\Zed\Optivo\Business\Model;
 
 use Generated\Shared\Transfer\MailTransfer;
-use SprykerEco\Zed\Optivo\Communication\Plugin\OptivoRequestPluginInterface;
 
 class OptivoMailSender implements OptivoMailSenderInterface
 {
-
     /**
-     * @var OptivoRequestPluginInterface[]
+     * @var \SprykerEco\Zed\Optivo\Communication\Plugin\OptivoRequestPluginInterface[]
      */
     protected $requestPluginsMap;
 
     /**
-     * @param OptivoRequestPluginInterface[] $requestPluginsMap
+     * @param \SprykerEco\Zed\Optivo\Communication\Plugin\OptivoRequestPluginInterface[] $requestPluginsMap
      */
     public function __construct(array $requestPluginsMap)
     {

@@ -2,8 +2,6 @@
 
 namespace SprykerEco\Zed\Optivo\Business\Api\Adapter\Http;
 
-use SprykerEco\Zed\Optivo\Business\Api\Http\HttpAdapterInterface;
-
 abstract class AbstractHttpAdapter implements HttpAdapterInterface
 {
     /**
@@ -30,7 +28,7 @@ abstract class AbstractHttpAdapter implements HttpAdapterInterface
     /**
      * @param object $request
      *
-     * @throws \Spryker\Zed\Ratepay\Business\Exception\ApiHttpRequestException
+     * @throws \SprykerEco\Zed\Optivo\Business\Exception\ApiHttpRequestException
      *
      * @return string
      */

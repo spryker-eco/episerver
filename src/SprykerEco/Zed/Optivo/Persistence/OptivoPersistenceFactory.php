@@ -6,7 +6,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
  * @method \SprykerEco\Zed\Optivo\OptivoConfig getConfig()
- * @method \SprykerEco\Zed\Optivo\Persistence\OptivoQueryContainer getQueryContainer()
+ * @method \SprykerEco\Zed\Optivo\Persistence\OptivoQueryContainerInterface getQueryContainer()
  */
 class OptivoPersistenceFactory extends AbstractPersistenceFactory
 {
