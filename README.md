@@ -1,11 +1,13 @@
-# R&D test Module
+# Optivo Module
 
-ToDo
+[![Build Status](https://travis-ci.org/spryker-eco/optivo.svg?branch=master)](https://travis-ci.org/spryker-eco/optivo)
 
 ## Installation
 
-ToDo
+```
+composer require spryker-eco/optivo
+```
 
 ## Documentation
-
-ToDo
+TODO
+[Module Documentation](https://academy.spryker.com)
