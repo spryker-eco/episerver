@@ -8,14 +8,15 @@
 namespace SprykerEco\Zed\Optivo\Communication\Plugin\Mail;
 
 use Generated\Shared\Transfer\OptivoSubscribeRequestTransfer;
+use Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer;
 use Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface;
-use Spryker\Zed\Newsletter\Communication\Plugin\Mail\NewsletterSubscribedMailTypePlugin;
+use Spryker\Zed\Newsletter\Communication\Plugin\Mail\NewsletterUnsubscribedMailTypePlugin;
 
 /**
  * @method \SprykerEco\Zed\Optivo\Business\OptivoFacadeInterface getFacade()
  * @method \SprykerEco\Zed\Optivo\Communication\OptivoCommunicationFactory getFactory()
  */
-class OptivoNewsletterSubscribedMailTypePlugin extends NewsletterSubscribedMailTypePlugin
+class OptivoNewsletterUnsubscribedMailTypePlugin extends NewsletterUnsubscribedMailTypePlugin
 {
     /**
      * @param MailBuilderInterface $mailBuilder
@@ -23,17 +24,18 @@ class OptivoNewsletterSubscribedMailTypePlugin extends NewsletterSubscribedMailT
     public function build(MailBuilderInterface $mailBuilder)
     {
         parent::build($mailBuilder);
-        $this->getFacade()->sendSubscribeRequest($this->prepareOptivoSubscribeRequestTransfer($mailBuilder));
+        $this->getFacade()->sendUnsubscribeRequest($this->prepareOptivoUnsubscribeRequestTransfer($mailBuilder));
     }
 
     /**
      * @param MailBuilderInterface $mailBuilder
-     * @return OptivoSubscribeRequestTransfer
+     *
+     * @return OptivoUnsubscribeRequestTransfer
      */
-    protected function prepareOptivoSubscribeRequestTransfer(MailBuilderInterface $mailBuilder): OptivoSubscribeRequestTransfer
+    protected function prepareOptivoUnsubscribeRequestTransfer(MailBuilderInterface $mailBuilder): OptivoUnsubscribeRequestTransfer
     {
-        $transfer = new OptivoSubscribeRequestTransfer();
-        $transfer->setSubscriber($mailBuilder->getMailTransfer()->getNewsletterSubscriber()->getEmail());
+        $transfer = new OptivoUnsubscribeRequestTransfer();
+//        $transfer->set($mailBuilder->getMailTransfer()->getNewsletterSubscriber()->getEmail());
 
         return $transfer;
     }

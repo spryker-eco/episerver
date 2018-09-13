@@ -8,7 +8,6 @@
 namespace SprykerEco\Zed\Optivo\Persistence;
 
 use Generated\Shared\Transfer\OptivoSubscriptionTransfer;
-use Generated\Shared\Transfer\SpyOptivoSubscriptionEntityTransfer;
 use Orm\Zed\Optivo\Persistence\SpyOptivoSubscription;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
@@ -36,5 +35,20 @@ class OptivoEntityManager extends AbstractEntityManager implements OptivoEntityM
         $entity->save();
 
         return $entity;
+    }
+
+    /**
+     * @param OptivoSubscriptionTransfer $transfer
+     *
+     * @return void
+     */
+    public function removeOptivoSubscription(OptivoSubscriptionTransfer $transfer): void
+    {
+        $entity = $this->getFactory()
+            ->createSpyOptivoSubscriptionQuery()
+            ->filterByEmail($transfer->getEmail())
+            ->findOneOrCreate();
+
+        $entity->delete();
     }
 }

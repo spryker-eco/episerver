@@ -54,6 +54,9 @@ class OptivoRequestHandler implements OptivoRequestHandlerInterface
      */
     public function handleUnsubscribeRequest(OptivoUnsubscribeRequestTransfer $transfer): void
     {
-        // TODO: Implement handleUnsubscribeRequest() method.
+        $response = $this->api->sendUnsubscribeRequest($transfer);
+        $entityTransfer = new OptivoSubscriptionTransfer();
+        //Prepare transfer
+        $this->entityManager->removeOptivoSubscription($entityTransfer);
     }
 }

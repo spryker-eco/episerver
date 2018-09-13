@@ -8,14 +8,14 @@ use SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapter;
 use SprykerEco\Zed\Optivo\Business\Api\OptivoApi;
 use SprykerEco\Zed\Optivo\Business\Api\Request\RequestUrlBuilder;
 use SprykerEco\Zed\Optivo\Business\Api\Response\ResponseConverter;
-use SprykerEco\Zed\Optivo\Business\Strategy\OptivoStrategyInterface;
-use SprykerEco\Zed\Optivo\Business\Strategy\OptivoSubscribeNewsletterStrategy;
 use SprykerEco\Zed\Optivo\Business\Model\OptivoMailSender;
+use SprykerEco\Zed\Optivo\Business\Strategy\OptivoRequestHandler;
+use SprykerEco\Zed\Optivo\Business\Strategy\OptivoRequestHandlerInterface;
 use SprykerEco\Zed\Optivo\OptivoDependencyProvider;
 
 /**
  * @method \SprykerEco\Zed\Optivo\OptivoConfig getConfig()
- * @method \SprykerEco\Zed\Optivo\Persistence\OptivoQueryContainerInterface getQueryContainer()
+ * @method \SprykerEco\Zed\Optivo\Persistence\OptivoEntityManagerInterface getEntityManager()≈
  */
 class OptivoBusinessFactory extends AbstractBusinessFactory
 {
@@ -87,10 +87,10 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return OptivoStrategyInterface
+     * @return OptivoRequestHandlerInterface
      */
-    public function createOptivoSubscribeNewsletterStrategy(): OptivoStrategyInterface
+    public function createOptivoRequestHandler(): OptivoRequestHandlerInterface
     {
-        return new OptivoSubscribeNewsletterStrategy($this->createOptivoApi());
+        return new OptivoRequestHandler($this->createOptivoApi(), $this->getEntityManager());
     }
 }

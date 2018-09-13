@@ -18,4 +18,11 @@ interface OptivoEntityManagerInterface
      * @return SpyOptivoSubscription
      */
     public function createOptivoSubscription(OptivoSubscriptionTransfer $transfer): SpyOptivoSubscription;
+
+    /**
+     * @param OptivoSubscriptionTransfer $transfer
+     *
+     * @return SpyOptivoSubscription
+     */
+    public function removeOptivoSubscription(OptivoSubscriptionTransfer $transfer): SpyOptivoSubscription;
 }
