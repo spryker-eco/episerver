@@ -49,4 +49,10 @@
         <property name="status" type="string" />
     </transfer>
 
+    <transfer name="OptivoSubscription">
+        <property name="email" type="string" />
+        <property name="optivoId" type="string" />
+        <property name="fkCustomer" type="integer" />
+    </transfer>
+
 </transfers>

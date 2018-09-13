@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\Optivo\Communication\Plugin\Mail;
 
+use Generated\Shared\Transfer\OptivoSubscribeRequestTransfer;
 use Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface;
 use Spryker\Zed\Newsletter\Communication\Plugin\Mail\NewsletterSubscribedMailTypePlugin;
 
@@ -16,8 +17,23 @@ use Spryker\Zed\Newsletter\Communication\Plugin\Mail\NewsletterSubscribedMailTyp
  */
 class OptivoNewsletterSubscribedMailTypePlugin extends NewsletterSubscribedMailTypePlugin
 {
+    /**
+     * @param MailBuilderInterface $mailBuilder
+     */
     public function build(MailBuilderInterface $mailBuilder)
     {
-        parent::build($mailBuilder);
+        $this->getFacade()->sendSubscribeRequest($this->prepareOptivoSubscribeRequestTransfer($mailBuilder));
+    }
+
+    /**
+     * @param MailBuilderInterface $mailBuilder
+     * @return OptivoSubscribeRequestTransfer
+     */
+    protected function prepareOptivoSubscribeRequestTransfer(MailBuilderInterface $mailBuilder): OptivoSubscribeRequestTransfer
+    {
+        $transfer = new OptivoSubscribeRequestTransfer();
+        $transfer->setSubscriber($mailBuilder->getMailTransfer()->getNewsletterSubscriber()->getEmail());
+
+        return $transfer;
     }
 }

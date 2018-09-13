@@ -43,6 +43,13 @@ class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
             ->sendSubscribeRequest($optivoSubscribeRequestTransfer);
     }
 
+    public function handleSubscribeRequest(OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer)
+    {
+        $this->getFactory()
+            ->createOptivoSubscribeNewsletterStrategy()
+            ->handle($optivoSubscribeRequestTransfer);
+    }
+
     /**
      * @param \Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer $optivoUnsubscribeRequestTransfer
      *

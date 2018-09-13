@@ -8,6 +8,8 @@ use SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapter;
 use SprykerEco\Zed\Optivo\Business\Api\OptivoApi;
 use SprykerEco\Zed\Optivo\Business\Api\Request\RequestUrlBuilder;
 use SprykerEco\Zed\Optivo\Business\Api\Response\ResponseConverter;
+use SprykerEco\Zed\Optivo\Business\Strategy\OptivoStrategyInterface;
+use SprykerEco\Zed\Optivo\Business\Strategy\OptivoSubscribeNewsletterStrategy;
 use SprykerEco\Zed\Optivo\Business\Model\OptivoMailSender;
 use SprykerEco\Zed\Optivo\OptivoDependencyProvider;
 
@@ -82,5 +84,13 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     protected function createResponseConverter()
     {
         return new ResponseConverter();
+    }
+
+    /**
+     * @return OptivoStrategyInterface
+     */
+    public function createOptivoSubscribeNewsletterStrategy(): OptivoStrategyInterface
+    {
+        return new OptivoSubscribeNewsletterStrategy($this->createOptivoApi());
     }
 }
