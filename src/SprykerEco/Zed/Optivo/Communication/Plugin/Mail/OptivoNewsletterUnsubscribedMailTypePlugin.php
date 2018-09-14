@@ -24,7 +24,7 @@ class OptivoNewsletterUnsubscribedMailTypePlugin extends NewsletterUnsubscribedM
     public function build(MailBuilderInterface $mailBuilder)
     {
         parent::build($mailBuilder);
-        $this->getFacade()->sendUnsubscribeRequest($this->prepareOptivoUnsubscribeRequestTransfer($mailBuilder));
+        $this->getFacade()->hand($this->prepareOptivoUnsubscribeRequestTransfer($mailBuilder));
     }
 
     /**

@@ -14,41 +14,11 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
 {
     /**
-     * Specification:
-     * - Receives the fully configured MailTransfer
-     * - Sends the mail
-     *
-     * @api
-     *
-     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
-     *
-     * @return void
-     */
-    public function sendMail(MailTransfer $mailTransfer)
-    {
-        $this->getFactory()
-            ->createOptivoMailSender()
-            ->sendMail($mailTransfer);
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\OptivoResponseTransfer
-     */
-    public function sendSubscribeRequest(OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer)
-    {
-        return $this->getFactory()
-            ->createOptivoApi()
-            ->sendSubscribeRequest($optivoSubscribeRequestTransfer);
-    }
-
-    /**
      * @param OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer
      *
      * @return void
      */
-    public function handleSubscribeRequest(OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer)
+    public function handleSubscribeRequest(OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer): void
     {
         $this->getFactory()
             ->createOptivoRequestHandler()
@@ -60,7 +30,7 @@ class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
      *
      * @return void
      */
-    public function sendUnsubscribeRequest(OptivoUnsubscribeRequestTransfer $optivoUnsubscribeRequestTransfer)
+    public function handleUnsubscribeRequest(OptivoUnsubscribeRequestTransfer $optivoUnsubscribeRequestTransfer): void
     {
         $this->getFactory()
             ->createOptivoRequestHandler()
@@ -70,11 +40,11 @@ class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
     /**
      * @param \Generated\Shared\Transfer\OptivoTransactionalMailRequestTransfer $optivoTransactionalMailRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\OptivoResponseTransfer
+     * @return void
      */
-    public function sendTransactionalMailRequest(OptivoTransactionalMailRequestTransfer $optivoTransactionalMailRequestTransfer)
+    public function handleTransactionalRequest(OptivoTransactionalMailRequestTransfer $optivoTransactionalMailRequestTransfer): void
     {
-        return $this->getFactory()
+        $this->getFactory()
             ->createOptivoApi()
             ->sendTransactionalMailRequest($optivoTransactionalMailRequestTransfer);
     }
