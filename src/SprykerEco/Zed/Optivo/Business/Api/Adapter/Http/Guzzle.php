@@ -5,6 +5,7 @@ namespace SprykerEco\Zed\Optivo\Business\Api\Adapter\Http;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
+use Psr\Http\Message\ResponseInterface;
 use SprykerEco\Zed\Optivo\Business\Exception\ApiHttpRequestException;
 use SprykerEco\Zed\Optivo\OptivoConfig;
 
@@ -39,7 +40,7 @@ class Guzzle extends AbstractHttpAdapter
      *
      * @throws \SprykerEco\Zed\Optivo\Business\Exception\ApiHttpRequestException
      *
-     * @return string
+     * @return ResponseInterface
      */
     protected function send($request)
     {
@@ -57,6 +58,6 @@ class Guzzle extends AbstractHttpAdapter
             );
         }
 
-        return $response->getBody();
+        return $response;
     }
 }

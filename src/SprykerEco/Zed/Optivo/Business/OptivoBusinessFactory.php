@@ -8,9 +8,19 @@ use SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapter;
 use SprykerEco\Zed\Optivo\Business\Api\OptivoApi;
 use SprykerEco\Zed\Optivo\Business\Api\Request\RequestUrlBuilder;
 use SprykerEco\Zed\Optivo\Business\Api\Response\ResponseConverter;
+use SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandler;
+use SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandlerInterface;
+use SprykerEco\Zed\Optivo\Business\Mapper\Order\NewOrderMapper;
+use SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderCanceledMapper;
+use SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderMapperInterface;
+use SprykerEco\Zed\Optivo\Business\Mapper\Order\PaymentNotReceivedMapper;
+use SprykerEco\Zed\Optivo\Business\Mapper\Order\ShippingConfirmationMapper;
 use SprykerEco\Zed\Optivo\Business\Model\OptivoMailSender;
 use SprykerEco\Zed\Optivo\Business\Strategy\OptivoRequestHandler;
 use SprykerEco\Zed\Optivo\Business\Strategy\OptivoRequestHandlerInterface;
+use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToLocaleFacadeInterface;
+use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToMoneyFacadeInterface;
+use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToSalesFacadeInterface;
 use SprykerEco\Zed\Optivo\OptivoDependencyProvider;
 
 /**
@@ -87,10 +97,118 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return OptivoRequestHandlerInterface
+     * @return OrderEventHandlerInterface
      */
-    public function createOptivoRequestHandler(): OptivoRequestHandlerInterface
+    public function createNewOrderEventHandler(): OrderEventHandlerInterface
     {
-        return new OptivoRequestHandler($this->createOptivoApi(), $this->getEntityManager());
+        return new OrderEventHandler(
+            $this->createNewOrderMapper(),
+            $this->createOptivoApiAdapter(),
+            $this->getSalesFacade()
+        );
+    }
+
+    /**
+     * @return OrderEventHandlerInterface
+     */
+    public function createOrderCancelledEventHandler(): OrderEventHandlerInterface
+    {
+        return new OrderEventHandler(
+            $this->createOrderCancelledMapper(),
+            $this->createOptivoApiAdapter(),
+            $this->getSalesFacade()
+        );
+    }
+
+    /**
+     * @return OrderEventHandlerInterface
+     */
+    public function createPaymentNotReceivedEventHandler(): OrderEventHandlerInterface
+    {
+        return new OrderEventHandler(
+            $this->createPaymentNotReceivedMapper(),
+            $this->createOptivoApiAdapter(),
+            $this->getSalesFacade()
+        );
+    }
+
+    /**
+     * @return OrderEventHandlerInterface
+     */
+    public function createShippingConfirmationEventHandler(): OrderEventHandlerInterface
+    {
+        return new OrderEventHandler(
+            $this->createShippingConfirmationMapper(),
+            $this->createOptivoApiAdapter(),
+            $this->getSalesFacade()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Optivo\Business\Handler\Customer\CustomerEventHandlerInterface
+     */
+    public function createCustomerRegistrationEventHandler(): CustomerEventHandlerInterface
+    {
+        return new CustomerEventHandler(
+            $this->createCustomerRegistrationMapper(),
+            $this->createEventAdapter()
+        );
+    }
+
+    /**
+     * @return OrderMapperInterface
+     */
+    protected function createNewOrderMapper(): OrderMapperInterface
+    {
+        return new NewOrderMapper($this->getConfig(), $this->getMoneyFacade(), $this->getLocaleFacade());
+    }
+
+    /**
+     * @return OrderMapperInterface
+     */
+    protected function createOrderCancelledMapper(): OrderMapperInterface
+    {
+        return new OrderCanceledMapper($this->getConfig(), $this->getMoneyFacade(), $this->getLocaleFacade());
+    }
+
+    /**
+     * @return OrderMapperInterface
+     */
+    protected function createPaymentNotReceivedMapper(): OrderMapperInterface
+    {
+        return new PaymentNotReceivedMapper($this->getConfig(), $this->getMoneyFacade(), $this->getLocaleFacade());
+    }
+
+    /**
+     * @return OrderMapperInterface
+     */
+    protected function createShippingConfirmationMapper(): OrderMapperInterface
+    {
+        return new ShippingConfirmationMapper($this->getConfig(), $this->getMoneyFacade(), $this->getLocaleFacade());
+    }
+
+    /**
+     * @return OptivoToLocaleFacadeInterface
+     */
+    protected function getLocaleFacade(): OptivoToLocaleFacadeInterface
+    {
+        return $this->getProvidedDependency(OptivoDependencyProvider::FACADE_LOCALE);
+    }
+
+    /**
+     * @return OptivoToMoneyFacadeInterface
+     */
+    protected function getMoneyFacade(): OptivoToMoneyFacadeInterface
+    {
+        return $this->getProvidedDependency(OptivoDependencyProvider::FACADE_MONEY);
+    }
+
+
+    /**
+     * @return OptivoToSalesFacadeInterface
+     */
+    protected function getSalesFacade(): OptivoToSalesFacadeInterface
+    {
+        return $this->getProvidedDependency(OptivoDependencyProvider::FACADE_SALES);
     }
 }

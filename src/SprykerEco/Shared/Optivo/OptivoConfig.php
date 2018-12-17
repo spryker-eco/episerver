@@ -4,12 +4,23 @@ namespace SprykerEco\Shared\Optivo;
 
 class OptivoConfig
 {
-    const SERVICE_FORM = 'form';
-    const SERVICE_MAIL = 'mail';
+    public const SERVICE_FORM_TYPE = 'http/form';
 
-    const OPERATION_SEND_TRANSACTION_EMAIL = 'sendtransactionmail';
-    const OPERATION_SUBSCRIBE = 'subscribe';
-    const OPERATION_UNSUBSCRIBE = 'unsubscribe';
+    public const OPERATION_SEND_TRANSACTION_EMAIL = 'sendtransactionmail';
+    public const OPERATION_SEND_EVENT_EMAIL = 'sendeventmail';
+    /**
+     * @return string
+     */
+    public function getOperationTypeSendTransactionEmail(): string
+    {
+        return static::OPERATION_SEND_TRANSACTION_EMAIL;
+    }
 
-    const RESPONSE_OK = 'ok';
+    /**
+     * @return string
+     */
+    public function getServiceFormType(): string
+    {
+        return static::SERVICE_FORM_TYPE;
+    }
 }

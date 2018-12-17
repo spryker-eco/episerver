@@ -30,10 +30,10 @@ class RequestUrlBuilder implements RequestUrlBuilderInterface
         return sprintf(
             '%s/%s/%s/%s?%s',
             $this->config->getRequestBaseUrl(),
-            $optivoRequestTransfer->getServiceType(),
-            $optivoRequestTransfer->getMailingListToken(),
-            $optivoRequestTransfer->getRequestType(),
-            http_build_query($optivoRequestTransfer->getParameters())
+            $this->config->getServiceFormType(),
+            $this->config->getOrderListAuthCode(),
+            $optivoRequestTransfer->getOperationType(),
+            http_build_query($optivoRequestTransfer->getPayload())
         );
     }
 }

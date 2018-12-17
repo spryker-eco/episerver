@@ -2,9 +2,13 @@
 
 namespace SprykerEco\Zed\Optivo;
 
+use Spryker\Shared\Application\ApplicationConstants;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
 use SprykerEco\Shared\Optivo\OptivoConstants;
 
+/**
+ * @method \SprykerEco\Shared\Optivo\OptivoConfig getSharedConfig()
+ */
 class OptivoConfig extends AbstractBundleConfig
 {
     /**
@@ -26,24 +30,64 @@ class OptivoConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getTokenOperationSubscribe()
+    public function getOrderListAuthCode(): string
     {
-        return $this->get(OptivoConstants::TOKEN_OPERATION_SUBSCRIBE);
+        return $this->get(OptivoConstants::ORDER_LIST_AUTHORIZATION_CODE);
     }
 
     /**
      * @return string
      */
-    public function getTokenOperationUnsubscribe()
+    public function getOrderNewMailingId(): string
     {
-        return $this->get(OptivoConstants::TOKEN_OPERATION_UNSUBSCRIBE);
+        return $this->get(OptivoConstants::ORDER_NEW_MAILING_ID);
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getTokenOperationSendTransactionEmail()
+    public function getOrderPaymentIsNotReceivedMailingId(): string
     {
-        return $this->get(OptivoConstants::TOKEN_OPERATION_SEND_TRANSACTION_EMAIL);
+        return $this->get(OptivoConstants::ORDER_PAYMENT_IS_NOT_RECEIVED_MAILING_ID);
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderShippingConfirmationMailingId(): string
+    {
+        return $this->get(OptivoConstants::ORDER_SHIPPING_CONFIRMATION_MAILING_ID);
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderCancelledMailingId(): string
+    {
+        return $this->get(OptivoConstants::ORDER_CANCELLED_MAILING_ID);
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperationTypeSendTransactionEmail(): string
+    {
+        return $this->getSharedConfig()->getOperationTypeSendTransactionEmail();
+    }
+
+    /**
+     * @return string
+     */
+    public function getServiceFormType(): string
+    {
+        return $this->getSharedConfig()->getServiceFormType();
+    }
+
+    /**
+     * @return string
+     */
+    public function getHostYves(): string
+    {
+        return $this->get(ApplicationConstants::HOST_YVES);
     }
 }

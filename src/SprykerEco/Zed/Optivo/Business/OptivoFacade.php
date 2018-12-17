@@ -14,68 +14,93 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
 {
     /**
-     * Specification:
-     * - Receives the fully configured MailTransfer
-     * - Sends the mail
+     * {@inheritdoc}
+     *
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return void
+     */
+    public function handleCustomerRegistrationEvent(CustomerTransfer $customerTransfer): void
+    {
+        // TODO: Implement handleCustomerResetPasswordEvent() method.
+    }
+
+
+    /**
+     * {@inheritdoc}
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
      * @return void
      */
-    public function sendMail(MailTransfer $mailTransfer)
+    public function handleCustomerResetPasswordEvent(CustomerTransfer $customerTransfer): void
     {
-        $this->getFactory()
-            ->createOptivoMailSender()
-            ->sendMail($mailTransfer);
+        // TODO: Implement handleCustomerResetPasswordEvent() method.
     }
 
     /**
-     * @param \Generated\Shared\Transfer\OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer
+     * {@inheritdoc}
      *
-     * @return \Generated\Shared\Transfer\OptivoResponseTransfer
-     */
-    public function sendSubscribeRequest(OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer)
-    {
-        return $this->getFactory()
-            ->createOptivoApi()
-            ->sendSubscribeRequest($optivoSubscribeRequestTransfer);
-    }
-
-    /**
-     * @param OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer
+     * @api
+     *
+     * @param int $idSalesOrder
      *
      * @return void
      */
-    public function handleSubscribeRequest(OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer)
+    public function handleNewOrderEvent(int $idSalesOrder): void
     {
         $this->getFactory()
-            ->createOptivoRequestHandler()
-            ->handleSubscribeRequest($optivoSubscribeRequestTransfer);
+            ->createNewOrderEventHandler()
+            ->handle($idSalesOrder);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer $optivoUnsubscribeRequestTransfer
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param int $idSalesOrder
      *
      * @return void
      */
-    public function sendUnsubscribeRequest(OptivoUnsubscribeRequestTransfer $optivoUnsubscribeRequestTransfer)
+    public function handleOrderCanceledEvent(int $idSalesOrder): void
     {
         $this->getFactory()
-            ->createOptivoRequestHandler()
-            ->handleUnsubscribeRequest($optivoUnsubscribeRequestTransfer);
+            ->createOrderCancelledEventHandler()
+            ->handle($idSalesOrder);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\OptivoTransactionalMailRequestTransfer $optivoTransactionalMailRequestTransfer
+     * {@inheritdoc}
      *
-     * @return \Generated\Shared\Transfer\OptivoResponseTransfer
+     * @api
+     *
+     * @param int $idSalesOrder
+     *
+     * @return void
      */
-    public function sendTransactionalMailRequest(OptivoTransactionalMailRequestTransfer $optivoTransactionalMailRequestTransfer)
+    public function handlePaymentNotReceivedEvent(int $idSalesOrder): void
     {
-        return $this->getFactory()
-            ->createOptivoApi()
-            ->sendTransactionalMailRequest($optivoTransactionalMailRequestTransfer);
+        $this->getFactory()
+            ->createPaymentNotReceivedEventHandler()
+            ->handle($idSalesOrder);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param int $idSalesOrder
+     *
+     * @return void
+     */
+    public function handleShippingConfirmationEvent(int $idSalesOrder): void
+    {
+        $this->getFactory()
+            ->createShippingConfirmationEventHandler()
+            ->handle($idSalesOrder);
     }
 }

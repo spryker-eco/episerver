@@ -7,22 +7,26 @@ use Generated\Shared\Transfer\OptivoTransactionalMailRequestTransfer;
 use Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
-use SprykerEco\Zed\Optivo\Communication\Plugin\MailOperation\OptivoSubscribeRequestPlugin;
-use SprykerEco\Zed\Optivo\Communication\Plugin\MailOperation\OptivoTransactionalMailRequestPlugin;
-use SprykerEco\Zed\Optivo\Communication\Plugin\MailOperation\OptivoUnsubscribeRequestPlugin;
+use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToLocaleFacadeBridge;
+use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToMoneyFacadeBridge;
+use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToSalesFacadeBridge;
 
 class OptivoDependencyProvider extends AbstractBundleDependencyProvider
 {
-    const OPERATION_PLUGINS_MAP = 'OPERATION_PLUGINS_MAP';
+    public const FACADE_MONEY = 'FACADE_MONEY';
+    public const FACADE_LOCALE = 'FACADE_LOCALE';
+    public const FACADE_SALES = 'FACADE_SALES';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    public function provideCommunicationLayerDependencies(Container $container)
+    public function provideBusinessLayerDependencies(Container $container)
     {
-        //TODO Provide dependencies
+        $container = $this->addFacadeMoney($container);
+        $container = $this->addFacadeLocale($container);
+        $container = $this->addFacadeSales($container);
 
         return $container;
     }
@@ -32,14 +36,10 @@ class OptivoDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    public function provideBusinessLayerDependencies(Container $container)
+    protected function addFacadeMoney(Container $container): Container
     {
-        $container[self::OPERATION_PLUGINS_MAP] = function (Container $container) {
-            return [
-                OptivoSubscribeRequestTransfer::class => new OptivoSubscribeRequestPlugin(),
-                OptivoUnsubscribeRequestTransfer::class => new OptivoUnsubscribeRequestPlugin(),
-                OptivoTransactionalMailRequestTransfer::class => new OptivoTransactionalMailRequestPlugin(),
-            ];
+        $container[static::FACADE_MONEY] = function (Container $container) {
+            return new OptivoToMoneyFacadeBridge($container->getLocator()->money()->facade());
         };
 
         return $container;
@@ -50,9 +50,25 @@ class OptivoDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    public function providePersistenceLayerDependencies(Container $container)
+    protected function addFacadeLocale(Container $container): Container
     {
-        //TODO Provide dependencies
+        $container[static::FACADE_LOCALE] = function (Container $container) {
+            return new OptivoToLocaleFacadeBridge($container->getLocator()->locale()->facade());
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addFacadeSales(Container $container): Container
+    {
+        $container[static::FACADE_SALES] = function (Container $container) {
+            return new OptivoToSalesFacadeBridge($container->getLocator()->sales()->facade());
+        };
 
         return $container;
     }

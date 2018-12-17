@@ -2,13 +2,15 @@
 
 namespace SprykerEco\Zed\Optivo\Business\Api\Adapter\Http;
 
+use Psr\Http\Message\ResponseInterface;
+
 abstract class AbstractHttpAdapter implements HttpAdapterInterface
 {
     /**
      * @param string $gatewayUrl
      * @param string $data
      *
-     * @return string
+     * @return ResponseInterface
      */
     public function sendGetRequest($gatewayUrl, $data)
     {
@@ -30,7 +32,7 @@ abstract class AbstractHttpAdapter implements HttpAdapterInterface
      *
      * @throws \SprykerEco\Zed\Optivo\Business\Exception\ApiHttpRequestException
      *
-     * @return string
+     * @return ResponseInterface
      */
     abstract protected function send($request);
 }
