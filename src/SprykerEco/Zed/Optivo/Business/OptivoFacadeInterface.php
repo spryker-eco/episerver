@@ -9,40 +9,6 @@ use Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer;
 
 interface OptivoFacadeInterface
 {
-//    /**
-//     * Specification:
-//     * - Receives the fully configured MailTransfer
-//     * - Sends the mail
-//     *
-//     * @api
-//     *
-//     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
-//     *
-//     * @return void
-//     */
-//    public function sendMail(MailTransfer $mailTransfer);
-//
-//    /**
-//     * @param \Generated\Shared\Transfer\OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer
-//     *
-//     * @return \Generated\Shared\Transfer\OptivoResponseTransfer
-//     */
-//    public function sendSubscribeRequest(OptivoSubscribeRequestTransfer $optivoSubscribeRequestTransfer);
-//
-//    /**
-//     * @param \Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer $optivoUnsubscribeRequestTransfer
-//     *
-//     * @return \Generated\Shared\Transfer\OptivoResponseTransfer
-//     */
-//    public function sendUnsubscribeRequest(OptivoUnsubscribeRequestTransfer $optivoUnsubscribeRequestTransfer);
-//
-//    /**
-//     * @param \Generated\Shared\Transfer\OptivoTransactionalMailRequestTransfer $optivoTransactionalMailRequestTransfer
-//     *
-//     * @return \Generated\Shared\Transfer\OptivoResponseTransfer
-//     */
-//    public function sendTransactionalMailRequest(OptivoTransactionalMailRequestTransfer $optivoTransactionalMailRequestTransfer);
-
     /**
      * Specification:
      *  - Handle customer registration event. It uses CustomerTransfer as the param
