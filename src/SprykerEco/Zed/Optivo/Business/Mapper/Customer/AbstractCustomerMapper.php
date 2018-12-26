@@ -14,7 +14,19 @@ use SprykerEco\Zed\Optivo\OptivoConfig;
 
 abstract class AbstractCustomerMapper implements CustomerMapperInterface
 {
-    protected const LOGIN_URL = '/login';
+    protected const URL_LOGIN = '/login';
+
+    public const KEY_EMAIL = 'bmRecipientId';
+    public const KEY_MAILING_ID = 'bmMailingId';
+    public const KEY_SALUTATION = 'salutation';
+    public const KEY_FIRSTNAME = 'firstname';
+    public const KEY_LASTNAME = 'lastname';
+    public const KEY_SPRYKER_ID = 'spryker_id';
+    public const KEY_CUSTOMER_SHOP_LOCALE = 'customer_shop_locale';
+    public const KEY_CUSTOMER_SHOP_URL = 'customer_shop_url';
+    public const KEY_CUSTOMER_LOGIN_URL = 'customer_login_url';
+    public const KEY_CUSTOMER_RESET_LINK = 'customer_reset_link';
+
 
     /**
      * @var \SprykerEco\Zed\Optivo\OptivoConfig
@@ -43,12 +55,13 @@ abstract class AbstractCustomerMapper implements CustomerMapperInterface
      */
     public function map(CustomerTransfer $customerTransfer): OptivoRequestTransfer
     {
-        $OptivoRequestTransfer = new OptivoRequestTransfer();
-        $OptivoRequestTransfer->setEvent($this->getEvent());
-        $OptivoRequestTransfer->setTransactionId(uniqid('customer_'));
-        $OptivoRequestTransfer->setPayload($this->getPayload($customerTransfer));
+        $requestTransfer = new OptivoRequestTransfer();
 
-        return $OptivoRequestTransfer;
+        $requestTransfer->setAuthorizationCode($this->config->getCustomerListAuthCode());
+        $requestTransfer->setOperationType($this->config->getOperationTypeSendEventEmailEmail());
+        $requestTransfer->setPayload($this->getPayload($customerTransfer));
+
+        return $requestTransfer;
     }
 
     /**
@@ -58,26 +71,26 @@ abstract class AbstractCustomerMapper implements CustomerMapperInterface
      */
     protected function getPayload(CustomerTransfer $customerTransfer): array
     {
+        $locale = $customerTransfer->getLocale() ?
+            $customerTransfer->getLocale()->getLocaleName() :
+            $this->localeFacade->getCurrentLocaleName();
+
         return [
-            'Customer' => [
-                'LoginUrl' => $this->config->getHostYves() . static::LOGIN_URL,
-                'ResetLink' => $customerTransfer->getRestorePasswordLink(),
-                'Mail' => $customerTransfer->getEmail(),
-                'Salutation' => $customerTransfer->getSalutation(),
-                'Firstname' => $customerTransfer->getFirstName(),
-                'Lastname' => $customerTransfer->getLastName(),
-                'Id' => $customerTransfer->getIdCustomer(),
-                'Language' => $customerTransfer->getLocale() ? $customerTransfer->getLocale()->getLocaleName() : $this->localeFacade->getCurrentLocaleName(),
-            ],
-            'Shop' => [
-                'ShopLocale' => $this->localeFacade->getCurrentLocaleName(),
-                'ShopUrl' => $this->config->getHostYves(),
-            ],
+            static::KEY_MAILING_ID => $this->getMailingId(),
+            static::KEY_EMAIL => $customerTransfer->getEmail(),
+            static::KEY_SALUTATION => $customerTransfer->getSalutation(),
+            static::KEY_FIRSTNAME => $customerTransfer->getFirstName(),
+            static::KEY_LASTNAME => $customerTransfer->getLastName(),
+            static::KEY_SPRYKER_ID => $customerTransfer->getIdCustomer(),
+            static::KEY_CUSTOMER_SHOP_LOCALE => $locale,
+            static::KEY_CUSTOMER_SHOP_URL => $this->config->getHostYves(),
+            static::KEY_CUSTOMER_LOGIN_URL => $this->config->getHostYves() . static::URL_LOGIN,
+            static::KEY_CUSTOMER_RESET_LINK => $customerTransfer->getRestorePasswordLink(),
         ];
     }
 
     /**
      * @return string
      */
-    abstract protected function getEvent(): string;
+    abstract protected function getMailingId(): string;
 }

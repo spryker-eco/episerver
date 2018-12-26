@@ -31,7 +31,7 @@ class RequestUrlBuilder implements RequestUrlBuilderInterface
             '%s/%s/%s/%s?%s',
             $this->config->getRequestBaseUrl(),
             $this->config->getServiceFormType(),
-            $this->config->getOrderListAuthCode(),
+            $optivoRequestTransfer->getAuthorizationCode(),
             $optivoRequestTransfer->getOperationType(),
             http_build_query($optivoRequestTransfer->getPayload())
         );

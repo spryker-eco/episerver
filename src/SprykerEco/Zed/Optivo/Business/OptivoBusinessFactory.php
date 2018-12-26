@@ -8,8 +8,13 @@ use SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapter;
 use SprykerEco\Zed\Optivo\Business\Api\OptivoApi;
 use SprykerEco\Zed\Optivo\Business\Api\Request\RequestUrlBuilder;
 use SprykerEco\Zed\Optivo\Business\Api\Response\ResponseConverter;
+use SprykerEco\Zed\Optivo\Business\Handler\Customer\CustomerEventHandler;
+use SprykerEco\Zed\Optivo\Business\Handler\Customer\CustomerEventHandlerInterface;
 use SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandler;
 use SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandlerInterface;
+use SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerMapperInterface;
+use SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerRegistrationMapper;
+use SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerResetPasswordMapper;
 use SprykerEco\Zed\Optivo\Business\Mapper\Order\NewOrderMapper;
 use SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderCanceledMapper;
 use SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderMapperInterface;
@@ -151,7 +156,18 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     {
         return new CustomerEventHandler(
             $this->createCustomerRegistrationMapper(),
-            $this->createEventAdapter()
+            $this->createOptivoApiAdapter()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Optivo\Business\Handler\Customer\CustomerEventHandlerInterface
+     */
+    public function createCustomerResetPasswordEventHandler(): CustomerEventHandlerInterface
+    {
+        return new CustomerEventHandler(
+            $this->createCustomerResetPasswordMapper(),
+            $this->createOptivoApiAdapter()
         );
     }
 
@@ -185,6 +201,22 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     protected function createShippingConfirmationMapper(): OrderMapperInterface
     {
         return new ShippingConfirmationMapper($this->getConfig(), $this->getMoneyFacade(), $this->getLocaleFacade());
+    }
+
+    /**
+     * @return CustomerMapperInterface
+     */
+    protected function createCustomerRegistrationMapper(): CustomerMapperInterface
+    {
+        return new CustomerRegistrationMapper($this->getConfig(), $this->getLocaleFacade());
+    }
+
+    /**
+     * @return CustomerMapperInterface
+     */
+    protected function createCustomerResetPasswordMapper(): CustomerMapperInterface
+    {
+        return new CustomerResetPasswordMapper($this->getConfig(), $this->getLocaleFacade());
     }
 
     /**

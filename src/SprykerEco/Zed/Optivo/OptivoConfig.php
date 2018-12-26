@@ -35,6 +35,11 @@ class OptivoConfig extends AbstractBundleConfig
         return $this->get(OptivoConstants::ORDER_LIST_AUTHORIZATION_CODE);
     }
 
+    public function getCustomerListAuthCode(): string
+    {
+        return $this->get(OptivoConstants::CUSTOMER_LIST_AUTHORIZATION_CODE);
+    }
+
     /**
      * @return string
      */
@@ -70,9 +75,33 @@ class OptivoConfig extends AbstractBundleConfig
     /**
      * @return string
      */
+    public function getCustomerRegistrationMailingId(): string
+    {
+        return $this->get(OptivoConstants::CUSTOMER_REGISTRATION_MAILING_ID);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCustomerResetPasswordMailingId(): string
+    {
+        return $this->get(OptivoConstants::CUSTOMER_RESET_PASSWORD_MAILING_ID);
+    }
+
+    /**
+     * @return string
+     */
     public function getOperationTypeSendTransactionEmail(): string
     {
         return $this->getSharedConfig()->getOperationTypeSendTransactionEmail();
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperationTypeSendEventEmailEmail(): string
+    {
+        return $this->getSharedConfig()->getOperationTypeSendEventEmail();
     }
 
     /**

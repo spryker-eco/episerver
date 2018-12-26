@@ -12,8 +12,8 @@ class CustomerRegistrationMapper extends AbstractCustomerMapper
     /**
      * @return string
      */
-    protected function getEvent(): string
+    protected function getMailingId(): string
     {
-        return $this->config->getOptivoEventCustomerRegistration();
+        return $this->config->getCustomerRegistrationMailingId();
     }
 }

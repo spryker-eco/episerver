@@ -2,6 +2,7 @@
 
 namespace SprykerEco\Zed\Optivo\Business;
 
+use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\OptivoSubscribeRequestTransfer;
 use Generated\Shared\Transfer\OptivoTransactionalMailRequestTransfer;
@@ -22,7 +23,9 @@ class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
      */
     public function handleCustomerRegistrationEvent(CustomerTransfer $customerTransfer): void
     {
-        // TODO: Implement handleCustomerResetPasswordEvent() method.
+        $this->getFactory()
+            ->createCustomerRegistrationEventHandler()
+            ->handle($customerTransfer);
     }
 
 
@@ -37,7 +40,9 @@ class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
      */
     public function handleCustomerResetPasswordEvent(CustomerTransfer $customerTransfer): void
     {
-        // TODO: Implement handleCustomerResetPasswordEvent() method.
+        $this->getFactory()
+            ->createCustomerResetPasswordEventHandler()
+            ->handle($customerTransfer);
     }
 
     /**

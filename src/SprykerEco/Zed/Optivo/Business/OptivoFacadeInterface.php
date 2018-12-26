@@ -2,7 +2,7 @@
 
 namespace SprykerEco\Zed\Optivo\Business;
 
-use Generated\Shared\Transfer\MailTransfer;
+use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OptivoSubscribeRequestTransfer;
 use Generated\Shared\Transfer\OptivoTransactionalMailRequestTransfer;
 use Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer;

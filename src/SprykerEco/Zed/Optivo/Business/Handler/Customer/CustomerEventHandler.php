@@ -9,8 +9,10 @@ namespace SprykerEco\Zed\Optivo\Business\Handler\Customer;
 
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OptivoRequestTransfer;
+use Generated\Shared\Transfer\OptivoResponseTransfer;
 use Psr\Http\Message\StreamInterface;
 use SprykerEco\Zed\Optivo\Business\Api\Adapter\AdapterInterface;
+use SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapterInterface;
 use SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerMapperInterface;
 
 class CustomerEventHandler implements CustomerEventHandlerInterface
@@ -27,9 +29,9 @@ class CustomerEventHandler implements CustomerEventHandlerInterface
 
     /**
      * @param \SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerMapperInterface $mapper
-     * @param \SprykerEco\Zed\Optivo\Business\Api\Adapter\AdapterInterface $adapter
+     * @param OptivoApiAdapterInterface $adapter
      */
-    public function __construct(CustomerMapperInterface $mapper, AdapterInterface $adapter)
+    public function __construct(CustomerMapperInterface $mapper, OptivoApiAdapterInterface $adapter)
     {
         $this->mapper = $mapper;
         $this->adapter = $adapter;
@@ -57,12 +59,12 @@ class CustomerEventHandler implements CustomerEventHandlerInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\OptivoRequestTransfer $OptivoRequestTransfer
+     * @param \Generated\Shared\Transfer\OptivoRequestTransfer $requestTransfer
      *
-     * @return \Psr\Http\Message\StreamInterface
+     * @return OptivoResponseTransfer
      */
-    protected function send(OptivoRequestTransfer $OptivoRequestTransfer): StreamInterface
+    protected function send(OptivoRequestTransfer $requestTransfer): OptivoResponseTransfer
     {
-        return $this->adapter->sendRequest($OptivoRequestTransfer);
+        return $this->adapter->sendRequest($requestTransfer);
     }
 }
