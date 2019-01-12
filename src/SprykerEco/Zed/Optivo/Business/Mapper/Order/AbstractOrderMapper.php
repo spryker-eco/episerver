@@ -2,7 +2,7 @@
 
 /**
  * MIT License
- * For full license information, please view the LICENSE file that was distributed with this source code.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
 namespace SprykerEco\Zed\Optivo\Business\Mapper\Order;
@@ -39,7 +39,6 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
     public const KEY_ORDER_TOTAL_PAYMENT_COSTS = 'order_total_delivery_costs';
 
     public const URL_LOGIN = '/login';
-
 
     /**
      * @var \SprykerEco\Zed\Optivo\OptivoConfig
@@ -169,7 +168,7 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
     {
         foreach ($expenses as $expense) {
             if ($expense->getType() === ShipmentConstants::SHIPMENT_EXPENSE_TYPE) {
-                return$expense->getSumGrossPrice();
+                return $expense->getSumGrossPrice();
             }
         }
 

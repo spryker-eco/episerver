@@ -13,16 +13,16 @@ use Orm\Zed\Optivo\Persistence\SpyOptivoSubscription;
 interface OptivoEntityManagerInterface
 {
     /**
-     * @param OptivoSubscriptionTransfer $transfer
+     * @param \Generated\Shared\Transfer\OptivoSubscriptionTransfer $transfer
      *
-     * @return SpyOptivoSubscription
+     * @return \Orm\Zed\Optivo\Persistence\SpyOptivoSubscription
      */
     public function createOptivoSubscription(OptivoSubscriptionTransfer $transfer): SpyOptivoSubscription;
 
     /**
-     * @param OptivoSubscriptionTransfer $transfer
+     * @param \Generated\Shared\Transfer\OptivoSubscriptionTransfer $transfer
      *
-     * @return SpyOptivoSubscription
+     * @return \Orm\Zed\Optivo\Persistence\SpyOptivoSubscription
      */
     public function removeOptivoSubscription(OptivoSubscriptionTransfer $transfer): SpyOptivoSubscription;
 }

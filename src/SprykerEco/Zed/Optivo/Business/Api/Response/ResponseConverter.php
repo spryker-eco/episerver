@@ -1,17 +1,21 @@
 <?php
 
+/**
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
 namespace SprykerEco\Zed\Optivo\Business\Api\Response;
 
 use Generated\Shared\Transfer\OptivoResponseTransfer;
 use Psr\Http\Message\ResponseInterface;
-use SprykerEco\Shared\Optivo\OptivoConfig;
 
 class ResponseConverter implements ResponseConverterInterface
 {
     public const STATUS_OK = 200;
 
     /**
-     * @param ResponseInterface $response
+     * @param \Psr\Http\Message\ResponseInterface $response
      *
      * @return \Generated\Shared\Transfer\OptivoResponseTransfer
      */

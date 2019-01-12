@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
 namespace SprykerEco\Zed\Optivo\Business;
 
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
@@ -12,17 +17,14 @@ use SprykerEco\Zed\Optivo\Business\Handler\Customer\CustomerEventHandler;
 use SprykerEco\Zed\Optivo\Business\Handler\Customer\CustomerEventHandlerInterface;
 use SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandler;
 use SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandlerInterface;
+use SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerMapper;
 use SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerMapperInterface;
-use SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerRegistrationMapper;
-use SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerResetPasswordMapper;
 use SprykerEco\Zed\Optivo\Business\Mapper\Order\NewOrderMapper;
 use SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderCanceledMapper;
 use SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderMapperInterface;
 use SprykerEco\Zed\Optivo\Business\Mapper\Order\PaymentNotReceivedMapper;
 use SprykerEco\Zed\Optivo\Business\Mapper\Order\ShippingConfirmationMapper;
 use SprykerEco\Zed\Optivo\Business\Model\OptivoMailSender;
-use SprykerEco\Zed\Optivo\Business\Strategy\OptivoRequestHandler;
-use SprykerEco\Zed\Optivo\Business\Strategy\OptivoRequestHandlerInterface;
 use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToLocaleFacadeInterface;
 use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToMoneyFacadeInterface;
 use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToSalesFacadeInterface;
@@ -31,6 +33,7 @@ use SprykerEco\Zed\Optivo\OptivoDependencyProvider;
 /**
  * @method \SprykerEco\Zed\Optivo\OptivoConfig getConfig()
  * @method \SprykerEco\Zed\Optivo\Persistence\OptivoEntityManagerInterface getEntityManager()≈
+ * @method \SprykerEco\Zed\Optivo\Persistence\OptivoRepositoryInterface getRepository()
  */
 class OptivoBusinessFactory extends AbstractBusinessFactory
 {
@@ -102,7 +105,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return OrderEventHandlerInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandlerInterface
      */
     public function createNewOrderEventHandler(): OrderEventHandlerInterface
     {
@@ -114,7 +117,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return OrderEventHandlerInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandlerInterface
      */
     public function createOrderCancelledEventHandler(): OrderEventHandlerInterface
     {
@@ -126,7 +129,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return OrderEventHandlerInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandlerInterface
      */
     public function createPaymentNotReceivedEventHandler(): OrderEventHandlerInterface
     {
@@ -138,7 +141,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return OrderEventHandlerInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandlerInterface
      */
     public function createShippingConfirmationEventHandler(): OrderEventHandlerInterface
     {
@@ -152,27 +155,16 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Optivo\Business\Handler\Customer\CustomerEventHandlerInterface
      */
-    public function createCustomerRegistrationEventHandler(): CustomerEventHandlerInterface
+    public function createCustomerEventHandler(): CustomerEventHandlerInterface
     {
         return new CustomerEventHandler(
-            $this->createCustomerRegistrationMapper(),
+            $this->createCustomerMapper(),
             $this->createOptivoApiAdapter()
         );
     }
 
     /**
-     * @return \SprykerEco\Zed\Optivo\Business\Handler\Customer\CustomerEventHandlerInterface
-     */
-    public function createCustomerResetPasswordEventHandler(): CustomerEventHandlerInterface
-    {
-        return new CustomerEventHandler(
-            $this->createCustomerResetPasswordMapper(),
-            $this->createOptivoApiAdapter()
-        );
-    }
-
-    /**
-     * @return OrderMapperInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderMapperInterface
      */
     protected function createNewOrderMapper(): OrderMapperInterface
     {
@@ -180,7 +172,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return OrderMapperInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderMapperInterface
      */
     protected function createOrderCancelledMapper(): OrderMapperInterface
     {
@@ -188,7 +180,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return OrderMapperInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderMapperInterface
      */
     protected function createPaymentNotReceivedMapper(): OrderMapperInterface
     {
@@ -196,7 +188,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return OrderMapperInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderMapperInterface
      */
     protected function createShippingConfirmationMapper(): OrderMapperInterface
     {
@@ -204,23 +196,15 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return CustomerMapperInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerMapperInterface
      */
-    protected function createCustomerRegistrationMapper(): CustomerMapperInterface
+    protected function createCustomerMapper(): CustomerMapperInterface
     {
-        return new CustomerRegistrationMapper($this->getConfig(), $this->getLocaleFacade());
+        return new CustomerMapper($this->getConfig(), $this->getLocaleFacade());
     }
 
     /**
-     * @return CustomerMapperInterface
-     */
-    protected function createCustomerResetPasswordMapper(): CustomerMapperInterface
-    {
-        return new CustomerResetPasswordMapper($this->getConfig(), $this->getLocaleFacade());
-    }
-
-    /**
-     * @return OptivoToLocaleFacadeInterface
+     * @return \SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToLocaleFacadeInterface
      */
     protected function getLocaleFacade(): OptivoToLocaleFacadeInterface
     {
@@ -228,16 +212,15 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return OptivoToMoneyFacadeInterface
+     * @return \SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToMoneyFacadeInterface
      */
     protected function getMoneyFacade(): OptivoToMoneyFacadeInterface
     {
         return $this->getProvidedDependency(OptivoDependencyProvider::FACADE_MONEY);
     }
 
-
     /**
-     * @return OptivoToSalesFacadeInterface
+     * @return \SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToSalesFacadeInterface
      */
     protected function getSalesFacade(): OptivoToSalesFacadeInterface
     {

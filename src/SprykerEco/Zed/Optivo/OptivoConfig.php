@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
 namespace SprykerEco\Zed\Optivo;
 
 use Spryker\Shared\Application\ApplicationConstants;
@@ -75,22 +80,6 @@ class OptivoConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getCustomerRegistrationMailingId(): string
-    {
-        return $this->get(OptivoConstants::CUSTOMER_REGISTRATION_MAILING_ID);
-    }
-
-    /**
-     * @return string
-     */
-    public function getCustomerResetPasswordMailingId(): string
-    {
-        return $this->get(OptivoConstants::CUSTOMER_RESET_PASSWORD_MAILING_ID);
-    }
-
-    /**
-     * @return string
-     */
     public function getOperationTypeSendTransactionEmail(): string
     {
         return $this->getSharedConfig()->getOperationTypeSendTransactionEmail();
@@ -118,5 +107,15 @@ class OptivoConfig extends AbstractBundleConfig
     public function getHostYves(): string
     {
         return $this->get(ApplicationConstants::HOST_YVES);
+    }
+
+    /**
+     * @param string $mailingTypeName
+     *
+     * @return string
+     */
+    public function getMailingIdByMailingTypeName(string $mailingTypeName): string
+    {
+        return $this->get(OptivoConstants::OPTIVO_CONFIGURATION_MAILING_ID_LIST)[$mailingTypeName];
     }
 }

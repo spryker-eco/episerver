@@ -1,10 +1,12 @@
 <?php
 
+/**
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
 namespace SprykerEco\Zed\Optivo;
 
-use Generated\Shared\Transfer\OptivoSubscribeRequestTransfer;
-use Generated\Shared\Transfer\OptivoTransactionalMailRequestTransfer;
-use Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToLocaleFacadeBridge;
@@ -22,7 +24,7 @@ class OptivoDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    public function provideBusinessLayerDependencies(Container $container)
+    public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = $this->addFacadeMoney($container);
         $container = $this->addFacadeLocale($container);

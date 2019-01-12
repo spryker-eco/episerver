@@ -17,9 +17,9 @@ use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 class OptivoEntityManager extends AbstractEntityManager implements OptivoEntityManagerInterface
 {
     /**
-     * @param OptivoSubscriptionTransfer $transfer
+     * @param \Generated\Shared\Transfer\OptivoSubscriptionTransfer $transfer
      *
-     * @return SpyOptivoSubscription
+     * @return \Orm\Zed\Optivo\Persistence\SpyOptivoSubscription
      */
     public function createOptivoSubscription(OptivoSubscriptionTransfer $transfer): SpyOptivoSubscription
     {
@@ -38,7 +38,7 @@ class OptivoEntityManager extends AbstractEntityManager implements OptivoEntityM
     }
 
     /**
-     * @param OptivoSubscriptionTransfer $transfer
+     * @param \Generated\Shared\Transfer\OptivoSubscriptionTransfer $transfer
      *
      * @return void
      */

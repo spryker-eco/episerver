@@ -1,8 +1,11 @@
 <?php
 
-namespace SprykerEco\Zed\Optivo\Business\Api\Adapter\Http;
+/**
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
 
-use Psr\Http\Message\ResponseInterface;
+namespace SprykerEco\Zed\Optivo\Business\Api\Adapter\Http;
 
 interface HttpAdapterInterface
 {
@@ -10,7 +13,7 @@ interface HttpAdapterInterface
      * @param string $gatewayUrl
      * @param string $data
      *
-     * @return ResponseInterface
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function sendGetRequest($gatewayUrl, $data);
 }

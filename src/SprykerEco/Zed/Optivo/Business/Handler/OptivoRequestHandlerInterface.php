@@ -13,14 +13,14 @@ use Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer;
 interface OptivoRequestHandlerInterface
 {
     /**
-     * @param OptivoSubscribeRequestTransfer $transfer
+     * @param \Generated\Shared\Transfer\OptivoSubscribeRequestTransfer $transfer
      *
      * @return void
      */
     public function handleSubscribeRequest(OptivoSubscribeRequestTransfer $transfer): void;
 
     /**
-     * @param OptivoUnsubscribeRequestTransfer $transfer
+     * @param \Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer $transfer
      *
      * @return void
      */

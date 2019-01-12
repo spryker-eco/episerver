@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * MIT License
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
@@ -18,7 +18,11 @@ use Spryker\Zed\Newsletter\Communication\Plugin\Mail\NewsletterSubscribedMailTyp
 class OptivoNewsletterSubscribedMailTypePlugin extends NewsletterSubscribedMailTypePlugin
 {
     /**
-     * @param MailBuilderInterface $mailBuilder
+     * @api
+     *
+     * @param \Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface $mailBuilder
+     *
+     * @return void
      */
     public function build(MailBuilderInterface $mailBuilder)
     {
@@ -27,8 +31,9 @@ class OptivoNewsletterSubscribedMailTypePlugin extends NewsletterSubscribedMailT
     }
 
     /**
-     * @param MailBuilderInterface $mailBuilder
-     * @return OptivoSubscribeRequestTransfer
+     * @param \Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface $mailBuilder
+     *
+     * @return \Generated\Shared\Transfer\OptivoSubscribeRequestTransfer
      */
     protected function prepareOptivoSubscribeRequestTransfer(MailBuilderInterface $mailBuilder): OptivoSubscribeRequestTransfer
     {

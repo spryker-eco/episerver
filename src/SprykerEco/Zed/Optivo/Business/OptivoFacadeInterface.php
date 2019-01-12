@@ -1,40 +1,16 @@
 <?php
 
+/**
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
 namespace SprykerEco\Zed\Optivo\Business;
 
-use Generated\Shared\Transfer\CustomerTransfer;
-use Generated\Shared\Transfer\OptivoSubscribeRequestTransfer;
-use Generated\Shared\Transfer\OptivoTransactionalMailRequestTransfer;
-use Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer;
+use Generated\Shared\Transfer\MailTransfer;
 
 interface OptivoFacadeInterface
 {
-    /**
-     * Specification:
-     *  - Handle customer registration event. It uses CustomerTransfer as the param
-     * which has been got from PostCustomerRegistrationPluginInterface
-     *
-     * @api
-     *
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     *
-     * @return void
-     */
-    public function handleCustomerRegistrationEvent(CustomerTransfer $customerTransfer): void;
-
-    /**
-     * Specification:
-     *  - Handle customer reset password event. It uses CustomerTransfer as the param
-     * which has been got from MailerTransfer
-     *
-     * @api
-     *
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     *
-     * @return void
-     */
-    public function handleCustomerResetPasswordEvent(CustomerTransfer $customerTransfer): void;
-
     /**
      * Specification:
      *  - This method is used by OptivoNewOrderPlugin Oms command for sending data to Optivo API
@@ -82,4 +58,16 @@ interface OptivoFacadeInterface
      * @return void
      */
     public function handleShippingConfirmationEvent(int $idSalesOrder): void;
+
+    /**
+     * Specification:
+     *  - Handle customer event. It uses MailTransfer as the param which has been got from MailerTransfer
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
+     *
+     * @return void
+     */
+    public function handleCustomerEvent(MailTransfer $mailTransfer): void;
 }

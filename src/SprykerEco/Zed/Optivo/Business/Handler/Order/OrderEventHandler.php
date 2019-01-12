@@ -2,7 +2,7 @@
 
 /**
  * MIT License
- * For full license information, please view the LICENSE file that was distributed with this source code.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
 namespace SprykerEco\Zed\Optivo\Business\Handler\Order;
@@ -10,7 +10,6 @@ namespace SprykerEco\Zed\Optivo\Business\Handler\Order;
 use Generated\Shared\Transfer\OptivoRequestTransfer;
 use Generated\Shared\Transfer\OptivoResponseTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
-use SprykerEco\Zed\Optivo\Business\Api\Adapter\AdapterInterface;
 use SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapterInterface;
 use SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderMapperInterface;
 use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToSalesFacadeInterface;
@@ -69,7 +68,7 @@ class OrderEventHandler implements OrderEventHandlerInterface
     /**
      * @param \Generated\Shared\Transfer\OptivoRequestTransfer $optivoRequestTransfer
      *
-     * @return OptivoResponseTransfer
+     * @return \Generated\Shared\Transfer\OptivoResponseTransfer
      */
     protected function send(OptivoRequestTransfer $optivoRequestTransfer): OptivoResponseTransfer
     {

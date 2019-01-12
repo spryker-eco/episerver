@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
 namespace SprykerEco\Zed\Optivo\Communication\Plugin\MailProvider;
 
 use Generated\Shared\Transfer\MailTransfer;
@@ -9,6 +14,7 @@ use Spryker\Zed\Mail\Dependency\Plugin\MailProviderPluginInterface;
 /**
  * @method \SprykerEco\Zed\Optivo\Business\OptivoFacadeInterface getFacade()
  * @method \SprykerEco\Zed\Optivo\Communication\OptivoCommunicationFactory getFactory()
+ * @method \SprykerEco\Zed\Optivo\OptivoConfig getConfig()
  */
 class OptivoMailProviderPlugin extends AbstractPlugin implements MailProviderPluginInterface
 {

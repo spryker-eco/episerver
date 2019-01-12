@@ -1,13 +1,12 @@
 <?php
 
 /**
- * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * MIT License
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
 namespace SprykerEco\Zed\Optivo\Communication\Plugin\Mail;
 
-use Generated\Shared\Transfer\OptivoSubscribeRequestTransfer;
 use Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer;
 use Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface;
 use Spryker\Zed\Newsletter\Communication\Plugin\Mail\NewsletterUnsubscribedMailTypePlugin;
@@ -19,7 +18,11 @@ use Spryker\Zed\Newsletter\Communication\Plugin\Mail\NewsletterUnsubscribedMailT
 class OptivoNewsletterUnsubscribedMailTypePlugin extends NewsletterUnsubscribedMailTypePlugin
 {
     /**
-     * @param MailBuilderInterface $mailBuilder
+     * @api
+     *
+     * @param \Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface $mailBuilder
+     *
+     * @return void
      */
     public function build(MailBuilderInterface $mailBuilder)
     {
@@ -28,9 +31,9 @@ class OptivoNewsletterUnsubscribedMailTypePlugin extends NewsletterUnsubscribedM
     }
 
     /**
-     * @param MailBuilderInterface $mailBuilder
+     * @param \Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface $mailBuilder
      *
-     * @return OptivoUnsubscribeRequestTransfer
+     * @return \Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer
      */
     protected function prepareOptivoUnsubscribeRequestTransfer(MailBuilderInterface $mailBuilder): OptivoUnsubscribeRequestTransfer
     {

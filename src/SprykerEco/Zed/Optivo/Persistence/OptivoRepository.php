@@ -11,5 +11,4 @@ use SprykerEco\Zed\Sevensenders\Persistence\OptivoRepositoryInterface;
 
 class OptivoRepository implements OptivoRepositoryInterface
 {
-
 }

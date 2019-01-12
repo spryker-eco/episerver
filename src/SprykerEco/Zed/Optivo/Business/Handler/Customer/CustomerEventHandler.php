@@ -2,16 +2,14 @@
 
 /**
  * MIT License
- * For full license information, please view the LICENSE file that was distributed with this source code.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
 namespace SprykerEco\Zed\Optivo\Business\Handler\Customer;
 
-use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\OptivoRequestTransfer;
 use Generated\Shared\Transfer\OptivoResponseTransfer;
-use Psr\Http\Message\StreamInterface;
-use SprykerEco\Zed\Optivo\Business\Api\Adapter\AdapterInterface;
 use SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapterInterface;
 use SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerMapperInterface;
 
@@ -23,13 +21,13 @@ class CustomerEventHandler implements CustomerEventHandlerInterface
     protected $mapper;
 
     /**
-     * @var \SprykerEco\Zed\Optivo\Business\Api\Adapter\AdapterInterface
+     * @var \SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapterInterface
      */
     protected $adapter;
 
     /**
      * @param \SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerMapperInterface $mapper
-     * @param OptivoApiAdapterInterface $adapter
+     * @param \SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapterInterface $adapter
      */
     public function __construct(CustomerMapperInterface $mapper, OptivoApiAdapterInterface $adapter)
     {
@@ -38,13 +36,13 @@ class CustomerEventHandler implements CustomerEventHandlerInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
      *
      * @return void
      */
-    public function handle(CustomerTransfer $customerTransfer): void
+    public function handle(MailTransfer $mailTransfer): void
     {
-        $transfer = $this->map($customerTransfer);
+        $transfer = $this->map($mailTransfer);
         $this->send($transfer);
     }
 
@@ -53,15 +51,15 @@ class CustomerEventHandler implements CustomerEventHandlerInterface
      *
      * @return \Generated\Shared\Transfer\OptivoRequestTransfer
      */
-    protected function map(CustomerTransfer $customerTransfer): OptivoRequestTransfer
+    protected function map(MailTransfer $mailTransfer): OptivoRequestTransfer
     {
-        return $this->mapper->map($customerTransfer);
+        return $this->mapper->map($mailTransfer);
     }
 
     /**
      * @param \Generated\Shared\Transfer\OptivoRequestTransfer $requestTransfer
      *
-     * @return OptivoResponseTransfer
+     * @return \Generated\Shared\Transfer\OptivoResponseTransfer
      */
     protected function send(OptivoRequestTransfer $requestTransfer): OptivoResponseTransfer
     {

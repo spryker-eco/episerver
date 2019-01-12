@@ -2,7 +2,7 @@
 
 /**
  * MIT License
- * For full license information, please view the LICENSE file that was distributed with this source code.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
 namespace SprykerEco\Zed\Optivo\Communication\Plugin\Oms\Command;
@@ -19,6 +19,8 @@ class OptivoOrderCanceledPlugin extends AbstractCommand implements CommandByOrde
 {
     /**
      * {@inheritdoc}
+     *
+     * @api
      *
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $orderItems
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity

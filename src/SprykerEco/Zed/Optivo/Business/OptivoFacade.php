@@ -1,50 +1,22 @@
 <?php
 
+/**
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
 namespace SprykerEco\Zed\Optivo\Business;
 
-use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\MailTransfer;
-use Generated\Shared\Transfer\OptivoSubscribeRequestTransfer;
-use Generated\Shared\Transfer\OptivoTransactionalMailRequestTransfer;
-use Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \SprykerEco\Zed\Optivo\Business\OptivoBusinessFactory getFactory()
+ * @method \SprykerEco\Zed\Optivo\Persistence\OptivoEntityManagerInterface getEntityManager()
+ * @method \SprykerEco\Zed\Optivo\Persistence\OptivoRepositoryInterface getRepository()
  */
 class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
 {
-    /**
-     * {@inheritdoc}
-     *
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     *
-     * @return void
-     */
-    public function handleCustomerRegistrationEvent(CustomerTransfer $customerTransfer): void
-    {
-        $this->getFactory()
-            ->createCustomerRegistrationEventHandler()
-            ->handle($customerTransfer);
-    }
-
-
-    /**
-     * {@inheritdoc}
-     *
-     * @api
-     *
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     *
-     * @return void
-     */
-    public function handleCustomerResetPasswordEvent(CustomerTransfer $customerTransfer): void
-    {
-        $this->getFactory()
-            ->createCustomerResetPasswordEventHandler()
-            ->handle($customerTransfer);
-    }
-
     /**
      * {@inheritdoc}
      *
@@ -107,5 +79,21 @@ class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
         $this->getFactory()
             ->createShippingConfirmationEventHandler()
             ->handle($idSalesOrder);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
+     *
+     * @return void
+     */
+    public function handleCustomerEvent(MailTransfer $mailTransfer): void
+    {
+        $this->getFactory()
+            ->createCustomerEventHandler()
+            ->handle($mailTransfer);
     }
 }

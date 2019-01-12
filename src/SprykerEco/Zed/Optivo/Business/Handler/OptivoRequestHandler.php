@@ -16,17 +16,17 @@ use SprykerEco\Zed\Optivo\Persistence\OptivoEntityManagerInterface;
 class OptivoRequestHandler implements OptivoRequestHandlerInterface
 {
     /**
-     * @var OptivoApiInterface
+     * @var \SprykerEco\Zed\Optivo\Business\Api\OptivoApiInterface
      */
     protected $api;
 
     /**
-     * @var OptivoEntityManagerInterface
+     * @var \SprykerEco\Zed\Optivo\Persistence\OptivoEntityManagerInterface
      */
     protected $entityManager;
 
     /**
-     * @param OptivoApiInterface $api
+     * @param \SprykerEco\Zed\Optivo\Business\Api\OptivoApiInterface $api
      */
     public function __construct(OptivoApiInterface $api, OptivoEntityManagerInterface $entityManager)
     {
@@ -35,7 +35,7 @@ class OptivoRequestHandler implements OptivoRequestHandlerInterface
     }
 
     /**
-     * @param OptivoSubscribeRequestTransfer $transfer
+     * @param \Generated\Shared\Transfer\OptivoSubscribeRequestTransfer $transfer
      *
      * @return void
      */
@@ -48,9 +48,11 @@ class OptivoRequestHandler implements OptivoRequestHandlerInterface
     }
 
     /**
-     * @param OptivoUnsubscribeRequestTransfer $transfer
-     *
      * @void
+     *
+     * @param \Generated\Shared\Transfer\OptivoUnsubscribeRequestTransfer $transfer
+     *
+     * @return void
      */
     public function handleUnsubscribeRequest(OptivoUnsubscribeRequestTransfer $transfer): void
     {

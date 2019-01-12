@@ -1,9 +1,19 @@
 <?php
 
+/**
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
 namespace SprykerEco\Shared\Optivo;
 
+/**
+ * Declares global environment configuration keys. Do not use it for other class constants.
+ */
 class OptivoConstants
 {
+    public const OPTIVO_CONFIGURATION_MAILING_ID_LIST = 'OPTIVO_CONFIGURATION_MAILING_ID_LIST';
+
     public const REQUEST_BASE_URL = 'OPTIVO:REQUEST_BASE_URL';
     public const REQUEST_TIMEOUT = 'OPTIVO:REQUEST_TIMEOUT';
 

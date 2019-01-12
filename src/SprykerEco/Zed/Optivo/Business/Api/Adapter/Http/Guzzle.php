@@ -1,11 +1,15 @@
 <?php
 
+/**
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
 namespace SprykerEco\Zed\Optivo\Business\Api\Adapter\Http;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
-use Psr\Http\Message\ResponseInterface;
 use SprykerEco\Zed\Optivo\Business\Exception\ApiHttpRequestException;
 use SprykerEco\Zed\Optivo\OptivoConfig;
 
@@ -40,7 +44,7 @@ class Guzzle extends AbstractHttpAdapter
      *
      * @throws \SprykerEco\Zed\Optivo\Business\Exception\ApiHttpRequestException
      *
-     * @return ResponseInterface
+     * @return \Psr\Http\Message\ResponseInterface
      */
     protected function send($request)
     {
