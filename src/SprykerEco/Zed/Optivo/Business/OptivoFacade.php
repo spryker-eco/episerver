@@ -12,8 +12,6 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \SprykerEco\Zed\Optivo\Business\OptivoBusinessFactory getFactory()
- * @method \SprykerEco\Zed\Optivo\Persistence\OptivoEntityManagerInterface getEntityManager()
- * @method \SprykerEco\Zed\Optivo\Persistence\OptivoRepositoryInterface getRepository()
  */
 class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
 {
@@ -94,6 +92,22 @@ class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
     {
         $this->getFactory()
             ->createCustomerEventHandler()
+            ->handle($mailTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
+     *
+     * @return void
+     */
+    public function handleNewsletterSubscription(MailTransfer $mailTransfer): void
+    {
+        $this->getFactory()
+            ->createNewsletterSubscriptionEventHandler()
             ->handle($mailTransfer);
     }
 }

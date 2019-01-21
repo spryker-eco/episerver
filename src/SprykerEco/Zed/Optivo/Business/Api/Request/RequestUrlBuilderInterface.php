@@ -16,5 +16,5 @@ interface RequestUrlBuilderInterface
      *
      * @return string
      */
-    public function buildUrl(OptivoRequestTransfer $optivoRequestTransfer);
+    public function buildUrl(OptivoRequestTransfer $optivoRequestTransfer): string;
 }

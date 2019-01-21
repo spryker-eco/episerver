@@ -7,6 +7,8 @@
 
 namespace SprykerEco\Zed\Optivo\Business\Api\Adapter\Http;
 
+use Psr\Http\Message\ResponseInterface;
+
 interface HttpAdapterInterface
 {
     /**
@@ -15,5 +17,5 @@ interface HttpAdapterInterface
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function sendGetRequest($gatewayUrl, $data);
+    public function sendGetRequest($gatewayUrl, $data): ResponseInterface;
 }

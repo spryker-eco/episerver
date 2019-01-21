@@ -8,6 +8,7 @@
 namespace SprykerEco\Zed\Optivo\Business\Mapper\Order;
 
 use ArrayObject;
+use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OptivoRequestTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Spryker\Shared\Shipment\ShipmentConstants;
@@ -17,29 +18,6 @@ use SprykerEco\Zed\Optivo\OptivoConfig;
 
 abstract class AbstractOrderMapper implements OrderMapperInterface
 {
-    public const KEY_EMAIL = 'bmRecipientId';
-    public const KEY_MAILING_ID = 'bmMailingId';
-    public const KEY_SALUTATION = 'salutation';
-    public const KEY_FIRSTNAME = 'firstname';
-    public const KEY_LASTNAME = 'lastname';
-    public const KEY_SPRYKER_ID = 'spryker_id';
-    public const KEY_CUSTOMER_SHOP_LOCALE = 'customer_shop_locale';
-    public const KEY_CUSTOMER_SHOP_URL = 'customer_shop_url';
-    public const KEY_CUSTOMER_LOGIN_URL = 'customer_login_url';
-    public const KEY_CUSTOMER_RESET_LINK = 'customer_reset_link';
-    public const KEY_LANGUAGE = 'language';
-    public const KEY_ORDER_NUMBER = 'order_number';
-    public const KEY_ORDER_COMMENT = 'order_comment';
-    public const KEY_ORDER_ORDERDATE = 'order_orderdate';
-    public const KEY_ORDER_SUBTOTAL = 'order_subtotal';
-    public const KEY_ORDER_DISCOUNT = 'order_discount';
-    public const KEY_ORDER_TAX = 'order_tax';
-    public const KEY_ORDER_GRAND_TOTAL = 'order_grand_total';
-    public const KEY_ORDER_TOTAL_DELIVERY_COSTS = 'order_total_delivery_costs';
-    public const KEY_ORDER_TOTAL_PAYMENT_COSTS = 'order_total_delivery_costs';
-
-    public const URL_LOGIN = '/login';
-
     /**
      * @var \SprykerEco\Zed\Optivo\OptivoConfig
      */
@@ -93,9 +71,7 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
      */
     protected function getPayload(OrderTransfer $orderTransfer): array
     {
-        $locale = $orderTransfer->getCustomer()->getLocale() ?
-            $orderTransfer->getCustomer()->getLocale()->getLocaleName() :
-            $this->localeFacade->getCurrentLocaleName();
+        $locale = $this->getLocale($orderTransfer->getCustomer());
 
         $payload = [
             static::KEY_MAILING_ID => $this->getMailingId(),
@@ -129,17 +105,14 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
     abstract protected function getMailingId(): string;
 
     /**
-     * @param \ArrayObject $methods
+     * @param \ArrayObject|\Generated\Shared\Transfer\PaymentTransfer[] $methods
      *
-     * @return string
+     * @return int
      */
-    protected function getPaymentMethodsTotal(ArrayObject $methods): string
+    protected function getPaymentMethodsTotal(ArrayObject $methods): int
     {
         $sum = 0;
 
-        /**
-         * @var \Generated\Shared\Transfer\PaymentTransfer $method
-         */
         foreach ($methods as $method) {
             $sum += $method->getAmount();
         }
@@ -160,11 +133,11 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
     }
 
     /**
-     * @param \ArrayObject $expenses
+     * @param \ArrayObject|\Generated\Shared\Transfer\ExpenseTransfer[] $expenses
      *
-     * @return string
+     * @return int
      */
-    protected function getDeliveryCosts(ArrayObject $expenses): string
+    protected function getDeliveryCosts(ArrayObject $expenses): int
     {
         foreach ($expenses as $expense) {
             if ($expense->getType() === ShipmentConstants::SHIPMENT_EXPENSE_TYPE) {
@@ -173,5 +146,19 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
         }
 
         return 0;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     *
+     * @return string
+     */
+    protected function getLocale(CustomerTransfer $customerTransfer): string
+    {
+        if ($customerTransfer->getLocale() !== null) {
+            return $customerTransfer->getLocale()->getLocaleName();
+        }
+
+        return $this->localeFacade->getCurrentLocaleName();
     }
 }

@@ -61,7 +61,7 @@ interface OptivoFacadeInterface
 
     /**
      * Specification:
-     *  - Handle customer event. It uses MailTransfer as the param which has been got from MailerTransfer
+     *  - Handle customer event
      *
      * @api
      *
@@ -70,4 +70,16 @@ interface OptivoFacadeInterface
      * @return void
      */
     public function handleCustomerEvent(MailTransfer $mailTransfer): void;
+
+    /**
+     * Specification:
+     *  - Handle newsletter subscription event
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
+     *
+     * @return void
+     */
+    public function handleNewsletterSubscription(MailTransfer $mailTransfer): void;
 }

@@ -22,7 +22,7 @@ class OrderEventHandler implements OrderEventHandlerInterface
     protected $mapper;
 
     /**
-     * @var \SprykerEco\Zed\Optivo\Business\Api\Adapter\AdapterInterface
+     * @var \SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapterInterface
      */
     protected $adapter;
 

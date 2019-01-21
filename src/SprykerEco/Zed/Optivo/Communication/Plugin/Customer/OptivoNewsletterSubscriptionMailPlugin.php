@@ -7,26 +7,26 @@
 
 namespace SprykerEco\Zed\Optivo\Communication\Plugin\Customer;
 
-use Generated\Shared\Transfer\CustomerTransfer;
-use Spryker\Zed\CustomerExtension\Dependency\Plugin\PostCustomerRegistrationPluginInterface;
+use Generated\Shared\Transfer\MailTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
+use Spryker\Zed\Mail\Dependency\Plugin\MailProviderPluginInterface;
 
 /**
  * @method \SprykerEco\Zed\Optivo\Business\OptivoFacadeInterface getFacade()
  * @method \SprykerEco\Zed\Optivo\Business\OptivoBusinessFactory getFactory()
  * @method \SprykerEco\Zed\Optivo\OptivoConfig getConfig()
  */
-class OptivoPostCustomerRegistrationPlugin extends AbstractPlugin implements PostCustomerRegistrationPluginInterface
+class OptivoNewsletterSubscriptionMailPlugin extends AbstractPlugin implements MailProviderPluginInterface
 {
     /**
      * @api
      *
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
      *
      * @return void
      */
-    public function execute(CustomerTransfer $customerTransfer): void
+    public function sendMail(MailTransfer $mailTransfer): void
     {
-        $this->getFacade()->handleCustomerRegistrationEvent($customerTransfer);
+        $this->getFacade()->handleNewsletterSubscription($mailTransfer);
     }
 }

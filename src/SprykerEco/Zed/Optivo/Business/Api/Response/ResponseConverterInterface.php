@@ -7,14 +7,15 @@
 
 namespace SprykerEco\Zed\Optivo\Business\Api\Response;
 
+use Generated\Shared\Transfer\OptivoResponseTransfer;
 use Psr\Http\Message\ResponseInterface;
 
 interface ResponseConverterInterface
 {
     /**
-     * @param $response
+     * @param \Psr\Http\Message\ResponseInterface $response
      *
      * @return \Generated\Shared\Transfer\OptivoResponseTransfer
      */
-    public function convertResponse(ResponseInterface $response);
+    public function convertResponse(ResponseInterface $response): OptivoResponseTransfer;
 }

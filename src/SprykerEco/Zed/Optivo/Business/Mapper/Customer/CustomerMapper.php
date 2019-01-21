@@ -13,26 +13,8 @@ use Generated\Shared\Transfer\OptivoRequestTransfer;
 use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToLocaleFacadeInterface;
 use SprykerEco\Zed\Optivo\OptivoConfig;
 
-class CustomerMapper implements CustomerMapperInterface
+class CustomerMapper extends AbstractCustomerMapper
 {
-    protected const URL_LOGIN = '/login';
-
-    public const KEY_EMAIL = 'bmRecipientId';
-    public const KEY_MAILING_ID = 'bmMailingId';
-    public const KEY_SALUTATION = 'salutation';
-    public const KEY_FIRST_NAME = 'firstname';
-    public const KEY_LAST_NAME = 'lastname';
-    public const KEY_SPRYKER_ID = 'spryker_id';
-    public const KEY_CUSTOMER_SHOP_LOCALE = 'customer_shop_locale';
-    public const KEY_CUSTOMER_SHOP_URL = 'customer_shop_url';
-    public const KEY_CUSTOMER_LOGIN_URL = 'customer_login_url';
-    public const KEY_CUSTOMER_RESET_LINK = 'customer_reset_link';
-
-    /**
-     * @var \SprykerEco\Zed\Optivo\OptivoConfig
-     */
-    protected $config;
-
     /**
      * @var \SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToLocaleFacadeInterface
      */
@@ -44,7 +26,8 @@ class CustomerMapper implements CustomerMapperInterface
      */
     public function __construct(OptivoConfig $config, OptivoToLocaleFacadeInterface $localeFacade)
     {
-        $this->config = $config;
+        parent::__construct($config);
+
         $this->localeFacade = $localeFacade;
     }
 
@@ -99,15 +82,5 @@ class CustomerMapper implements CustomerMapperInterface
         }
 
         return $this->localeFacade->getCurrentLocaleName();
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer|string $customerTransfer
-     *
-     * @return string
-     */
-    protected function getMailingId(string $mailTypeName): string
-    {
-        return $this->config->getMailingIdByMailingTypeName($mailTypeName);
     }
 }

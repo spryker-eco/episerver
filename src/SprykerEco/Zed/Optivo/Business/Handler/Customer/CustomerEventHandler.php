@@ -47,7 +47,7 @@ class CustomerEventHandler implements CustomerEventHandlerInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
      *
      * @return \Generated\Shared\Transfer\OptivoRequestTransfer
      */

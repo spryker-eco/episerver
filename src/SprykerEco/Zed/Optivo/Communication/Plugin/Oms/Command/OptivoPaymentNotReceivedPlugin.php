@@ -28,7 +28,7 @@ class OptivoPaymentNotReceivedPlugin extends AbstractCommand implements CommandB
      *
      * @return void
      */
-    public function run(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data)
+    public function run(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): void
     {
         $this->getFacade()->handlePaymentNotReceivedEvent($orderEntity->getIdSalesOrder());
     }

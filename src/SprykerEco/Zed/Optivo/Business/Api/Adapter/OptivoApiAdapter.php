@@ -8,6 +8,7 @@
 namespace SprykerEco\Zed\Optivo\Business\Api\Adapter;
 
 use Generated\Shared\Transfer\OptivoRequestTransfer;
+use Generated\Shared\Transfer\OptivoResponseTransfer;
 use SprykerEco\Zed\Optivo\Business\Api\Adapter\Http\HttpAdapterInterface;
 use SprykerEco\Zed\Optivo\Business\Api\Request\RequestUrlBuilderInterface;
 use SprykerEco\Zed\Optivo\Business\Api\Response\ResponseConverterInterface;
@@ -49,7 +50,7 @@ class OptivoApiAdapter implements OptivoApiAdapterInterface
      *
      * @return \Generated\Shared\Transfer\OptivoResponseTransfer
      */
-    public function sendRequest(OptivoRequestTransfer $optivoRequestTransfer)
+    public function sendRequest(OptivoRequestTransfer $optivoRequestTransfer): OptivoResponseTransfer
     {
         $requestUrl = $this->requestUrlBuilder->buildUrl($optivoRequestTransfer);
 

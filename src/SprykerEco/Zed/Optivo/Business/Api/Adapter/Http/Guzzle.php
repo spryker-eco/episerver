@@ -10,6 +10,8 @@ namespace SprykerEco\Zed\Optivo\Business\Api\Adapter\Http;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use SprykerEco\Zed\Optivo\Business\Exception\ApiHttpRequestException;
 use SprykerEco\Zed\Optivo\OptivoConfig;
 
@@ -34,7 +36,7 @@ class Guzzle extends AbstractHttpAdapter
      *
      * @return \Psr\Http\Message\RequestInterface
      */
-    protected function buildRequest($gatewayUrl, $data)
+    protected function buildRequest($gatewayUrl, $data): RequestInterface
     {
         return new Request('GET', $gatewayUrl, [], $data);
     }
@@ -46,7 +48,7 @@ class Guzzle extends AbstractHttpAdapter
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    protected function send($request)
+    protected function send($request): ResponseInterface
     {
         try {
             $client = new Client([

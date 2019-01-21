@@ -14,7 +14,7 @@ interface OptivoRequestPluginInterface
     /**
      * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer $transfer
      *
-     * @return mixed
+     * @return void
      */
-    public function send(AbstractTransfer $transfer);
+    public function send(AbstractTransfer $transfer): void;
 }

@@ -40,11 +40,6 @@ class OptivoConfig extends AbstractBundleConfig
         return $this->get(OptivoConstants::ORDER_LIST_AUTHORIZATION_CODE);
     }
 
-    public function getCustomerListAuthCode(): string
-    {
-        return $this->get(OptivoConstants::CUSTOMER_LIST_AUTHORIZATION_CODE);
-    }
-
     /**
      * @return string
      */
@@ -80,22 +75,6 @@ class OptivoConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getOperationTypeSendTransactionEmail(): string
-    {
-        return $this->getSharedConfig()->getOperationTypeSendTransactionEmail();
-    }
-
-    /**
-     * @return string
-     */
-    public function getOperationTypeSendEventEmailEmail(): string
-    {
-        return $this->getSharedConfig()->getOperationTypeSendEventEmail();
-    }
-
-    /**
-     * @return string
-     */
     public function getServiceFormType(): string
     {
         return $this->getSharedConfig()->getServiceFormType();
@@ -112,10 +91,64 @@ class OptivoConfig extends AbstractBundleConfig
     /**
      * @param string $mailingTypeName
      *
+     * @return string|null
+     */
+    public function getMailingIdByMailingTypeName(string $mailingTypeName): ?string
+    {
+        $mailingIdList = $this->get(OptivoConstants::CONFIGURATION_DEFAULT_MAILING_ID_LIST);
+
+        if (!empty($mailingIdList[$mailingTypeName])) {
+            return $mailingIdList[$mailingTypeName];
+        }
+
+        return null;
+    }
+
+    /**
      * @return string
      */
-    public function getMailingIdByMailingTypeName(string $mailingTypeName): string
+    public function getOperationTypeSendTransactionEmail(): string
     {
-        return $this->get(OptivoConstants::OPTIVO_CONFIGURATION_MAILING_ID_LIST)[$mailingTypeName];
+        return $this->getSharedConfig()->getOperationTypeSendTransactionEmail();
+    }
+
+    /**
+     * @return string
+     */
+    public function getCustomerListAuthCode(): string
+    {
+        return $this->get(OptivoConstants::CUSTOMER_LIST_AUTHORIZATION_CODE);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCustomerNewsLetterListAuthCode(): string
+    {
+        return $this->get(OptivoConstants::CUSTOMER_NEWSLETTER_AUTHORIZATION_CODE);
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperationTypeSubscribeEventEmail(): string
+    {
+        return $this->getSharedConfig()->getOperationTypeSubscribeEventEmail();
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperationTypeUnsubscribeEventEmail(): string
+    {
+        return $this->getSharedConfig()->getOperationTypeUnsubscribeEventEmail();
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperationTypeUpdateFieldsEventEmail(): string
+    {
+        return $this->getSharedConfig()->getOperationTypeUpdateFieldsEventEmail();
     }
 }
