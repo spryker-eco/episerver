@@ -24,6 +24,7 @@ interface CustomerMapperInterface
     public const KEY_CUSTOMER_SHOP_URL = 'customer_shop_url';
     public const KEY_CUSTOMER_LOGIN_URL = 'customer_login_url';
     public const KEY_CUSTOMER_RESET_LINK = 'customer_reset_link';
+    public const KEY_CUSTOMER_SUBSCRIBER_KEY = 'subscriber_key';
 
     /**
      * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer

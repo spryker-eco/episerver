@@ -7,30 +7,11 @@
 
 namespace SprykerEco\Zed\Optivo\Business\Mapper\Customer;
 
-use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\OptivoRequestTransfer;
-use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToLocaleFacadeInterface;
-use SprykerEco\Zed\Optivo\OptivoConfig;
 
 class CustomerMapper extends AbstractCustomerMapper
 {
-    /**
-     * @var \SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToLocaleFacadeInterface
-     */
-    protected $localeFacade;
-
-    /**
-     * @param \SprykerEco\Zed\Optivo\OptivoConfig $config
-     * @param \SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToLocaleFacadeInterface $localeFacade
-     */
-    public function __construct(OptivoConfig $config, OptivoToLocaleFacadeInterface $localeFacade)
-    {
-        parent::__construct($config);
-
-        $this->localeFacade = $localeFacade;
-    }
-
     /**
      * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
      *
@@ -68,19 +49,5 @@ class CustomerMapper extends AbstractCustomerMapper
             static::KEY_CUSTOMER_LOGIN_URL => $this->config->getHostYves() . static::URL_LOGIN,
             static::KEY_CUSTOMER_RESET_LINK => $customerTransfer->getRestorePasswordLink(),
         ];
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     *
-     * @return string
-     */
-    protected function getLocale(CustomerTransfer $customerTransfer): string
-    {
-        if ($customerTransfer->getLocale() !== null) {
-            return $customerTransfer->getLocale()->getLocaleName();
-        }
-
-        return $this->localeFacade->getCurrentLocaleName();
     }
 }

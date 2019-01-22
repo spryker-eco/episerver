@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MIT License
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
@@ -7,20 +8,22 @@
 namespace SprykerEcoTest\Zed\Optivo;
 
 use Codeception\Test\Unit;
+use Exception;
+use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\OptivoRequestTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
-use GuzzleHttp\Psr7\Stream;
 use Psr\Http\Message\StreamInterface;
-use SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandlerInterface;
-use SprykerEco\Zed\Optivo\Business\OptivoBusinessFactory;
-
-use SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderMapperInterface;
+use Spryker\Zed\Customer\Persistence\Mapper\CustomerMapperInterface;
 use SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapterInterface;
+use SprykerEco\Zed\Optivo\Business\Handler\Customer\CustomerEventHandlerInterface;
+use SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandlerInterface;
+use SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderMapperInterface;
+use SprykerEco\Zed\Optivo\Business\OptivoBusinessFactory;
 use SprykerEco\Zed\Optivo\Business\OptivoFacade;
 use SprykerEco\Zed\Optivo\Business\OptivoFacadeInterface;
 use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToSalesFacadeInterface;
-
 
 /**
  * @group SprykerEcoTest
@@ -30,59 +33,89 @@ use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToSalesFacadeInterface;
  */
 class OptivoFacadeTest extends Unit
 {
-//    /**
-//     * @return void
-//     */
-//    public function testHandleCustomerRegisterEvent()
-//    {
-//        $facade = $this->prepareFacade();
-//        $this->assertEmpty($facade->handleCustomerRegistrationEvent($this->prepareCustomerTransfer()));
-//    }
-//    /**
-//     * @return void
-//     */
-//    public function testHandleCustomerResetPasswordEvent()
-//    {
-//        $facade = $this->prepareFacade();
-//        $this->assertEmpty($facade->handleCustomerResetPasswordEvent($this->prepareCustomerTransfer()));
-//    }
-//    /**
-//     * @return void
-//     */
+    /**
+     * @return void
+     */
+    public function testHandleCustomerEvent(): void
+    {
+        $facade = $this->prepareFacade();
 
-//    /**
-//     * @return void
-//     */
-//    public function testHandleOrderCanceledEvent()
-//    {
-//        $facade = $this->prepareFacade();
-//        $this->assertEmpty($facade->handleOrderCanceledEvent(1));
-//    }
-//    /**
-//     * @return void
-//     */
-//    public function testHandleShippingConfirmationEvent()
-//    {
-//        $facade = $this->prepareFacade();
-//        $this->assertEmpty($facade->handleShippingConfirmationEvent(1));
-//    }
-//    /**
-//     * @return void
-//     */
-//    public function testHandlePaymentNotReceivedEvent()
-//    {
-//        $facade = $this->prepareFacade();
-//        $this->assertEmpty($facade->handlePaymentNotReceivedEvent(1));
-//    }
+        try {
+            $facade->handleCustomerEvent($this->prepareMailTransfer());
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+    }
 
+    /**
+     * @return void
+     */
+    public function testNewsletterSubscription(): void
+    {
+        $facade = $this->prepareFacade();
 
+        try {
+            $facade->handleNewsletterSubscription($this->prepareMailTransfer());
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function testHandleShippingConfirmationEvent(): void
+    {
+        $facade = $this->prepareFacade();
+
+        try {
+            $facade->handleShippingConfirmationEvent(1);
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function testHandlePaymentNotReceivedEvent(): void
+    {
+        $facade = $this->prepareFacade();
+
+        try {
+            $facade->handlePaymentNotReceivedEvent(1);
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function testHandleOrderCanceledEvent(): void
+    {
+        $facade = $this->prepareFacade();
+
+        try {
+            $facade->handleOrderCanceledEvent(1);
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+    }
+
+    /**
+     * @return void
+     */
     public function testHandleOrderCreatedEvent(): void
     {
         $facade = $this->prepareFacade();
 
-        $this->assertEmpty($facade->handleNewOrderEvent(1));
+        try {
+            $facade->handleNewOrderEvent(1);
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
     }
-
 
     /**
      * @return \SprykerEco\Zed\Optivo\Business\OptivoFacadeInterface
@@ -114,28 +147,20 @@ class OptivoFacadeTest extends Unit
                 'createPaymentNotReceivedEventHandler',
                 'createOrderCancelledEventHandler',
                 'createNewOrderEventHandler',
-
-//                'createCustomerEventHandler',
-//                'createNewsletterSubscriptionEventHandler',
+                'createCustomerEventHandler',
+                'createNewsletterSubscriptionEventHandler',
             ])
             ->getMock();
-
-
-
 
         $factory->method('createNewOrderEventHandler')->willReturn($this->createOrderEventHandlerMock());
         $factory->method('createOrderCancelledEventHandler')->willReturn($this->createOrderEventHandlerMock());
         $factory->method('createPaymentNotReceivedEventHandler')->willReturn($this->createOrderEventHandlerMock());
         $factory->method('createShippingConfirmationEventHandler')->willReturn($this->createOrderEventHandlerMock());
-
-//        $factory->method('createCustomerRegistrationEventHandler')->willReturn($this->createCustomerEventHandlerMock());
-//        $factory->method('createCustomerResetPasswordEventHandler')->willReturn($this->createCustomerEventHandlerMock());
-
+        $factory->method('createCustomerEventHandler')->willReturn($this->createCustomerEventHandlerMock());
+        $factory->method('createNewsletterSubscriptionEventHandler')->willReturn($this->createCustomerEventHandlerMock());
 
         return $factory;
     }
-
-
 
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandlerInterface
@@ -146,10 +171,10 @@ class OptivoFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->setConstructorArgs([$this->createOrderMapperMock(), $this->createAdapterMock(), $this->createSalesFacadeMock()])
             ->enableOriginalConstructor()
-            ->setMethods(['send'])
+            ->setMethods(['handle'])
             ->getMock();
 
-        $handler->method('send')->willReturn($this->createStreamInterfaceMock());
+        $handler->method('handle')->willReturn($this->createStreamInterfaceMock());
 
         return $handler;
     }
@@ -194,126 +219,54 @@ class OptivoFacadeTest extends Unit
         return $facade;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Psr\Http\Message\StreamInterface
+     */
+    protected function createStreamInterfaceMock(): StreamInterface
+    {
+        return $this->getMockBuilder(StreamInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
 
     /**
-     * @return \SprykerEco\Zed\Inxmail\Business\Handler\Customer\CustomerEventHandlerInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Optivo\Business\Handler\Customer\CustomerEventHandlerInterface
      */
     protected function createCustomerEventHandlerMock(): CustomerEventHandlerInterface
     {
-        $handler = $this->getMockBuilder(CustomerEventHandler::class)
+        $handler = $this->getMockBuilder(CustomerEventHandlerInterface::class)
             ->disableOriginalConstructor()
             ->setConstructorArgs([$this->createCustomerMapperMock(), $this->createAdapterMock()])
             ->enableOriginalConstructor()
-            ->setMethods(['send'])
+            ->setMethods(['handle'])
             ->getMock();
-        $handler->method('send')->willReturn($this->createStreamInterfaceMock());
+
+        $handler->method('handle')->willReturn($this->createStreamInterfaceMock());
 
         return $handler;
     }
 
     /**
-     * @return \SprykerEco\Zed\Inxmail\Business\Mapper\Customer\CustomerMapperInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerMapperInterface
      */
     protected function createCustomerMapperMock(): CustomerMapperInterface
     {
         $mapper = $this->getMockBuilder(CustomerMapperInterface::class)
             ->disableOriginalConstructor()
-            ->setMethods(['map'])
+            ->setMethods(['mapCustomerEntityToCustomer', 'mapCustomerAddressEntityToTransfer'])
             ->getMock();
 
-        $mapper->method('map')->willReturn(new InxmailRequestTransfer());
+        $mapper->method('mapCustomerEntityToCustomer')->willReturn(new CustomerTransfer());
+        $mapper->method('mapCustomerAddressEntityToTransfer')->willReturn(new AddressTransfer());
 
         return $mapper;
     }
 
-
-
-
     /**
-     * @return \Generated\Shared\Transfer\CustomerTransfer
+     * @return \Generated\Shared\Transfer\MailTransfer
      */
-    protected function prepareCustomerTransfer(): CustomerTransfer
+    protected function prepareMailTransfer(): MailTransfer
     {
-        return new CustomerTransfer();
+        return new MailTransfer();
     }
-
-
-
-    /**
-     * @return \Psr\Http\Message\StreamInterface
-     */
-    protected function createStreamInterfaceMock(): StreamInterface
-    {
-        $stream = $this->getMockBuilder(StreamInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        return $stream;
-    }
-
 }

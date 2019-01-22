@@ -162,8 +162,6 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-
-
     /**
      * @return \SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerMapperInterface
      */
@@ -177,7 +175,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
      */
     protected function createCustomerNewsletterMapper(): CustomerMapperInterface
     {
-        return new CustomerNewsletterMapper($this->getConfig());
+        return new CustomerNewsletterMapper($this->getConfig(), $this->getLocaleFacade());
     }
 
     /**
