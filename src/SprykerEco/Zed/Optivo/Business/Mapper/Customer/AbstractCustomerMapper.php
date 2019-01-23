@@ -60,13 +60,13 @@ abstract class AbstractCustomerMapper implements CustomerMapperInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     * @param \Generated\Shared\Transfer\CustomerTransfer|null $customerTransfer
      *
      * @return string
      */
-    protected function getLocale(CustomerTransfer $customerTransfer): string
+    protected function getLocale(?CustomerTransfer $customerTransfer): string
     {
-        if ($customerTransfer->getLocale() !== null) {
+        if ($customerTransfer !== null && $customerTransfer->getLocale() !== null) {
             return $customerTransfer->getLocale()->getLocaleName();
         }
 

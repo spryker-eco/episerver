@@ -37,11 +37,12 @@ class CustomerNewsletterMapper extends AbstractCustomerMapper
      */
     protected function getPayload(MailTransfer $mailTransfer): array
     {
+        $customerTransfer = $mailTransfer->getCustomer();
+
         $payload = [
-            static::KEY_EMAIL => $mailTransfer->getNewsletterSubscriber()->getEmail(),
-            static::KEY_CUSTOMER_SUBSCRIBER_KEY => $mailTransfer->getNewsletterSubscriber()->getSubscriberKey(),
             static::KEY_CUSTOMER_SHOP_URL => $this->config->getHostYves(),
             static::KEY_CUSTOMER_LOGIN_URL => $this->config->getHostYves() . static::URL_LOGIN,
+            static::KEY_CUSTOMER_SHOP_LOCALE => $this->getLocale($customerTransfer),
         ];
 
         $optInId = $this->getMailingId($mailTransfer->getType());
@@ -50,15 +51,20 @@ class CustomerNewsletterMapper extends AbstractCustomerMapper
             $payload[static::KEY_OPT_IN_ID] = $optInId;
         }
 
-        $customerTransfer = $mailTransfer->getCustomer();
-
         if ($customerTransfer !== null) {
             $payload[static::KEY_SALUTATION] = $customerTransfer->getSalutation();
             $payload[static::KEY_FIRST_NAME] = $customerTransfer->getFirstName();
             $payload[static::KEY_LAST_NAME] = $customerTransfer->getLastName();
-            $payload[static::KEY_CUSTOMER_SHOP_LOCALE] = $this->getLocale($customerTransfer);
             $payload[static::KEY_SPRYKER_ID] = $customerTransfer->getIdCustomer();
             $payload[static::KEY_CUSTOMER_RESET_LINK] = $customerTransfer->getRestorePasswordLink();
+            $payload[static::KEY_EMAIL] = $customerTransfer->getEmail();
+        }
+
+        $newsletterSubscriber = $mailTransfer->getNewsletterSubscriber();
+
+        if ($newsletterSubscriber !== null) {
+            $payload[static::KEY_EMAIL] = $newsletterSubscriber->getEmail();
+            $payload[static::KEY_CUSTOMER_SUBSCRIBER_KEY] = $newsletterSubscriber->getSubscriberKey();
         }
 
         return $payload;
