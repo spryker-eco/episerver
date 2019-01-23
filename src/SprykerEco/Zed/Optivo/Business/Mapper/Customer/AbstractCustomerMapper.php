@@ -13,6 +13,8 @@ use Generated\Shared\Transfer\OptivoRequestTransfer;
 use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToLocaleFacadeInterface;
 use SprykerEco\Zed\Optivo\OptivoConfig;
 
+use Spryker\Shared\Kernel\Store;
+
 abstract class AbstractCustomerMapper implements CustomerMapperInterface
 {
     /**
@@ -66,10 +68,16 @@ abstract class AbstractCustomerMapper implements CustomerMapperInterface
      */
     protected function getLocale(?CustomerTransfer $customerTransfer): string
     {
+        $localeName = '';
+
         if ($customerTransfer !== null && $customerTransfer->getLocale() !== null) {
-            return $customerTransfer->getLocale()->getLocaleName();
+            $localeName = $customerTransfer->getLocale()->getLocaleName();
         }
 
-        return $this->localeFacade->getCurrentLocaleName();
+        if($localeName === '') {
+            $localeName = $this->localeFacade->getCurrentLocaleName();
+        }
+
+        return (string)array_search($localeName, Store::getInstance()->getLocales());
     }
 }
