@@ -1,16 +1,27 @@
-namespace: SprykerEcoTest\Zed\Optivo
+namespace: Optivo
+
+include:
+  - tests/SprykerEcoTest/Zed/Optivo
 
 paths:
-  tests: .
-  data: ../../../_data
-  support: _support
-  log: ../../../_output
-  output: ../../../_output
+  tests: tests
+  support: .
+  log: tests/_output
+  data: tests/_data
+  envs: tests/_envs
+
+settings:
+  bootstrap: _bootstrap.php
+  suite_class: \PHPUnit_Framework_TestSuite
+  colors: true
+  memory_limit: 1024M
+  log: true
 
 coverage:
   enabled: true
-  remote: false
-  whitelist: { include: ['../../../../src/*'] }
+  whitelist:
+    include:
+      - 'src/*'
 
 suites:
   Service:
