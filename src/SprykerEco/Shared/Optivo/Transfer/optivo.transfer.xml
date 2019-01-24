@@ -5,7 +5,7 @@
 
     <transfer name="OptivoResponse">
         <property name="isSuccessful" type="bool" />
-        <property name="status" type="string" />
+        <property name="status" type="int" />
     </transfer>
 
     <transfer name="OptivoRequest">

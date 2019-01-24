@@ -2,18 +2,16 @@
 
 /**
  * MIT License
- * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
  */
-
 namespace SprykerEco\Zed\Optivo\Business\Mapper\Customer;
 
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\OptivoRequestTransfer;
+use Spryker\Shared\Kernel\Store;
 use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToLocaleFacadeInterface;
 use SprykerEco\Zed\Optivo\OptivoConfig;
-
-use Spryker\Shared\Kernel\Store;
 
 abstract class AbstractCustomerMapper implements CustomerMapperInterface
 {
@@ -52,11 +50,11 @@ abstract class AbstractCustomerMapper implements CustomerMapperInterface
     abstract protected function getPayload(MailTransfer $mailTransfer): array;
 
     /**
-     * @param string $mailTypeName
+     * @param string|null $mailTypeName
      *
      * @return string|null
      */
-    protected function getMailingId(string $mailTypeName): ?string
+    protected function getMailingId(?string $mailTypeName): ?string
     {
         return $this->config->getMailingIdByMailingTypeName($mailTypeName);
     }
@@ -74,7 +72,7 @@ abstract class AbstractCustomerMapper implements CustomerMapperInterface
             $localeName = $customerTransfer->getLocale()->getLocaleName();
         }
 
-        if($localeName === '') {
+        if ($localeName === '') {
             $localeName = $this->localeFacade->getCurrentLocaleName();
         }
 

@@ -2,26 +2,32 @@
 
 /**
  * MIT License
- * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
  */
-
 namespace SprykerEco\Zed\Optivo\Business\Mapper\Customer;
 
 use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\OptivoRequestTransfer;
 use Spryker\Zed\Newsletter\Communication\Plugin\Mail\NewsletterSubscribedMailTypePlugin;
 use Spryker\Zed\Newsletter\Communication\Plugin\Mail\NewsletterUnsubscribedMailTypePlugin;
+use SprykerEco\Zed\Optivo\Business\Exception\MailException;
 
 class CustomerNewsletterMapper extends AbstractCustomerMapper
 {
     /**
      * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
      *
+     * @throws \SprykerEco\Zed\Optivo\Business\Exception\MailException
+     *
      * @return \Generated\Shared\Transfer\OptivoRequestTransfer
      */
     public function map(MailTransfer $mailTransfer): OptivoRequestTransfer
     {
         $requestTransfer = new OptivoRequestTransfer();
+
+        if ($mailTransfer->getType() === null) {
+            throw new MailException('Mail transfer type has type with null value');
+        }
 
         $requestTransfer->setAuthorizationCode($this->config->getCustomerNewsLetterListAuthCode());
         $requestTransfer->setOperationType($this->resolveOperationType($mailTransfer->getType()));
@@ -71,11 +77,11 @@ class CustomerNewsletterMapper extends AbstractCustomerMapper
     }
 
     /**
-     * @param string $mailTypeName
+     * @param string|null $mailTypeName
      *
      * @return string
      */
-    protected function resolveOperationType(string $mailTypeName): string
+    protected function resolveOperationType(?string $mailTypeName): string
     {
         if ($mailTypeName === NewsletterSubscribedMailTypePlugin::MAIL_TYPE) {
             return $this->config->getOperationTypeSubscribeEventEmail();

@@ -2,9 +2,8 @@
 
 /**
  * MIT License
- * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
  */
-
 namespace SprykerEco\Zed\Optivo\Business\Mapper\Order;
 
 use ArrayObject;
@@ -88,13 +87,23 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
             static::KEY_ORDER_NUMBER => $orderTransfer->getOrderReference(),
             static::KEY_ORDER_COMMENT => $orderTransfer->getCartNote(),
             static::KEY_ORDER_ORDERDATE => $orderTransfer->getCreatedAt(),
-            static::KEY_ORDER_SUBTOTAL => $orderTransfer->getTotals()->getSubtotal(),
-            static::KEY_ORDER_DISCOUNT => $orderTransfer->getTotals()->getDiscountTotal(),
-            static::KEY_ORDER_TAX => $orderTransfer->getTotals()->getTaxTotal()->getAmount(),
-            static::KEY_ORDER_GRAND_TOTAL => $orderTransfer->getTotals()->getGrandTotal(),
             static::KEY_ORDER_TOTAL_DELIVERY_COSTS => $this->getDeliveryCosts($orderTransfer->getExpenses()),
             static::KEY_ORDER_TOTAL_PAYMENT_COSTS => $this->getPaymentMethodsTotal($orderTransfer->getPayments()),
         ];
+
+        $totalsTransfer = $orderTransfer->getTotals();
+
+        if ($totalsTransfer !== null) {
+            $payload += [
+                static::KEY_ORDER_SUBTOTAL => $totalsTransfer->getSubtotal(),
+                static::KEY_ORDER_DISCOUNT => $totalsTransfer->getDiscountTotal(),
+                static::KEY_ORDER_GRAND_TOTAL => $totalsTransfer->getGrandTotal(),
+            ];
+        }
+
+        if ($totalsTransfer !== null && $totalsTransfer->getTaxTotal() !== null) {
+            $payload[static::KEY_ORDER_TAX] = $totalsTransfer->getTaxTotal()->getAmount();
+        }
 
         return $payload;
     }
@@ -141,6 +150,10 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
     {
         foreach ($expenses as $expense) {
             if ($expense->getType() === ShipmentConstants::SHIPMENT_EXPENSE_TYPE) {
+                if ($expense->getSumGrossPrice() === null) {
+                    return 0;
+                }
+
                 return $expense->getSumGrossPrice();
             }
         }
@@ -149,16 +162,16 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
+     * @param \Generated\Shared\Transfer\CustomerTransfer|null $customerTransfer
      *
      * @return string
      */
-    protected function getLocale(CustomerTransfer $customerTransfer): string
+    protected function getLocale(?CustomerTransfer $customerTransfer): string
     {
-        if ($customerTransfer->getLocale() !== null) {
-            return $customerTransfer->getLocale()->getLocaleName();
+        if ($customerTransfer !== null && $customerTransfer->getLocale() !== null) {
+            return (string)$customerTransfer->getLocale()->getLocaleName();
         }
 
-        return $this->localeFacade->getCurrentLocaleName();
+        return (string)$this->localeFacade->getCurrentLocaleName();
     }
 }

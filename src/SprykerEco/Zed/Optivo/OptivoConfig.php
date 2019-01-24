@@ -2,9 +2,8 @@
 
 /**
  * MIT License
- * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
  */
-
 namespace SprykerEco\Zed\Optivo;
 
 use Spryker\Shared\Application\ApplicationConstants;
@@ -89,12 +88,16 @@ class OptivoConfig extends AbstractBundleConfig
     }
 
     /**
-     * @param string $mailingTypeName
+     * @param string|null $mailingTypeName
      *
      * @return string|null
      */
-    public function getMailingIdByMailingTypeName(string $mailingTypeName): ?string
+    public function getMailingIdByMailingTypeName(?string $mailingTypeName): ?string
     {
+        if ($mailingTypeName === null) {
+            return null;
+        }
+
         $mailingIdList = $this->get(OptivoConstants::CONFIGURATION_DEFAULT_MAILING_ID_LIST);
 
         if (!empty($mailingIdList[$mailingTypeName])) {

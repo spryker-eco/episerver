@@ -2,9 +2,8 @@
 
 /**
  * MIT License
- * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
  */
-
 namespace SprykerEco\Zed\Optivo\Dependency\Facade;
 
 class OptivoToLocaleFacadeBridge implements OptivoToLocaleFacadeInterface
@@ -23,9 +22,9 @@ class OptivoToLocaleFacadeBridge implements OptivoToLocaleFacadeInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCurrentLocaleName(): string
+    public function getCurrentLocaleName(): ?string
     {
         return $this->localeFacade->getCurrentLocale()->getLocaleName();
     }
