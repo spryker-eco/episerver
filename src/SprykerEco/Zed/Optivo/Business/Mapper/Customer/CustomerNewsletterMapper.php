@@ -4,34 +4,31 @@
  * MIT License
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
+
 namespace SprykerEco\Zed\Optivo\Business\Mapper\Customer;
 
 use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\OptivoRequestTransfer;
 use Spryker\Zed\Newsletter\Communication\Plugin\Mail\NewsletterSubscribedMailTypePlugin;
 use Spryker\Zed\Newsletter\Communication\Plugin\Mail\NewsletterUnsubscribedMailTypePlugin;
-use SprykerEco\Zed\Optivo\Business\Exception\MailException;
 
 class CustomerNewsletterMapper extends AbstractCustomerMapper
 {
     /**
      * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
-     *
-     * @throws \SprykerEco\Zed\Optivo\Business\Exception\MailException
+     * @param \Generated\Shared\Transfer\OptivoRequestTransfer $requestTransfer
      *
      * @return \Generated\Shared\Transfer\OptivoRequestTransfer
      */
-    public function map(MailTransfer $mailTransfer): OptivoRequestTransfer
+    public function mapMailTransferToOptivoRequestTransfer(MailTransfer $mailTransfer, OptivoRequestTransfer $requestTransfer): OptivoRequestTransfer
     {
-        $requestTransfer = new OptivoRequestTransfer();
-
         if ($mailTransfer->getType() === null) {
-            throw new MailException('Mail transfer type has type with null value');
+            return $requestTransfer;
         }
 
         $requestTransfer->setAuthorizationCode($this->config->getCustomerNewsLetterListAuthCode());
         $requestTransfer->setOperationType($this->resolveOperationType($mailTransfer->getType()));
-        $requestTransfer->setPayload($this->getPayload($mailTransfer));
+        $requestTransfer->setPayload($this->buildPayload($mailTransfer));
 
         return $requestTransfer;
     }
@@ -41,7 +38,7 @@ class CustomerNewsletterMapper extends AbstractCustomerMapper
      *
      * @return array
      */
-    protected function getPayload(MailTransfer $mailTransfer): array
+    protected function buildPayload(MailTransfer $mailTransfer): array
     {
         $customerTransfer = $mailTransfer->getCustomer();
 
@@ -51,7 +48,11 @@ class CustomerNewsletterMapper extends AbstractCustomerMapper
             static::KEY_CUSTOMER_SHOP_LOCALE => $this->getLocale($customerTransfer),
         ];
 
-        $optInId = $this->getMailingId($mailTransfer->getType());
+        $optInId = null;
+
+        if ($mailTransfer->getType() !== null) {
+            $optInId = $this->getMailingId($mailTransfer->getType());
+        }
 
         if ($optInId !== null) {
             $payload[static::KEY_OPT_IN_ID] = $optInId;
@@ -73,6 +74,10 @@ class CustomerNewsletterMapper extends AbstractCustomerMapper
             $payload[static::KEY_CUSTOMER_SUBSCRIBER_KEY] = $newsletterSubscriber->getSubscriberKey();
         }
 
+        if ($mailTransfer->getType() === NewsletterUnsubscribedMailTypePlugin::MAIL_TYPE) {
+            $payload[static::KEY_REMOVE_ID] = true;
+        }
+
         return $payload;
     }
 
@@ -84,13 +89,13 @@ class CustomerNewsletterMapper extends AbstractCustomerMapper
     protected function resolveOperationType(?string $mailTypeName): string
     {
         if ($mailTypeName === NewsletterSubscribedMailTypePlugin::MAIL_TYPE) {
-            return $this->config->getOperationTypeSubscribeEventEmail();
+            return $this->config->getOperationSubscribeEventEmail();
         }
 
         if ($mailTypeName === NewsletterUnsubscribedMailTypePlugin::MAIL_TYPE) {
-            return $this->config->getOperationTypeUnsubscribeEventEmail();
+            return $this->config->getOperationUnsubscribeEventEmail();
         }
 
-        return $this->config->getOperationTypeUpdateFieldsEventEmail();
+        return $this->config->getOperationUpdateFieldsEventEmail();
     }
 }

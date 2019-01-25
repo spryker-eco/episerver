@@ -4,10 +4,11 @@
  * MIT License
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
+
 namespace SprykerEco\Zed\Optivo\Business;
 
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
-use SprykerEco\Zed\Optivo\Business\Api\Adapter\Http\Guzzle;
+use SprykerEco\Zed\Optivo\Business\Api\Adapter\Http\GuzzleAdapter;
 use SprykerEco\Zed\Optivo\Business\Api\Adapter\Http\HttpAdapterInterface;
 use SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapter;
 use SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapterInterface;
@@ -104,7 +105,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToMoneyFacadeInterface
      */
-    protected function getMoneyFacade(): OptivoToMoneyFacadeInterface
+    public function getMoneyFacade(): OptivoToMoneyFacadeInterface
     {
         return $this->getProvidedDependency(OptivoDependencyProvider::FACADE_MONEY);
     }
@@ -112,7 +113,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToLocaleFacadeInterface
      */
-    protected function getLocaleFacade(): OptivoToLocaleFacadeInterface
+    public function getLocaleFacade(): OptivoToLocaleFacadeInterface
     {
         return $this->getProvidedDependency(OptivoDependencyProvider::FACADE_LOCALE);
     }
@@ -120,7 +121,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToSalesFacadeInterface
      */
-    protected function getSalesFacade(): OptivoToSalesFacadeInterface
+    public function getSalesFacade(): OptivoToSalesFacadeInterface
     {
         return $this->getProvidedDependency(OptivoDependencyProvider::FACADE_SALES);
     }
@@ -128,7 +129,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Optivo\Business\Api\Request\RequestUrlBuilderInterface
      */
-    protected function createRequestUrlBuilder(): RequestUrlBuilderInterface
+    public function createRequestUrlBuilder(): RequestUrlBuilderInterface
     {
         return new RequestUrlBuilder($this->getConfig());
     }
@@ -136,7 +137,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Optivo\Business\Api\Response\ResponseConverterInterface
      */
-    protected function createResponseConverter(): ResponseConverterInterface
+    public function createResponseConverter(): ResponseConverterInterface
     {
         return new ResponseConverter();
     }
@@ -144,15 +145,15 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Optivo\Business\Api\Adapter\Http\HttpAdapterInterface
      */
-    protected function createGuzzleAdapter(): HttpAdapterInterface
+    public function createGuzzleAdapter(): HttpAdapterInterface
     {
-        return new Guzzle($this->getConfig());
+        return new GuzzleAdapter($this->getConfig());
     }
 
     /**
      * @return \SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapterInterface
      */
-    protected function createOptivoApiAdapter(): OptivoApiAdapterInterface
+    public function createOptivoApiAdapter(): OptivoApiAdapterInterface
     {
         return new OptivoApiAdapter(
             $this->createGuzzleAdapter(),
@@ -164,7 +165,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerMapperInterface
      */
-    protected function createCustomerMapper(): CustomerMapperInterface
+    public function createCustomerMapper(): CustomerMapperInterface
     {
         return new CustomerMapper($this->getConfig(), $this->getLocaleFacade());
     }
@@ -172,7 +173,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerMapperInterface
      */
-    protected function createCustomerNewsletterMapper(): CustomerMapperInterface
+    public function createCustomerNewsletterMapper(): CustomerMapperInterface
     {
         return new CustomerNewsletterMapper($this->getConfig(), $this->getLocaleFacade());
     }
@@ -180,7 +181,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderMapperInterface
      */
-    protected function createNewOrderMapper(): OrderMapperInterface
+    public function createNewOrderMapper(): OrderMapperInterface
     {
         return new NewOrderMapper($this->getConfig(), $this->getMoneyFacade(), $this->getLocaleFacade());
     }
@@ -188,7 +189,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderMapperInterface
      */
-    protected function createPaymentNotReceivedMapper(): OrderMapperInterface
+    public function createPaymentNotReceivedMapper(): OrderMapperInterface
     {
         return new PaymentNotReceivedMapper($this->getConfig(), $this->getMoneyFacade(), $this->getLocaleFacade());
     }
@@ -196,7 +197,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderMapperInterface
      */
-    protected function createShippingConfirmationMapper(): OrderMapperInterface
+    public function createShippingConfirmationMapper(): OrderMapperInterface
     {
         return new ShippingConfirmationMapper($this->getConfig(), $this->getMoneyFacade(), $this->getLocaleFacade());
     }
@@ -204,7 +205,7 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderMapperInterface
      */
-    protected function createOrderCancelledMapper(): OrderMapperInterface
+    public function createOrderCancelledMapper(): OrderMapperInterface
     {
         return new OrderCanceledMapper($this->getConfig(), $this->getMoneyFacade(), $this->getLocaleFacade());
     }

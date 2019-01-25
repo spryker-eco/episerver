@@ -4,6 +4,7 @@
  * MIT License
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
+
 namespace SprykerEco\Zed\Optivo\Communication\Plugin\Customer;
 
 use Generated\Shared\Transfer\MailTransfer;
@@ -19,6 +20,8 @@ class OptivoNewsletterSubscriptionMailPlugin extends AbstractPlugin implements M
 {
     /**
      * @api
+     *
+     * {@inheritdoc}
      *
      * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
      *

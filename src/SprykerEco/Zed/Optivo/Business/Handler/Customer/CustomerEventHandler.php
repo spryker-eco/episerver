@@ -4,6 +4,7 @@
  * MIT License
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
+
 namespace SprykerEco\Zed\Optivo\Business\Handler\Customer;
 
 use Generated\Shared\Transfer\MailTransfer;
@@ -41,8 +42,10 @@ class CustomerEventHandler implements CustomerEventHandlerInterface
      */
     public function handle(MailTransfer $mailTransfer): void
     {
-        $transfer = $this->map($mailTransfer);
-        $this->send($transfer);
+        $requestTransfer = new OptivoRequestTransfer();
+        $mailTransfer = $this->mapMailTransferToOptivoRequestTransfer($mailTransfer, $requestTransfer);
+
+        $this->send($mailTransfer);
     }
 
     /**
@@ -50,9 +53,9 @@ class CustomerEventHandler implements CustomerEventHandlerInterface
      *
      * @return \Generated\Shared\Transfer\OptivoRequestTransfer
      */
-    protected function map(MailTransfer $mailTransfer): OptivoRequestTransfer
+    protected function mapMailTransferToOptivoRequestTransfer(MailTransfer $mailTransfer, OptivoRequestTransfer $requestTransfer): OptivoRequestTransfer
     {
-        return $this->mapper->map($mailTransfer);
+        return $this->mapper->mapMailTransferToOptivoRequestTransfer($mailTransfer, $requestTransfer);
     }
 
     /**

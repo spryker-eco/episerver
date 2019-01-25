@@ -4,6 +4,7 @@
  * MIT License
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
+
 namespace SprykerEco\Zed\Optivo\Business\Mapper\Customer;
 
 use Generated\Shared\Transfer\MailTransfer;
@@ -13,16 +14,15 @@ class CustomerMapper extends AbstractCustomerMapper
 {
     /**
      * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
+     * @param \Generated\Shared\Transfer\OptivoRequestTransfer $requestTransfer
      *
      * @return \Generated\Shared\Transfer\OptivoRequestTransfer
      */
-    public function map(MailTransfer $mailTransfer): OptivoRequestTransfer
+    public function mapMailTransferToOptivoRequestTransfer(MailTransfer $mailTransfer, OptivoRequestTransfer $requestTransfer): OptivoRequestTransfer
     {
-        $requestTransfer = new OptivoRequestTransfer();
-
         $requestTransfer->setAuthorizationCode($this->config->getCustomerListAuthCode());
-        $requestTransfer->setOperationType($this->config->getOperationTypeSendTransactionEmail());
-        $requestTransfer->setPayload($this->getPayload($mailTransfer));
+        $requestTransfer->setOperationType($this->config->getOperationSendTransactionEmail());
+        $requestTransfer->setPayload($this->buildPayload($mailTransfer));
 
         return $requestTransfer;
     }
@@ -32,7 +32,7 @@ class CustomerMapper extends AbstractCustomerMapper
      *
      * @return array
      */
-    protected function getPayload(MailTransfer $mailTransfer): array
+    protected function buildPayload(MailTransfer $mailTransfer): array
     {
         $customerTransfer = $mailTransfer->getCustomer();
 

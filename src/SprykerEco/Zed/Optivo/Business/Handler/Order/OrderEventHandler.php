@@ -4,6 +4,7 @@
  * MIT License
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
+
 namespace SprykerEco\Zed\Optivo\Business\Handler\Order;
 
 use Generated\Shared\Transfer\OptivoRequestTransfer;
@@ -49,19 +50,21 @@ class OrderEventHandler implements OrderEventHandlerInterface
      */
     public function handle(int $idSalesOrder): void
     {
+        $requestTransfer = new OptivoRequestTransfer();
         $orderTransfer = $this->salesFacade->getOrderByIdSalesOrder($idSalesOrder);
-        $requestTransfer = $this->map($orderTransfer);
+        $requestTransfer = $this->mapOrderTransferToOptivoRequestTransfer($orderTransfer, $requestTransfer);
         $this->send($requestTransfer);
     }
 
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \Generated\Shared\Transfer\OptivoRequestTransfer $requestTransfer
      *
      * @return \Generated\Shared\Transfer\OptivoRequestTransfer
      */
-    protected function map(OrderTransfer $orderTransfer): OptivoRequestTransfer
+    protected function mapOrderTransferToOptivoRequestTransfer(OrderTransfer $orderTransfer, OptivoRequestTransfer $requestTransfer): OptivoRequestTransfer
     {
-        return $this->mapper->map($orderTransfer);
+        return $this->mapper->mapOrderTransferToOptivoRequestTransfer($orderTransfer, $requestTransfer);
     }
 
     /**

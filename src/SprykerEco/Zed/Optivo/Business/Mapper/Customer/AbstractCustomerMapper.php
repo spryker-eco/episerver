@@ -4,11 +4,11 @@
  * MIT License
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
+
 namespace SprykerEco\Zed\Optivo\Business\Mapper\Customer;
 
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\MailTransfer;
-use Generated\Shared\Transfer\OptivoRequestTransfer;
 use Spryker\Shared\Kernel\Store;
 use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToLocaleFacadeInterface;
 use SprykerEco\Zed\Optivo\OptivoConfig;
@@ -38,23 +38,16 @@ abstract class AbstractCustomerMapper implements CustomerMapperInterface
     /**
      * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
      *
-     * @return \Generated\Shared\Transfer\OptivoRequestTransfer
-     */
-    abstract public function map(MailTransfer $mailTransfer): OptivoRequestTransfer;
-
-    /**
-     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
-     *
      * @return array
      */
-    abstract protected function getPayload(MailTransfer $mailTransfer): array;
+    abstract protected function buildPayload(MailTransfer $mailTransfer): array;
 
     /**
-     * @param string|null $mailTypeName
+     * @param string $mailTypeName
      *
      * @return string|null
      */
-    protected function getMailingId(?string $mailTypeName): ?string
+    protected function getMailingId(string $mailTypeName): ?string
     {
         return $this->config->getMailingIdByMailingTypeName($mailTypeName);
     }

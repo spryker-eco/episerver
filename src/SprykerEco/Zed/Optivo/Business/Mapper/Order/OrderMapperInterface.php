@@ -4,6 +4,7 @@
  * MIT License
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
+
 namespace SprykerEco\Zed\Optivo\Business\Mapper\Order;
 
 use Generated\Shared\Transfer\OptivoRequestTransfer;
@@ -34,9 +35,10 @@ interface OrderMapperInterface
     public const URL_LOGIN = '/login';
 
     /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $transfer
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \Generated\Shared\Transfer\OptivoRequestTransfer $requestTransfer
      *
      * @return \Generated\Shared\Transfer\OptivoRequestTransfer
      */
-    public function map(OrderTransfer $transfer): OptivoRequestTransfer;
+    public function mapOrderTransferToOptivoRequestTransfer(OrderTransfer $orderTransfer, OptivoRequestTransfer $requestTransfer): OptivoRequestTransfer;
 }

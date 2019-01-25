@@ -4,6 +4,7 @@
  * MIT License
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
+
 namespace SprykerEco\Zed\Optivo\Business\Mapper\Customer;
 
 use Generated\Shared\Transfer\MailTransfer;
@@ -24,11 +25,13 @@ interface CustomerMapperInterface
     public const KEY_CUSTOMER_LOGIN_URL = 'customer_login_url';
     public const KEY_CUSTOMER_RESET_LINK = 'customer_reset_link';
     public const KEY_CUSTOMER_SUBSCRIBER_KEY = 'subscriber_key';
+    public const KEY_REMOVE_ID = 'bmRemoveId';
 
     /**
      * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
+     * @param \Generated\Shared\Transfer\OptivoRequestTransfer $requestTransfer
      *
      * @return \Generated\Shared\Transfer\OptivoRequestTransfer
      */
-    public function map(MailTransfer $mailTransfer): OptivoRequestTransfer;
+    public function mapMailTransferToOptivoRequestTransfer(MailTransfer $mailTransfer, OptivoRequestTransfer $requestTransfer): OptivoRequestTransfer;
 }

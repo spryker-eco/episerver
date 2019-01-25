@@ -25,10 +25,12 @@ class OptivoNewOrderPlugin extends AbstractCommand implements CommandByOrderInte
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
      * @param \Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject $data
      *
-     * @return void
+     * @return array
      */
-    public function run(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): void
+    public function run(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): array
     {
         $this->getFacade()->handleNewOrderEvent($orderEntity->getIdSalesOrder());
+
+        return [];
     }
 }

@@ -4,6 +4,7 @@
  * MIT License
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
+
 namespace SprykerEco\Zed\Optivo\Business\Api\Adapter;
 
 use Generated\Shared\Transfer\OptivoRequestTransfer;
@@ -53,7 +54,7 @@ class OptivoApiAdapter implements OptivoApiAdapterInterface
     {
         $requestUrl = $this->requestUrlBuilder->buildUrl($optivoRequestTransfer);
 
-        $response = $this->httpAdapter->sendGetRequest($requestUrl, '');
+        $response = $this->httpAdapter->sendGetRequest($requestUrl);
 
         return $this->responseConverter->convertResponse($response);
     }

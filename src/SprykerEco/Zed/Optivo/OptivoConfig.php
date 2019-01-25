@@ -88,16 +88,12 @@ class OptivoConfig extends AbstractBundleConfig
     }
 
     /**
-     * @param string|null $mailingTypeName
+     * @param string $mailingTypeName
      *
      * @return string|null
      */
-    public function getMailingIdByMailingTypeName(?string $mailingTypeName): ?string
+    public function getMailingIdByMailingTypeName(string $mailingTypeName): ?string
     {
-        if ($mailingTypeName === null) {
-            return null;
-        }
-
         $mailingIdList = $this->get(OptivoConstants::CONFIGURATION_DEFAULT_MAILING_ID_LIST);
 
         if (!empty($mailingIdList[$mailingTypeName])) {
@@ -110,9 +106,9 @@ class OptivoConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getOperationTypeSendTransactionEmail(): string
+    public function getOperationSendTransactionEmail(): string
     {
-        return $this->getSharedConfig()->getOperationTypeSendTransactionEmail();
+        return $this->getSharedConfig()->getOperationSendTransactionEmail();
     }
 
     /**
@@ -134,24 +130,24 @@ class OptivoConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getOperationTypeSubscribeEventEmail(): string
+    public function getOperationSubscribeEventEmail(): string
     {
-        return $this->getSharedConfig()->getOperationTypeSubscribeEventEmail();
+        return $this->getSharedConfig()->getOperationSubscribeEventEmail();
     }
 
     /**
      * @return string
      */
-    public function getOperationTypeUnsubscribeEventEmail(): string
+    public function getOperationUnsubscribeEventEmail(): string
     {
-        return $this->getSharedConfig()->getOperationTypeUnsubscribeEventEmail();
+        return $this->getSharedConfig()->getOperationUnsubscribeEventEmail();
     }
 
     /**
      * @return string
      */
-    public function getOperationTypeUpdateFieldsEventEmail(): string
+    public function getOperationUpdateFieldsEventEmail(): string
     {
-        return $this->getSharedConfig()->getOperationTypeUpdateFieldsEventEmail();
+        return $this->getSharedConfig()->getOperationUpdateFieldsEventEmail();
     }
 }

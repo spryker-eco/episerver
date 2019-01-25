@@ -4,9 +4,9 @@
  * MIT License
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
+
 namespace SprykerEco\Zed\Optivo\Business\Mapper\Order;
 
-use ArrayObject;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OptivoRequestTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
@@ -49,16 +49,15 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
 
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \Generated\Shared\Transfer\OptivoRequestTransfer $requestTransfer
      *
      * @return \Generated\Shared\Transfer\OptivoRequestTransfer
      */
-    public function map(OrderTransfer $orderTransfer): OptivoRequestTransfer
+    public function mapOrderTransferToOptivoRequestTransfer(OrderTransfer $orderTransfer, OptivoRequestTransfer $requestTransfer): OptivoRequestTransfer
     {
-        $requestTransfer = new OptivoRequestTransfer();
-
         $requestTransfer->setAuthorizationCode($this->config->getOrderListAuthCode());
-        $requestTransfer->setOperationType($this->config->getOperationTypeSendTransactionEmail());
-        $requestTransfer->setPayload($this->getPayload($orderTransfer));
+        $requestTransfer->setOperationType($this->config->getOperationSendTransactionEmail());
+        $requestTransfer->setPayload($this->buildPayload($orderTransfer));
 
         return $requestTransfer;
     }
@@ -68,7 +67,7 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
      *
      * @return array
      */
-    protected function getPayload(OrderTransfer $orderTransfer): array
+    protected function buildPayload(OrderTransfer $orderTransfer): array
     {
         $locale = $this->getLocale($orderTransfer->getCustomer());
 
@@ -87,8 +86,8 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
             static::KEY_ORDER_NUMBER => $orderTransfer->getOrderReference(),
             static::KEY_ORDER_COMMENT => $orderTransfer->getCartNote(),
             static::KEY_ORDER_ORDERDATE => $orderTransfer->getCreatedAt(),
-            static::KEY_ORDER_TOTAL_DELIVERY_COSTS => $this->getDeliveryCosts($orderTransfer->getExpenses()),
-            static::KEY_ORDER_TOTAL_PAYMENT_COSTS => $this->getPaymentMethodsTotal($orderTransfer->getPayments()),
+            static::KEY_ORDER_TOTAL_DELIVERY_COSTS => $this->calculateDeliveryCosts($orderTransfer),
+            static::KEY_ORDER_TOTAL_PAYMENT_COSTS => $this->calculatePaymentMethodsTotal($orderTransfer),
         ];
 
         $totalsTransfer = $orderTransfer->getTotals();
@@ -114,13 +113,15 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
     abstract protected function getMailingId(): string;
 
     /**
-     * @param \ArrayObject|\Generated\Shared\Transfer\PaymentTransfer[] $methods
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      *
      * @return int
      */
-    protected function getPaymentMethodsTotal(ArrayObject $methods): int
+    protected function calculatePaymentMethodsTotal(OrderTransfer $orderTransfer): int
     {
         $sum = 0;
+
+        $methods = $orderTransfer->getPayments();
 
         foreach ($methods as $method) {
             $sum += $method->getAmount();
@@ -130,24 +131,13 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
     }
 
     /**
-     * @param int $value
-     *
-     * @return string
-     */
-    protected function getFormattedPriceFromInt(int $value): string
-    {
-        $moneyTransfer = $this->moneyFacade->fromInteger($value);
-
-        return $this->moneyFacade->formatWithSymbol($moneyTransfer);
-    }
-
-    /**
-     * @param \ArrayObject|\Generated\Shared\Transfer\ExpenseTransfer[] $expenses
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      *
      * @return int
      */
-    protected function getDeliveryCosts(ArrayObject $expenses): int
+    protected function calculateDeliveryCosts(OrderTransfer $orderTransfer): int
     {
+        $expenses = $orderTransfer->getExpenses();
         foreach ($expenses as $expense) {
             if ($expense->getType() === ShipmentConstants::SHIPMENT_EXPENSE_TYPE) {
                 if ($expense->getSumGrossPrice() === null) {
