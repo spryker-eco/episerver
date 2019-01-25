@@ -186,10 +186,10 @@ class OptivoFacadeTest extends Unit
     {
         $mapper = $this->getMockBuilder(OrderMapperInterface::class)
             ->disableOriginalConstructor()
-            ->setMethods(['map'])
+            ->setMethods(['mapOrderTransferToOptivoRequestTransfer'])
             ->getMock();
 
-        $mapper->method('map')->willReturn(new OptivoRequestTransfer());
+        $mapper->method('mapOrderTransferToOptivoRequestTransfer')->willReturn(new OptivoRequestTransfer());
 
         return $mapper;
     }
