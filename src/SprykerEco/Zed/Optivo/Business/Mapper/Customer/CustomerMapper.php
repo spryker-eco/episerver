@@ -20,7 +20,7 @@ class CustomerMapper extends AbstractCustomerMapper
      */
     public function mapMailTransferToOptivoRequestTransfer(MailTransfer $mailTransfer, OptivoRequestTransfer $requestTransfer): OptivoRequestTransfer
     {
-        $requestTransfer->setAuthorizationCode($this->config->getCustomerListAuthCode());
+        $requestTransfer->setAuthorizationCode($this->config->getCustomerListAuthorizationCode());
         $requestTransfer->setOperationType($this->config->getOperationSendTransactionEmail());
         $requestTransfer->setPayload($this->buildPayload($mailTransfer));
 

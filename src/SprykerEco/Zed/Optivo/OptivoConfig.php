@@ -4,6 +4,7 @@
  * MIT License
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
+
 namespace SprykerEco\Zed\Optivo;
 
 use Spryker\Shared\Application\ApplicationConstants;
@@ -34,7 +35,7 @@ class OptivoConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getOrderListAuthCode(): string
+    public function getOrderListAuthorizationCode(): string
     {
         return $this->get(OptivoConstants::ORDER_LIST_AUTHORIZATION_CODE);
     }
@@ -114,7 +115,7 @@ class OptivoConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getCustomerListAuthCode(): string
+    public function getCustomerListAuthorizationCode(): string
     {
         return $this->get(OptivoConstants::CUSTOMER_LIST_AUTHORIZATION_CODE);
     }
@@ -122,7 +123,7 @@ class OptivoConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getCustomerNewsLetterListAuthCode(): string
+    public function getCustomerNewsLetterListAuthorizationCode(): string
     {
         return $this->get(OptivoConstants::CUSTOMER_NEWSLETTER_AUTHORIZATION_CODE);
     }

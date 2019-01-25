@@ -4,6 +4,7 @@
  * MIT License
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
+
 namespace SprykerEco\Zed\Optivo;
 
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
@@ -25,6 +26,8 @@ class OptivoDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function provideBusinessLayerDependencies(Container $container): Container
     {
+        $container = parent::provideBusinessLayerDependencies($container);
+
         $container = $this->addFacadeMoney($container);
         $container = $this->addFacadeLocale($container);
         $container = $this->addFacadeSales($container);

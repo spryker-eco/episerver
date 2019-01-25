@@ -21,6 +21,8 @@ class OptivoCustomerMailPlugin extends AbstractPlugin implements MailProviderPlu
     /**
      * @api
      *
+     * {@inheritdoc}
+     *
      * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
      *
      * @return void

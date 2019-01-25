@@ -4,6 +4,7 @@
  * MIT License
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
+
 namespace SprykerEcoTest\Zed\Optivo;
 
 use Codeception\Test\Unit;
@@ -41,8 +42,8 @@ class OptivoFacadeTest extends Unit
 
         try {
             $facade->handleCustomerEvent($this->prepareMailTransfer());
-        } catch (Exception $e) {
-            $this->fail($e->getMessage());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
         }
     }
 
@@ -55,8 +56,8 @@ class OptivoFacadeTest extends Unit
 
         try {
             $facade->handleNewsletterSubscription($this->prepareMailTransfer());
-        } catch (Exception $e) {
-            $this->fail($e->getMessage());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
         }
     }
 
@@ -69,8 +70,8 @@ class OptivoFacadeTest extends Unit
 
         try {
             $facade->handleShippingConfirmationEvent(1);
-        } catch (Exception $e) {
-            $this->fail($e->getMessage());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
         }
     }
 
@@ -83,8 +84,8 @@ class OptivoFacadeTest extends Unit
 
         try {
             $facade->handlePaymentNotReceivedEvent(1);
-        } catch (Exception $e) {
-            $this->fail($e->getMessage());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
         }
     }
 
@@ -97,8 +98,8 @@ class OptivoFacadeTest extends Unit
 
         try {
             $facade->handleOrderCanceledEvent(1);
-        } catch (Exception $e) {
-            $this->fail($e->getMessage());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
         }
     }
 
@@ -111,8 +112,8 @@ class OptivoFacadeTest extends Unit
 
         try {
             $facade->handleNewOrderEvent(1);
-        } catch (Exception $e) {
-            $this->fail($e->getMessage());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
         }
     }
 

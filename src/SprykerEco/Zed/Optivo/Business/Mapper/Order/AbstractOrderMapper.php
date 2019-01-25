@@ -55,7 +55,7 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
      */
     public function mapOrderTransferToOptivoRequestTransfer(OrderTransfer $orderTransfer, OptivoRequestTransfer $requestTransfer): OptivoRequestTransfer
     {
-        $requestTransfer->setAuthorizationCode($this->config->getOrderListAuthCode());
+        $requestTransfer->setAuthorizationCode($this->config->getOrderListAuthorizationCode());
         $requestTransfer->setOperationType($this->config->getOperationSendTransactionEmail());
         $requestTransfer->setPayload($this->buildPayload($orderTransfer));
 
@@ -140,11 +140,11 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
         $expenses = $orderTransfer->getExpenses();
         foreach ($expenses as $expense) {
             if ($expense->getType() === ShipmentConstants::SHIPMENT_EXPENSE_TYPE) {
-                if ($expense->getSumGrossPrice() === null) {
+                if ($expense->getSumPriceToPayAggregation() === null) {
                     return 0;
                 }
 
-                return $expense->getSumGrossPrice();
+                return $expense->getSumPriceToPayAggregation();
             }
         }
 
@@ -158,8 +158,12 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
      */
     protected function getLocale(?CustomerTransfer $customerTransfer): string
     {
-        if ($customerTransfer !== null && $customerTransfer->getLocale() !== null) {
-            return (string)$customerTransfer->getLocale()->getLocaleName();
+        if (
+            $customerTransfer !== null &&
+            $customerTransfer->getLocale() !== null &&
+            $customerTransfer->getLocale()->getLocaleName() !== null
+        ) {
+            return $customerTransfer->getLocale()->getLocaleName();
         }
 
         return (string)$this->localeFacade->getCurrentLocaleName();

@@ -26,7 +26,7 @@ class CustomerNewsletterMapper extends AbstractCustomerMapper
             return $requestTransfer;
         }
 
-        $requestTransfer->setAuthorizationCode($this->config->getCustomerNewsLetterListAuthCode());
+        $requestTransfer->setAuthorizationCode($this->config->getCustomerNewsLetterListAuthorizationCode());
         $requestTransfer->setOperationType($this->resolveOperationType($mailTransfer->getType()));
         $requestTransfer->setPayload($this->buildPayload($mailTransfer));
 
