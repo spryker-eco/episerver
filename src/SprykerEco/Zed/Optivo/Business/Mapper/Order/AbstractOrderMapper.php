@@ -158,10 +158,11 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
      */
     protected function getLocale(?CustomerTransfer $customerTransfer): string
     {
-        if ($customerTransfer !== null &&
+        $isCustomerLocaleName = $customerTransfer !== null &&
             $customerTransfer->getLocale() !== null &&
-            $customerTransfer->getLocale()->getLocaleName() !== null
-        ) {
+            $customerTransfer->getLocale()->getLocaleName() !== null;
+
+        if ($isCustomerLocaleName) {
             return $customerTransfer->getLocale()->getLocaleName();
         }
 
