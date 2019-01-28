@@ -61,7 +61,7 @@ interface OptivoFacadeInterface
 
     /**
      * Specification:
-     *  - Handle customer event
+     *  - Handle customer event and send it to Episerver
      *
      * @api
      *
