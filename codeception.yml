@@ -1,7 +1,7 @@
-namespace: Optivo
+namespace: Episerver
 
 include:
-  - tests/SprykerEcoTest/Zed/Optivo
+  - tests/SprykerEcoTest/Zed/Episerver
 
 paths:
   tests: tests

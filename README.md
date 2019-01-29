@@ -1,11 +1,11 @@
-# Optivo Module
+# Episerver Module
 
-[![Build Status](https://travis-ci.org/spryker-eco/optivo.svg?branch=master)](https://travis-ci.org/spryker-eco/optivo)
+[![Build Status](https://travis-ci.org/spryker-eco/episerver.svg?branch=master)](https://travis-ci.org/spryker-eco/episerver)
 
 ## Installation
 
 ```
-composer require spryker-eco/optivo
+composer require spryker-eco/episerver
 ```
 
 ## Documentation
