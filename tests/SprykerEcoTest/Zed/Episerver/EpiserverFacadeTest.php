@@ -171,10 +171,10 @@ class EpiserverFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->setConstructorArgs([$this->createOrderMapperMock(), $this->createAdapterMock(), $this->createSalesFacadeMock()])
             ->enableOriginalConstructor()
-            ->setMethods(['handle'])
+            ->setMethods(['mail'])
             ->getMock();
 
-        $handler->method('handle')->willReturn($this->createStreamInterfaceMock());
+        $handler->method('mail')->willReturn($this->createStreamInterfaceMock());
 
         return $handler;
     }
@@ -238,10 +238,10 @@ class EpiserverFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->setConstructorArgs([$this->createCustomerMapperMock(), $this->createAdapterMock()])
             ->enableOriginalConstructor()
-            ->setMethods(['handle'])
+            ->setMethods(['mail'])
             ->getMock();
 
-        $handler->method('handle')->willReturn($this->createStreamInterfaceMock());
+        $handler->method('mail')->willReturn($this->createStreamInterfaceMock());
 
         return $handler;
     }
