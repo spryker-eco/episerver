@@ -10,7 +10,7 @@ namespace SprykerEco\Shared\Episerver;
 /**
  * Declares global environment configuration keys. Do not use it for other class constants.
  */
-class EpiserverConstants
+interface EpiserverConstants
 {
     public const CONFIGURATION_DEFAULT_MAILING_ID_LIST = 'EPISERVER:CONFIGURATION_DEFAULT_MAILING_ID_LIST';
     public const REQUEST_BASE_URL = 'EPISERVER:REQUEST_BASE_URL';

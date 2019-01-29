@@ -12,5 +12,5 @@ interface EpiserverToLocaleFacadeInterface
     /**
      * @return string|null
      */
-    public function getLocaleName(): ?string;
+    public function getLocaleName();
 }

@@ -25,7 +25,7 @@ class EpiserverToLocaleFacadeBridge implements EpiserverToLocaleFacadeInterface
     /**
      * @return string|null
      */
-    public function getLocaleName(): ?string
+    public function getLocaleName()
     {
         return $this->localeFacade->getCurrentLocale()->getLocaleName();
     }

@@ -10,9 +10,9 @@ namespace SprykerEco\Zed\Episerver\Dependency\Facade;
 interface EpiserverToSalesFacadeInterface
 {
     /**
-     * @param int $idOrder
+     * @param int $idSalesOrder
      *
      * @return \Generated\Shared\Transfer\OrderTransfer
      */
-    public function getOrderByIdSalesOrder(int $idOrder);
+    public function getOrderByIdSalesOrder($idSalesOrder);
 }

@@ -23,12 +23,12 @@ class EpiserverToSalesFacadeBridge implements EpiserverToSalesFacadeInterface
     }
 
     /**
-     * @param int $idOrder
+     * @param int $idSalesOrder
      *
      * @return \Generated\Shared\Transfer\OrderTransfer
      */
-    public function getOrderByIdSalesOrder(int $idOrder)
+    public function getOrderByIdSalesOrder($idSalesOrder)
     {
-        return $this->salesFacade->getOrderByIdSalesOrder($idOrder);
+        return $this->salesFacade->getOrderByIdSalesOrder($idSalesOrder);
     }
 }
