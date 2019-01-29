@@ -29,7 +29,7 @@ class OptivoNewOrderPlugin extends AbstractCommand implements CommandByOrderInte
      */
     public function run(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): array
     {
-        $this->getFacade()->handleNewOrderEvent($orderEntity->getIdSalesOrder());
+        $this->getFacade()->mailNewOrderEvent($orderEntity->getIdSalesOrder());
 
         return [];
     }

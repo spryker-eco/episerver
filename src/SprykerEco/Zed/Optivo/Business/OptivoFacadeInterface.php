@@ -13,7 +13,8 @@ interface OptivoFacadeInterface
 {
     /**
      * Specification:
-     *  - This method is used by OptivoNewOrderPlugin Oms command for sending data to Optivo API
+     * - Receives the IdSalesOrder
+     * - Sends the request to Episerver API
      *
      * @api
      *
@@ -21,11 +22,12 @@ interface OptivoFacadeInterface
      *
      * @return void
      */
-    public function handleNewOrderEvent(int $idSalesOrder): void;
+    public function mailNewOrderEvent(int $idSalesOrder): void;
 
     /**
      * Specification:
-     *  - This method is used by OptivoOrderCanceledPlugin Oms command for sending data to Optivo API
+     * - Receives the IdSalesOrder
+     * - Sends the request to Episerver API
      *
      * @api
      *
@@ -33,11 +35,12 @@ interface OptivoFacadeInterface
      *
      * @return void
      */
-    public function handleOrderCanceledEvent(int $idSalesOrder): void;
+    public function mailOrderCanceledEvent(int $idSalesOrder): void;
 
     /**
      * Specification:
-     *  - This method is used by OptivoPaymentNotReceivedPlugin Oms command for sending data to Optivo API
+     * - Receives the IdSalesOrder
+     * - Sends the request to Episerver API
      *
      * @api
      *
@@ -45,11 +48,12 @@ interface OptivoFacadeInterface
      *
      * @return void
      */
-    public function handlePaymentNotReceivedEvent(int $idSalesOrder): void;
+    public function mailPaymentNotReceivedEvent(int $idSalesOrder): void;
 
     /**
      * Specification:
-     *  - This method is used by OptivoShippingConfirmationPlugin Oms command for sending data to Optivo API
+     * - Receives the IdSalesOrder
+     * - Sends the request to Episerver API
      *
      * @api
      *
@@ -57,11 +61,12 @@ interface OptivoFacadeInterface
      *
      * @return void
      */
-    public function handleShippingConfirmationEvent(int $idSalesOrder): void;
+    public function mailShippingConfirmationEvent(int $idSalesOrder): void;
 
     /**
      * Specification:
-     *  - Handle customer event and send it to Episerver
+     * - Receives the fully configured MailTransfer
+     * - Sends the request to Episerver API
      *
      * @api
      *
@@ -69,11 +74,12 @@ interface OptivoFacadeInterface
      *
      * @return void
      */
-    public function handleCustomerEvent(MailTransfer $mailTransfer): void;
+    public function mailCustomerEvent(MailTransfer $mailTransfer): void;
 
     /**
      * Specification:
-     *  - Handle newsletter subscription event
+     * - Receives the fully configured MailTransfer
+     * - Sends the request to Episerver API
      *
      * @api
      *
@@ -81,5 +87,5 @@ interface OptivoFacadeInterface
      *
      * @return void
      */
-    public function handleNewsletterSubscription(MailTransfer $mailTransfer): void;
+    public function mailNewsletterSubscription(MailTransfer $mailTransfer): void;
 }

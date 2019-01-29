@@ -14,7 +14,7 @@ use SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapterInterface;
 use SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderMapperInterface;
 use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToSalesFacadeInterface;
 
-class OrderEventHandler implements OrderEventHandlerInterface
+class OrderEventMailer implements OrderEventMailerInterface
 {
     /**
      * @var \SprykerEco\Zed\Optivo\Business\Mapper\Order\OrderMapperInterface
@@ -48,7 +48,7 @@ class OrderEventHandler implements OrderEventHandlerInterface
      *
      * @return void
      */
-    public function handle(int $idSalesOrder): void
+    public function mail(int $idSalesOrder): void
     {
         $requestTransfer = new OptivoRequestTransfer();
         $orderTransfer = $this->salesFacade->getOrderByIdSalesOrder($idSalesOrder);

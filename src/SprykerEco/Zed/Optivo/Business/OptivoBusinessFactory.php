@@ -16,10 +16,10 @@ use SprykerEco\Zed\Optivo\Business\Api\Request\RequestUrlBuilder;
 use SprykerEco\Zed\Optivo\Business\Api\Request\RequestUrlBuilderInterface;
 use SprykerEco\Zed\Optivo\Business\Api\Response\ResponseConverter;
 use SprykerEco\Zed\Optivo\Business\Api\Response\ResponseConverterInterface;
-use SprykerEco\Zed\Optivo\Business\Handler\Customer\CustomerEventHandler;
-use SprykerEco\Zed\Optivo\Business\Handler\Customer\CustomerEventHandlerInterface;
-use SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandler;
-use SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandlerInterface;
+use SprykerEco\Zed\Optivo\Business\Handler\Customer\CustomerEventMailer;
+use SprykerEco\Zed\Optivo\Business\Handler\Customer\CustomerEventMailerInterface;
+use SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventMailer;
+use SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventMailerInterface;
 use SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerMapper;
 use SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerMapperInterface;
 use SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerNewsletterMapper;
@@ -39,11 +39,11 @@ use SprykerEco\Zed\Optivo\OptivoDependencyProvider;
 class OptivoBusinessFactory extends AbstractBusinessFactory
 {
     /**
-     * @return \SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandlerInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventMailerInterface
      */
-    public function createShippingConfirmationEventHandler(): OrderEventHandlerInterface
+    public function createShippingConfirmationEventMailer(): OrderEventMailerInterface
     {
-        return new OrderEventHandler(
+        return new OrderEventMailer(
             $this->createShippingConfirmationMapper(),
             $this->createOptivoApiAdapter(),
             $this->getSalesFacade()
@@ -51,11 +51,11 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandlerInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventMailerInterface
      */
-    public function createPaymentNotReceivedEventHandler(): OrderEventHandlerInterface
+    public function createPaymentNotReceivedEventMailer(): OrderEventMailerInterface
     {
-        return new OrderEventHandler(
+        return new OrderEventMailer(
             $this->createPaymentNotReceivedMapper(),
             $this->createOptivoApiAdapter(),
             $this->getSalesFacade()
@@ -63,11 +63,11 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandlerInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventMailerInterface
      */
-    public function createOrderCancelledEventHandler(): OrderEventHandlerInterface
+    public function createOrderCancelledEventMailer(): OrderEventMailerInterface
     {
-        return new OrderEventHandler(
+        return new OrderEventMailer(
             $this->createOrderCancelledMapper(),
             $this->createOptivoApiAdapter(),
             $this->getSalesFacade()
@@ -75,11 +75,11 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventHandlerInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Handler\Order\OrderEventMailerInterface
      */
-    public function createNewOrderEventHandler(): OrderEventHandlerInterface
+    public function createNewOrderEventMailer(): OrderEventMailerInterface
     {
-        return new OrderEventHandler(
+        return new OrderEventMailer(
             $this->createNewOrderMapper(),
             $this->createOptivoApiAdapter(),
             $this->getSalesFacade()
@@ -87,19 +87,19 @@ class OptivoBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Optivo\Business\Handler\Customer\CustomerEventHandlerInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Handler\Customer\CustomerEventMailerInterface
      */
-    public function createCustomerEventHandler(): CustomerEventHandlerInterface
+    public function createCustomerEventMailer(): CustomerEventMailerInterface
     {
-        return new CustomerEventHandler($this->createCustomerMapper(), $this->createOptivoApiAdapter());
+        return new CustomerEventMailer($this->createCustomerMapper(), $this->createOptivoApiAdapter());
     }
 
     /**
-     * @return \SprykerEco\Zed\Optivo\Business\Handler\Customer\CustomerEventHandlerInterface
+     * @return \SprykerEco\Zed\Optivo\Business\Handler\Customer\CustomerEventMailerInterface
      */
-    public function createNewsletterSubscriptionEventHandler(): CustomerEventHandlerInterface
+    public function createNewsletterSubscriptionEventMailer(): CustomerEventMailerInterface
     {
-        return new CustomerEventHandler($this->createCustomerNewsletterMapper(), $this->createOptivoApiAdapter());
+        return new CustomerEventMailer($this->createCustomerNewsletterMapper(), $this->createOptivoApiAdapter());
     }
 
     /**

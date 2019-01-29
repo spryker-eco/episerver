@@ -24,7 +24,7 @@ class ResponseConverter implements ResponseConverterInterface
         $responseTransfer = new OptivoResponseTransfer();
         $responseTransfer
             ->setStatus($response->getStatusCode())
-            ->setIsSuccessful($this->getResponseStatus($response));
+            ->setIsSuccessful($this->isSuccessful($response));
 
         return $responseTransfer;
     }
@@ -34,7 +34,7 @@ class ResponseConverter implements ResponseConverterInterface
      *
      * @return bool
      */
-    public function getResponseStatus(ResponseInterface $response): bool
+    public function isSuccessful(ResponseInterface $response): bool
     {
         return $response->getStatusCode() === static::STATUS_OK;
     }

@@ -13,7 +13,7 @@ use Generated\Shared\Transfer\OptivoResponseTransfer;
 use SprykerEco\Zed\Optivo\Business\Api\Adapter\OptivoApiAdapterInterface;
 use SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerMapperInterface;
 
-class CustomerEventHandler implements CustomerEventHandlerInterface
+class CustomerEventMailer implements CustomerEventMailerInterface
 {
     /**
      * @var \SprykerEco\Zed\Optivo\Business\Mapper\Customer\CustomerMapperInterface
@@ -40,7 +40,7 @@ class CustomerEventHandler implements CustomerEventHandlerInterface
      *
      * @return void
      */
-    public function handle(MailTransfer $mailTransfer): void
+    public function mail(MailTransfer $mailTransfer): void
     {
         $requestTransfer = new OptivoRequestTransfer();
         $mailTransfer = $this->mapMailTransferToOptivoRequestTransfer($mailTransfer, $requestTransfer);

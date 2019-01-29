@@ -15,6 +15,21 @@ use SprykerEco\Zed\Optivo\OptivoConfig;
 
 abstract class AbstractCustomerMapper implements CustomerMapperInterface
 {
+    protected const URL_LOGIN = '/login';
+    protected const KEY_EMAIL = 'bmRecipientId';
+    protected const KEY_OPT_IN_ID = 'bmOptInId';
+    protected const KEY_MAILING_ID = 'bmMailingId';
+    protected const KEY_SALUTATION = 'salutation';
+    protected const KEY_FIRST_NAME = 'firstname';
+    protected const KEY_LAST_NAME = 'lastname';
+    protected const KEY_SPRYKER_ID = 'spryker_id';
+    protected const KEY_CUSTOMER_SHOP_LOCALE = 'customer_shop_locale';
+    protected const KEY_CUSTOMER_SHOP_URL = 'customer_shop_url';
+    protected const KEY_CUSTOMER_LOGIN_URL = 'customer_login_url';
+    protected const KEY_CUSTOMER_RESET_LINK = 'customer_reset_link';
+    protected const KEY_CUSTOMER_SUBSCRIBER_KEY = 'subscriber_key';
+    protected const KEY_REMOVE_ID = 'bmRemoveId';
+
     /**
      * @var \SprykerEco\Zed\Optivo\OptivoConfig
      */
@@ -59,14 +74,24 @@ abstract class AbstractCustomerMapper implements CustomerMapperInterface
      */
     protected function getLocale(?CustomerTransfer $customerTransfer): string
     {
-        $localeName = '';
-
-        if ($customerTransfer !== null && $customerTransfer->getLocale() !== null) {
-            $localeName = $customerTransfer->getLocale()->getLocaleName();
+        if ($customerTransfer !== null &&
+            $customerTransfer->getLocale() !== null &&
+            $customerTransfer->getLocale()->getLocaleName() !== null) {
+            return $this->getLocaleShortName($customerTransfer->getLocale()->getLocaleName());
         }
 
-        if ($localeName === '') {
-            $localeName = $this->localeFacade->getCurrentLocaleName();
+        return $this->getLocaleShortName($this->localeFacade->getLocaleName());
+    }
+
+    /**
+     * @param string|null $localeName
+     *
+     * @return string
+     */
+    protected function getLocaleShortName(?string $localeName): string
+    {
+        if ($localeName === null) {
+            return '';
         }
 
         return (string)array_search($localeName, Store::getInstance()->getLocales());

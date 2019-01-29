@@ -30,7 +30,7 @@ class OptivoShippingConfirmationPlugin extends AbstractCommand implements Comman
      */
     public function run(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): array
     {
-        $this->getFacade()->handleShippingConfirmationEvent($orderEntity->getIdSalesOrder());
+        $this->getFacade()->mailShippingConfirmationEvent($orderEntity->getIdSalesOrder());
 
         return [];
     }

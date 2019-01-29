@@ -19,9 +19,9 @@ use Spryker\Zed\Mail\Dependency\Plugin\MailProviderPluginInterface;
 class OptivoNewsletterSubscriptionMailPlugin extends AbstractPlugin implements MailProviderPluginInterface
 {
     /**
-     * @api
-     *
      * {@inheritdoc}
+     *
+     * @api
      *
      * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
      *
@@ -29,6 +29,6 @@ class OptivoNewsletterSubscriptionMailPlugin extends AbstractPlugin implements M
      */
     public function sendMail(MailTransfer $mailTransfer): void
     {
-        $this->getFacade()->handleNewsletterSubscription($mailTransfer);
+        $this->getFacade()->mailNewsletterSubscription($mailTransfer);
     }
 }

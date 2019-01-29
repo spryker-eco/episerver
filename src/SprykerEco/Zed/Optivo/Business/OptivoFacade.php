@@ -24,11 +24,11 @@ class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
      *
      * @return void
      */
-    public function handleNewOrderEvent(int $idSalesOrder): void
+    public function mailNewOrderEvent(int $idSalesOrder): void
     {
         $this->getFactory()
-            ->createNewOrderEventHandler()
-            ->handle($idSalesOrder);
+            ->createNewOrderEventMailer()
+            ->mail($idSalesOrder);
     }
 
     /**
@@ -40,11 +40,11 @@ class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
      *
      * @return void
      */
-    public function handleOrderCanceledEvent(int $idSalesOrder): void
+    public function mailOrderCanceledEvent(int $idSalesOrder): void
     {
         $this->getFactory()
-            ->createOrderCancelledEventHandler()
-            ->handle($idSalesOrder);
+            ->createOrderCancelledEventMailer()
+            ->mail($idSalesOrder);
     }
 
     /**
@@ -56,11 +56,11 @@ class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
      *
      * @return void
      */
-    public function handlePaymentNotReceivedEvent(int $idSalesOrder): void
+    public function mailPaymentNotReceivedEvent(int $idSalesOrder): void
     {
         $this->getFactory()
-            ->createPaymentNotReceivedEventHandler()
-            ->handle($idSalesOrder);
+            ->createPaymentNotReceivedEventMailer()
+            ->mail($idSalesOrder);
     }
 
     /**
@@ -72,11 +72,11 @@ class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
      *
      * @return void
      */
-    public function handleShippingConfirmationEvent(int $idSalesOrder): void
+    public function mailShippingConfirmationEvent(int $idSalesOrder): void
     {
         $this->getFactory()
-            ->createShippingConfirmationEventHandler()
-            ->handle($idSalesOrder);
+            ->createShippingConfirmationEventMailer()
+            ->mail($idSalesOrder);
     }
 
     /**
@@ -88,11 +88,11 @@ class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
      *
      * @return void
      */
-    public function handleCustomerEvent(MailTransfer $mailTransfer): void
+    public function mailCustomerEvent(MailTransfer $mailTransfer): void
     {
         $this->getFactory()
-            ->createCustomerEventHandler()
-            ->handle($mailTransfer);
+            ->createCustomerEventMailer()
+            ->mail($mailTransfer);
     }
 
     /**
@@ -104,10 +104,10 @@ class OptivoFacade extends AbstractFacade implements OptivoFacadeInterface
      *
      * @return void
      */
-    public function handleNewsletterSubscription(MailTransfer $mailTransfer): void
+    public function mailNewsletterSubscription(MailTransfer $mailTransfer): void
     {
         $this->getFactory()
-            ->createNewsletterSubscriptionEventHandler()
-            ->handle($mailTransfer);
+            ->createNewsletterSubscriptionEventMailer()
+            ->mail($mailTransfer);
     }
 }

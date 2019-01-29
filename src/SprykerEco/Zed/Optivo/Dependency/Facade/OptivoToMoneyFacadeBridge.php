@@ -25,13 +25,14 @@ class OptivoToMoneyFacadeBridge implements OptivoToMoneyFacadeInterface
     }
 
     /**
-     * @param int $value
+     * @param int $amount
+     * @param string|null $isoCode
      *
      * @return \Generated\Shared\Transfer\MoneyTransfer
      */
-    public function fromInteger(int $value): MoneyTransfer
+    public function fromInteger($amount, $isoCode = null)
     {
-        return $this->moneyFacade->fromInteger($value);
+        return $this->moneyFacade->fromInteger($amount);
     }
 
     /**
@@ -39,7 +40,7 @@ class OptivoToMoneyFacadeBridge implements OptivoToMoneyFacadeInterface
      *
      * @return string
      */
-    public function formatWithSymbol(MoneyTransfer $moneyTransfer): string
+    public function formatWithSymbol(MoneyTransfer $moneyTransfer)
     {
         return $this->moneyFacade->formatWithSymbol($moneyTransfer);
     }

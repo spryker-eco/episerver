@@ -12,5 +12,5 @@ interface OptivoToLocaleFacadeInterface
     /**
      * @return string|null
      */
-    public function getCurrentLocaleName(): ?string;
+    public function getLocaleName(): ?string;
 }

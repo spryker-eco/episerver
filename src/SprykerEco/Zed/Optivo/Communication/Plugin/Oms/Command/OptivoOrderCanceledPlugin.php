@@ -30,7 +30,7 @@ class OptivoOrderCanceledPlugin extends AbstractCommand implements CommandByOrde
      */
     public function run(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): array
     {
-        $this->getFacade()->handleOrderCanceledEvent($orderEntity->getIdSalesOrder());
+        $this->getFacade()->mailOrderCanceledEvent($orderEntity->getIdSalesOrder());
 
         return [];
     }

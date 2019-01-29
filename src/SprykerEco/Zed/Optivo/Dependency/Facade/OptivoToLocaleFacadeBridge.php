@@ -25,7 +25,7 @@ class OptivoToLocaleFacadeBridge implements OptivoToLocaleFacadeInterface
     /**
      * @return string|null
      */
-    public function getCurrentLocaleName(): ?string
+    public function getLocaleName(): ?string
     {
         return $this->localeFacade->getCurrentLocale()->getLocaleName();
     }

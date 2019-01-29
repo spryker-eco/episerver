@@ -7,8 +7,6 @@
 
 namespace SprykerEco\Zed\Optivo\Dependency\Facade;
 
-use Generated\Shared\Transfer\OrderTransfer;
-
 interface OptivoToSalesFacadeInterface
 {
     /**
@@ -16,5 +14,5 @@ interface OptivoToSalesFacadeInterface
      *
      * @return \Generated\Shared\Transfer\OrderTransfer
      */
-    public function getOrderByIdSalesOrder(int $idOrder): OrderTransfer;
+    public function getOrderByIdSalesOrder(int $idOrder);
 }

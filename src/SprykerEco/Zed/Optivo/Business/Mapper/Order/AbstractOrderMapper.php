@@ -10,6 +10,7 @@ namespace SprykerEco\Zed\Optivo\Business\Mapper\Order;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\OptivoRequestTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
+use Spryker\Shared\Kernel\Store;
 use Spryker\Shared\Shipment\ShipmentConstants;
 use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToLocaleFacadeInterface;
 use SprykerEco\Zed\Optivo\Dependency\Facade\OptivoToMoneyFacadeInterface;
@@ -158,14 +159,26 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
      */
     protected function getLocale(?CustomerTransfer $customerTransfer): string
     {
-        $isCustomerLocaleName = $customerTransfer !== null &&
+        if ($customerTransfer !== null &&
             $customerTransfer->getLocale() !== null &&
-            $customerTransfer->getLocale()->getLocaleName() !== null;
-
-        if ($isCustomerLocaleName) {
-            return $customerTransfer->getLocale()->getLocaleName();
+            $customerTransfer->getLocale()->getLocaleName() !== null) {
+            return $this->getLocaleShortName($customerTransfer->getLocale()->getLocaleName());
         }
 
-        return (string)$this->localeFacade->getCurrentLocaleName();
+        return $this->getLocaleShortName($this->localeFacade->getLocaleName());
+    }
+
+    /**
+     * @param string|null $localeName
+     *
+     * @return string
+     */
+    protected function getLocaleShortName(?string $localeName): string
+    {
+        if ($localeName === null) {
+            return '';
+        }
+
+        return (string)array_search($localeName, Store::getInstance()->getLocales());
     }
 }

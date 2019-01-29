@@ -7,12 +7,12 @@
 
 namespace SprykerEco\Zed\Optivo\Business\Handler\Order;
 
-interface OrderEventHandlerInterface
+interface OrderEventMailerInterface
 {
     /**
      * @param int $idSalesOrder
      *
      * @return void
      */
-    public function handle(int $idSalesOrder): void;
+    public function mail(int $idSalesOrder): void;
 }

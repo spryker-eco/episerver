@@ -9,12 +9,12 @@ namespace SprykerEco\Zed\Optivo\Business\Handler\Customer;
 
 use Generated\Shared\Transfer\MailTransfer;
 
-interface CustomerEventHandlerInterface
+interface CustomerEventMailerInterface
 {
     /**
      * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
      *
      * @return void
      */
-    public function handle(MailTransfer $mailTransfer): void;
+    public function mail(MailTransfer $mailTransfer): void;
 }
