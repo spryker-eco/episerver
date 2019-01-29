@@ -20,8 +20,8 @@ use SprykerEco\Zed\Episerver\Business\Api\Adapter\EpiserverApiAdapterInterface;
 use SprykerEco\Zed\Episerver\Business\EpiserverBusinessFactory;
 use SprykerEco\Zed\Episerver\Business\EpiserverFacade;
 use SprykerEco\Zed\Episerver\Business\EpiserverFacadeInterface;
-use SprykerEco\Zed\Episerver\Business\Handler\Customer\CustomerEventHandlerInterface;
-use SprykerEco\Zed\Episerver\Business\Handler\Order\OrderEventHandlerInterface;
+use SprykerEco\Zed\Episerver\Business\Handler\Customer\CustomerEventMailerInterface;
+use SprykerEco\Zed\Episerver\Business\Handler\Order\OrderEventMailerInterface;
 use SprykerEco\Zed\Episerver\Business\Mapper\Order\OrderMapperInterface;
 use SprykerEco\Zed\Episerver\Dependency\Facade\EpiserverToSalesFacadeInterface;
 
@@ -41,7 +41,7 @@ class EpiserverFacadeTest extends Unit
         $facade = $this->prepareFacade();
 
         try {
-            $facade->handleCustomerEvent($this->prepareMailTransfer());
+            $facade->mailCustomerEvent($this->prepareMailTransfer());
         } catch (Exception $exception) {
             $this->fail($exception->getMessage());
         }
@@ -55,7 +55,7 @@ class EpiserverFacadeTest extends Unit
         $facade = $this->prepareFacade();
 
         try {
-            $facade->handleNewsletterSubscription($this->prepareMailTransfer());
+            $facade->mailNewsletterSubscription($this->prepareMailTransfer());
         } catch (Exception $exception) {
             $this->fail($exception->getMessage());
         }
@@ -69,7 +69,7 @@ class EpiserverFacadeTest extends Unit
         $facade = $this->prepareFacade();
 
         try {
-            $facade->handleShippingConfirmationEvent(1);
+            $facade->mailShippingConfirmationEvent(1);
         } catch (Exception $exception) {
             $this->fail($exception->getMessage());
         }
@@ -83,7 +83,7 @@ class EpiserverFacadeTest extends Unit
         $facade = $this->prepareFacade();
 
         try {
-            $facade->handlePaymentNotReceivedEvent(1);
+            $facade->mailPaymentNotReceivedEvent(1);
         } catch (Exception $exception) {
             $this->fail($exception->getMessage());
         }
@@ -97,7 +97,7 @@ class EpiserverFacadeTest extends Unit
         $facade = $this->prepareFacade();
 
         try {
-            $facade->handleOrderCanceledEvent(1);
+            $facade->mailOrderCanceledEvent(1);
         } catch (Exception $exception) {
             $this->fail($exception->getMessage());
         }
@@ -111,7 +111,7 @@ class EpiserverFacadeTest extends Unit
         $facade = $this->prepareFacade();
 
         try {
-            $facade->handleNewOrderEvent(1);
+            $facade->mailNewOrderEvent(1);
         } catch (Exception $exception) {
             $this->fail($exception->getMessage());
         }
@@ -143,31 +143,31 @@ class EpiserverFacadeTest extends Unit
     {
         $factory = $this->getMockBuilder(EpiserverBusinessFactory::class)
             ->setMethods([
-                'createShippingConfirmationEventHandler',
-                'createPaymentNotReceivedEventHandler',
-                'createOrderCancelledEventHandler',
-                'createNewOrderEventHandler',
-                'createCustomerEventHandler',
-                'createNewsletterSubscriptionEventHandler',
+                'createShippingConfirmationEventMailer',
+                'createPaymentNotReceivedEventMailer',
+                'createOrderCancelledEventMailer',
+                'createNewOrderEventMailer',
+                'createCustomerEventMailer',
+                'createNewsletterSubscriptionEventMailer',
             ])
             ->getMock();
 
-        $factory->method('createNewOrderEventHandler')->willReturn($this->createOrderEventHandlerMock());
-        $factory->method('createOrderCancelledEventHandler')->willReturn($this->createOrderEventHandlerMock());
-        $factory->method('createPaymentNotReceivedEventHandler')->willReturn($this->createOrderEventHandlerMock());
-        $factory->method('createShippingConfirmationEventHandler')->willReturn($this->createOrderEventHandlerMock());
-        $factory->method('createCustomerEventHandler')->willReturn($this->createCustomerEventHandlerMock());
-        $factory->method('createNewsletterSubscriptionEventHandler')->willReturn($this->createCustomerEventHandlerMock());
+        $factory->method('createNewOrderEventMailer')->willReturn($this->createOrderEventMailerMock());
+        $factory->method('createOrderCancelledEventMailer')->willReturn($this->createOrderEventMailerMock());
+        $factory->method('createPaymentNotReceivedEventMailer')->willReturn($this->createOrderEventMailerMock());
+        $factory->method('createShippingConfirmationEventMailer')->willReturn($this->createOrderEventMailerMock());
+        $factory->method('createCustomerEventMailer')->willReturn($this->createCustomerEventMailerMock());
+        $factory->method('createNewsletterSubscriptionEventMailer')->willReturn($this->createCustomerEventMailerMock());
 
         return $factory;
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Episerver\Business\Handler\Order\OrderEventHandlerInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Episerver\Business\Handler\Order\OrderEventMailerInterface
      */
-    protected function createOrderEventHandlerMock(): OrderEventHandlerInterface
+    protected function createOrderEventMailerMock(): OrderEventMailerInterface
     {
-        $handler = $this->getMockBuilder(OrderEventHandlerInterface::class)
+        $handler = $this->getMockBuilder(OrderEventMailerInterface::class)
             ->disableOriginalConstructor()
             ->setConstructorArgs([$this->createOrderMapperMock(), $this->createAdapterMock(), $this->createSalesFacadeMock()])
             ->enableOriginalConstructor()
@@ -230,11 +230,11 @@ class EpiserverFacadeTest extends Unit
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Episerver\Business\Handler\Customer\CustomerEventHandlerInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Episerver\Business\Handler\Customer\CustomerEventMailerInterface
      */
-    protected function createCustomerEventHandlerMock(): CustomerEventHandlerInterface
+    protected function createCustomerEventMailerMock(): CustomerEventMailerInterface
     {
-        $handler = $this->getMockBuilder(CustomerEventHandlerInterface::class)
+        $handler = $this->getMockBuilder(CustomerEventMailerInterface::class)
             ->disableOriginalConstructor()
             ->setConstructorArgs([$this->createCustomerMapperMock(), $this->createAdapterMock()])
             ->enableOriginalConstructor()
