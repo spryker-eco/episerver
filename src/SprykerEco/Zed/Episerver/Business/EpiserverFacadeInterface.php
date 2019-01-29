@@ -13,8 +13,8 @@ interface EpiserverFacadeInterface
 {
     /**
      * Specification:
-     * - Receives the IdSalesOrder
-     * - Sends the request to Episerver API
+     * - Retrieves OrderTransfer based on idSalesOrder
+     * - Prepares and sends “newOrder” request to Episerver API
      *
      * @api
      *
@@ -26,8 +26,8 @@ interface EpiserverFacadeInterface
 
     /**
      * Specification:
-     * - Receives the IdSalesOrder
-     * - Sends the request to Episerver API
+     * - Retrieves OrderTransfer based on idSalesOrder
+     * - Prepares and sends “orderCanceled” request to Episerver API
      *
      * @api
      *
@@ -39,8 +39,8 @@ interface EpiserverFacadeInterface
 
     /**
      * Specification:
-     * - Receives the IdSalesOrder
-     * - Sends the request to Episerver API
+     * - Retrieves OrderTransfer based on idSalesOrder
+     * - Prepares and sends “paymentNotReceived” request to Episerver API
      *
      * @api
      *
@@ -52,8 +52,8 @@ interface EpiserverFacadeInterface
 
     /**
      * Specification:
-     * - Receives the IdSalesOrder
-     * - Sends the request to Episerver API
+     * - Retrieves OrderTransfer based on idSalesOrder
+     * - Prepares and sends “shippingConfirmation” request to Episerver API
      *
      * @api
      *
@@ -65,8 +65,8 @@ interface EpiserverFacadeInterface
 
     /**
      * Specification:
-     * - Receives the fully configured MailTransfer
-     * - Sends the request to Episerver API
+     * - Retrieves OrderTransfer based on the fully configured MailTransfer
+     * - Prepares and sends “customerLogin” request to Episerver API
      *
      * @api
      *
@@ -78,8 +78,8 @@ interface EpiserverFacadeInterface
 
     /**
      * Specification:
-     * - Receives the fully configured MailTransfer
-     * - Sends the request to Episerver API
+     * - Retrieves OrderTransfer based on the fully configured MailTransfer
+     * - Prepares and sends “customerNewsletterSubscription” request to Episerver API
      *
      * @api
      *
