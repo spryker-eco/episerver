@@ -15,6 +15,8 @@ use Spryker\Zed\Mail\Dependency\Plugin\MailProviderPluginInterface;
  * @method \SprykerEco\Zed\Episerver\Business\EpiserverFacadeInterface getFacade()
  * @method \SprykerEco\Zed\Episerver\Business\EpiserverBusinessFactory getFactory()
  * @method \SprykerEco\Zed\Episerver\EpiserverConfig getConfig()
+ *
+ * @SuppressWarnings(PHPMD.NewPluginExtensionModuleRule)
  */
 class EpiserverCustomerMailPlugin extends AbstractPlugin implements MailProviderPluginInterface
 {
