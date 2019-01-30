@@ -10,6 +10,8 @@ namespace SprykerEco\Zed\Episerver\Dependency\Facade;
 interface EpiserverToLocaleFacadeInterface
 {
     /**
+     * @module Locale|Money|Product
+     *
      * @return string|null
      */
     public function getLocaleName();
