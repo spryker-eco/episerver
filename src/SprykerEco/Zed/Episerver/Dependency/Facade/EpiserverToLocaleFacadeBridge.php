@@ -23,12 +23,10 @@ class EpiserverToLocaleFacadeBridge implements EpiserverToLocaleFacadeInterface
     }
 
     /**
-     * @module Locale|Money|Product
-     *
-     * @return string|null
+     * @return string
      */
-    public function getLocaleName()
+    public function getCurrentLocaleName()
     {
-        return $this->localeFacade->getCurrentLocale()->getLocaleName();
+        return $this->localeFacade->getCurrentLocaleName();
     }
 }

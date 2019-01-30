@@ -80,20 +80,16 @@ abstract class AbstractCustomerMapper implements CustomerMapperInterface
             return $this->getLocaleShortName($customerTransfer->getLocale()->getLocaleName());
         }
 
-        return $this->getLocaleShortName($this->localeFacade->getLocaleName());
+        return $this->getLocaleShortName($this->localeFacade->getCurrentLocaleName());
     }
 
     /**
-     * @param string|null $localeName
+     * @param string $localeName
      *
      * @return string
      */
-    protected function getLocaleShortName(?string $localeName): string
+    protected function getLocaleShortName(string $localeName): string
     {
-        if ($localeName === null) {
-            return '';
-        }
-
         return (string)array_search($localeName, Store::getInstance()->getLocales());
     }
 }
