@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <episerver>
+        <label>Episerver</label>
+        <title>Episerver</title>
+        <bundle>episerver</bundle>
+        <controller>index</controller>
+        <action>index</action>
+    </episerver>
+</config>

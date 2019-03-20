@@ -1,6 +1,6 @@
 {
-  "name": "spryker-eco/optivo",
-  "description": "Optivo Module",
+  "name": "spryker-eco/episerver",
+  "description": "Episerver module",
   "require": {
     "php": ">=7.1",
     "spryker/kernel": "^3.0.0",
