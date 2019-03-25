@@ -33,7 +33,7 @@ class EpiserverDependencyProvider extends AbstractBundleDependencyProvider
         $container = $this->addFacadeMoney($container);
         $container = $this->addFacadeLocale($container);
         $container = $this->addFacadeSales($container);
-        $container = $this->addStoreFacade($container);
+        $container = $this->addStore($container);
 
         return $container;
     }
@@ -85,7 +85,7 @@ class EpiserverDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addStoreFacade(Container $container): Container
+    protected function addStore(Container $container): Container
     {
         $container[static::STORE] = function (Container $container) {
             return Store::getInstance();
