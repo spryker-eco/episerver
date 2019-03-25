@@ -52,7 +52,7 @@ class CustomerMapper extends AbstractCustomerMapper
         }
 
         if ($mailTransfer->getType() !== null) {
-            $payload[static::KEY_MAILING_ID] = $this->getMailingId($mailTransfer->getType());
+            $payload[static::KEY_MAILING_ID] = $this->getMailingIdByMailType($mailTransfer->getType());
         }
 
         return $payload;

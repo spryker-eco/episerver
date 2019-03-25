@@ -41,13 +41,23 @@ abstract class AbstractCustomerMapper implements CustomerMapperInterface
     protected $localeFacade;
 
     /**
+     * @var
+     */
+    protected $store;
+
+    /**
      * @param \SprykerEco\Zed\Episerver\EpiserverConfig $config
      * @param \SprykerEco\Zed\Episerver\Dependency\Facade\EpiserverToLocaleFacadeInterface $localeFacade
+     * @param \Spryker\Shared\Kernel\Store $store
      */
-    public function __construct(EpiserverConfig $config, EpiserverToLocaleFacadeInterface $localeFacade)
-    {
+    public function __construct(
+        EpiserverConfig $config,
+        EpiserverToLocaleFacadeInterface $localeFacade,
+        Store $store
+    ) {
         $this->config = $config;
         $this->localeFacade = $localeFacade;
+        $this->store = $store;
     }
 
     /**
@@ -62,7 +72,7 @@ abstract class AbstractCustomerMapper implements CustomerMapperInterface
      *
      * @return string|null
      */
-    protected function getMailingId(string $mailTypeName): ?string
+    protected function getMailingIdByMailType(string $mailTypeName): ?string
     {
         return $this->config->getMailingIdByMailingTypeName($mailTypeName);
     }
@@ -90,6 +100,6 @@ abstract class AbstractCustomerMapper implements CustomerMapperInterface
      */
     protected function getLocaleShortName(string $localeName): string
     {
-        return (string)array_search($localeName, Store::getInstance()->getLocales());
+        return (string)array_search($localeName, $this->store->getLocales());
     }
 }

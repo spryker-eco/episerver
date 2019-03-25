@@ -51,7 +51,7 @@ class CustomerNewsletterMapper extends AbstractCustomerMapper
         $optInId = null;
 
         if ($mailTransfer->getType() !== null) {
-            $optInId = $this->getMailingId($mailTransfer->getType());
+            $optInId = $this->getMailingIdByMailType($mailTransfer->getType());
         }
 
         if ($optInId !== null) {

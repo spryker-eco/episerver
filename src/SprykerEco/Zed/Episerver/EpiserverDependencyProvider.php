@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\Episerver;
 
+use Spryker\Shared\Kernel\Store;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 use SprykerEco\Zed\Episerver\Dependency\Facade\EpiserverToLocaleFacadeBridge;
@@ -18,6 +19,7 @@ class EpiserverDependencyProvider extends AbstractBundleDependencyProvider
     public const FACADE_MONEY = 'FACADE_MONEY';
     public const FACADE_LOCALE = 'FACADE_LOCALE';
     public const FACADE_SALES = 'FACADE_SALES';
+    public const STORE = 'STORE';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -31,6 +33,7 @@ class EpiserverDependencyProvider extends AbstractBundleDependencyProvider
         $container = $this->addFacadeMoney($container);
         $container = $this->addFacadeLocale($container);
         $container = $this->addFacadeSales($container);
+        $container = $this->addStoreFacade($container);
 
         return $container;
     }
@@ -72,6 +75,20 @@ class EpiserverDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::FACADE_SALES] = function (Container $container) {
             return new EpiserverToSalesFacadeBridge($container->getLocator()->sales()->facade());
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addStoreFacade(Container $container): Container
+    {
+        $container[static::STORE] = function (Container $container) {
+            return Store::getInstance();
         };
 
         return $container;

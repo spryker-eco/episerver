@@ -9,7 +9,6 @@ namespace SprykerEco\Zed\Episerver\Business\Api\Adapter\Http;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 use SprykerEco\Zed\Episerver\Business\Exception\ApiHttpRequestException;
 use SprykerEco\Zed\Episerver\EpiserverConfig;
@@ -28,14 +27,12 @@ class GuzzleAdapter implements HttpAdapterInterface
 
     /**
      * @param \SprykerEco\Zed\Episerver\EpiserverConfig $config
+     * @param \GuzzleHttp\Client $client
      */
-    public function __construct(EpiserverConfig $config)
+    public function __construct(EpiserverConfig $config, Client $client)
     {
         $this->config = $config;
-
-        $this->client = new Client([
-            RequestOptions::TIMEOUT => $this->config->getRequestTimeout(),
-        ]);
+        $this->client = $client;
     }
 
     /**
