@@ -30,7 +30,7 @@ class EpiserverOrderCanceledPlugin extends AbstractCommand implements CommandByO
      */
     public function run(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): array
     {
-        $this->getFacade()->mailOrderCanceledEvent($orderEntity->getIdSalesOrder());
+        $this->getFacade()->sendOrderCanceledEventMail($orderEntity->getIdSalesOrder());
 
         return [];
     }
