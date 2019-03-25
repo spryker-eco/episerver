@@ -41,7 +41,7 @@ abstract class AbstractCustomerMapper implements CustomerMapperInterface
     protected $localeFacade;
 
     /**
-     * @var
+     * @var \Spryker\Shared\Kernel\Store
      */
     protected $store;
 
