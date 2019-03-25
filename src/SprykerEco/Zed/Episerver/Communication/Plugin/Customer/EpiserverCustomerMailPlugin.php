@@ -31,6 +31,6 @@ class EpiserverCustomerMailPlugin extends AbstractPlugin implements MailProvider
      */
     public function sendMail(MailTransfer $mailTransfer): void
     {
-        $this->getFacade()->mailCustomerEvent($mailTransfer);
+        $this->getFacade()->sendCustomerEventMail($mailTransfer);
     }
 }

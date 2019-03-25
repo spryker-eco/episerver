@@ -24,7 +24,7 @@ class EpiserverFacade extends AbstractFacade implements EpiserverFacadeInterface
      *
      * @return void
      */
-    public function mailNewOrderEvent(int $idSalesOrder): void
+    public function sendNewOrderEventMail(int $idSalesOrder): void
     {
         $this->getFactory()
             ->createNewOrderEventMailer()
@@ -40,7 +40,7 @@ class EpiserverFacade extends AbstractFacade implements EpiserverFacadeInterface
      *
      * @return void
      */
-    public function mailOrderCanceledEvent(int $idSalesOrder): void
+    public function sendOrderCanceledEventMail(int $idSalesOrder): void
     {
         $this->getFactory()
             ->createOrderCancelledEventMailer()
@@ -56,7 +56,7 @@ class EpiserverFacade extends AbstractFacade implements EpiserverFacadeInterface
      *
      * @return void
      */
-    public function mailPaymentNotReceivedEvent(int $idSalesOrder): void
+    public function sendPaymentNotReceivedEventMail(int $idSalesOrder): void
     {
         $this->getFactory()
             ->createPaymentNotReceivedEventMailer()
@@ -72,7 +72,7 @@ class EpiserverFacade extends AbstractFacade implements EpiserverFacadeInterface
      *
      * @return void
      */
-    public function mailShippingConfirmationEvent(int $idSalesOrder): void
+    public function sendShippingConfirmationEventMail(int $idSalesOrder): void
     {
         $this->getFactory()
             ->createShippingConfirmationEventMailer()
@@ -88,7 +88,7 @@ class EpiserverFacade extends AbstractFacade implements EpiserverFacadeInterface
      *
      * @return void
      */
-    public function mailCustomerEvent(MailTransfer $mailTransfer): void
+    public function sendCustomerEventMail(MailTransfer $mailTransfer): void
     {
         $this->getFactory()
             ->createCustomerEventMailer()
@@ -104,7 +104,7 @@ class EpiserverFacade extends AbstractFacade implements EpiserverFacadeInterface
      *
      * @return void
      */
-    public function mailNewsletterSubscription(MailTransfer $mailTransfer): void
+    public function sendNewsletterSubscriptionMail(MailTransfer $mailTransfer): void
     {
         $this->getFactory()
             ->createNewsletterSubscriptionEventMailer()

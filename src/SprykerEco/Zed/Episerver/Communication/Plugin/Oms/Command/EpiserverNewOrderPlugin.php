@@ -29,7 +29,7 @@ class EpiserverNewOrderPlugin extends AbstractCommand implements CommandByOrderI
      */
     public function run(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): array
     {
-        $this->getFacade()->mailNewOrderEvent($orderEntity->getIdSalesOrder());
+        $this->getFacade()->sendNewOrderEventMail($orderEntity->getIdSalesOrder());
 
         return [];
     }

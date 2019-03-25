@@ -34,18 +34,26 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
     protected $localeFacade;
 
     /**
+     * @var \Spryker\Shared\Kernel\Store
+     */
+    protected $store;
+
+    /**
      * @param \SprykerEco\Zed\Episerver\EpiserverConfig $config
      * @param \SprykerEco\Zed\Episerver\Dependency\Facade\EpiserverToMoneyFacadeInterface $moneyFacade
      * @param \SprykerEco\Zed\Episerver\Dependency\Facade\EpiserverToLocaleFacadeInterface $localeFacade
+     * @param \Spryker\Shared\Kernel\Store $store
      */
     public function __construct(
         EpiserverConfig $config,
         EpiserverToMoneyFacadeInterface $moneyFacade,
-        EpiserverToLocaleFacadeInterface $localeFacade
+        EpiserverToLocaleFacadeInterface $localeFacade,
+        Store $store
     ) {
         $this->config = $config;
         $this->moneyFacade = $moneyFacade;
         $this->localeFacade = $localeFacade;
+        $this->store = $store;
     }
 
     /**
@@ -175,6 +183,6 @@ abstract class AbstractOrderMapper implements OrderMapperInterface
      */
     protected function getLocaleShortName(string $localeName): string
     {
-        return (string)array_search($localeName, Store::getInstance()->getLocales());
+        return (string)array_search($localeName, $this->store->getLocales());
     }
 }

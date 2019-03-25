@@ -30,7 +30,7 @@ class EpiserverPaymentNotReceivedPlugin extends AbstractCommand implements Comma
      */
     public function run(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): array
     {
-        $this->getFacade()->mailPaymentNotReceivedEvent($orderEntity->getIdSalesOrder());
+        $this->getFacade()->sendPaymentNotReceivedEventMail($orderEntity->getIdSalesOrder());
 
         return [];
     }

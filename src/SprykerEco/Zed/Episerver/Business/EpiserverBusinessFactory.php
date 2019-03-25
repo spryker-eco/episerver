@@ -7,6 +7,9 @@
 
 namespace SprykerEco\Zed\Episerver\Business;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
+use Spryker\Shared\Kernel\Store;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use SprykerEco\Zed\Episerver\Business\Api\Adapter\EpiserverApiAdapter;
 use SprykerEco\Zed\Episerver\Business\Api\Adapter\EpiserverApiAdapterInterface;
@@ -147,7 +150,20 @@ class EpiserverBusinessFactory extends AbstractBusinessFactory
      */
     public function createGuzzleAdapter(): HttpAdapterInterface
     {
-        return new GuzzleAdapter($this->getConfig());
+        return new GuzzleAdapter(
+            $this->getConfig(),
+            $this->createHttpClient()
+        );
+    }
+
+    /**
+     * @return \GuzzleHttp\Client
+     */
+    public function createHttpClient(): Client
+    {
+        return new Client([
+            RequestOptions::TIMEOUT => $this->getConfig()->getRequestTimeout(),
+        ]);
     }
 
     /**
@@ -167,7 +183,11 @@ class EpiserverBusinessFactory extends AbstractBusinessFactory
      */
     public function createCustomerMapper(): CustomerMapperInterface
     {
-        return new CustomerMapper($this->getConfig(), $this->getLocaleFacade());
+        return new CustomerMapper(
+            $this->getConfig(),
+            $this->getLocaleFacade(),
+            $this->getStore()
+        );
     }
 
     /**
@@ -175,7 +195,11 @@ class EpiserverBusinessFactory extends AbstractBusinessFactory
      */
     public function createCustomerNewsletterMapper(): CustomerMapperInterface
     {
-        return new CustomerNewsletterMapper($this->getConfig(), $this->getLocaleFacade());
+        return new CustomerNewsletterMapper(
+            $this->getConfig(),
+            $this->getLocaleFacade(),
+            $this->getStore()
+        );
     }
 
     /**
@@ -183,7 +207,12 @@ class EpiserverBusinessFactory extends AbstractBusinessFactory
      */
     public function createNewOrderMapper(): OrderMapperInterface
     {
-        return new NewOrderMapper($this->getConfig(), $this->getMoneyFacade(), $this->getLocaleFacade());
+        return new NewOrderMapper(
+            $this->getConfig(),
+            $this->getMoneyFacade(),
+            $this->getLocaleFacade(),
+            $this->getStore()
+        );
     }
 
     /**
@@ -191,7 +220,12 @@ class EpiserverBusinessFactory extends AbstractBusinessFactory
      */
     public function createPaymentNotReceivedMapper(): OrderMapperInterface
     {
-        return new PaymentNotReceivedMapper($this->getConfig(), $this->getMoneyFacade(), $this->getLocaleFacade());
+        return new PaymentNotReceivedMapper(
+            $this->getConfig(),
+            $this->getMoneyFacade(),
+            $this->getLocaleFacade(),
+            $this->getStore()
+        );
     }
 
     /**
@@ -199,7 +233,12 @@ class EpiserverBusinessFactory extends AbstractBusinessFactory
      */
     public function createShippingConfirmationMapper(): OrderMapperInterface
     {
-        return new ShippingConfirmationMapper($this->getConfig(), $this->getMoneyFacade(), $this->getLocaleFacade());
+        return new ShippingConfirmationMapper(
+            $this->getConfig(),
+            $this->getMoneyFacade(),
+            $this->getLocaleFacade(),
+            $this->getStore()
+        );
     }
 
     /**
@@ -207,6 +246,19 @@ class EpiserverBusinessFactory extends AbstractBusinessFactory
      */
     public function createOrderCancelledMapper(): OrderMapperInterface
     {
-        return new OrderCanceledMapper($this->getConfig(), $this->getMoneyFacade(), $this->getLocaleFacade());
+        return new OrderCanceledMapper(
+            $this->getConfig(),
+            $this->getMoneyFacade(),
+            $this->getLocaleFacade(),
+            $this->getStore()
+        );
+    }
+
+    /**
+     * @return \Spryker\Shared\Kernel\Store
+     */
+    public function getStore(): Store
+    {
+        return $this->getProvidedDependency(EpiserverDependencyProvider::STORE);
     }
 }

@@ -31,6 +31,6 @@ class EpiserverNewsletterSubscriptionMailPlugin extends AbstractPlugin implement
      */
     public function sendMail(MailTransfer $mailTransfer): void
     {
-        $this->getFacade()->mailNewsletterSubscription($mailTransfer);
+        $this->getFacade()->sendNewsletterSubscriptionMail($mailTransfer);
     }
 }

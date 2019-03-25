@@ -30,7 +30,7 @@ class EpiserverShippingConfirmationPlugin extends AbstractCommand implements Com
      */
     public function run(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): array
     {
-        $this->getFacade()->mailShippingConfirmationEvent($orderEntity->getIdSalesOrder());
+        $this->getFacade()->sendShippingConfirmationEventMail($orderEntity->getIdSalesOrder());
 
         return [];
     }

@@ -41,7 +41,7 @@ class EpiserverFacadeTest extends Unit
         $facade = $this->prepareFacade();
 
         try {
-            $facade->mailCustomerEvent($this->prepareMailTransfer());
+            $facade->sendCustomerEventMail($this->prepareMailTransfer());
         } catch (Exception $exception) {
             $this->fail($exception->getMessage());
         }
@@ -55,7 +55,7 @@ class EpiserverFacadeTest extends Unit
         $facade = $this->prepareFacade();
 
         try {
-            $facade->mailNewsletterSubscription($this->prepareMailTransfer());
+            $facade->sendNewsletterSubscriptionMail($this->prepareMailTransfer());
         } catch (Exception $exception) {
             $this->fail($exception->getMessage());
         }
@@ -69,7 +69,7 @@ class EpiserverFacadeTest extends Unit
         $facade = $this->prepareFacade();
 
         try {
-            $facade->mailShippingConfirmationEvent(1);
+            $facade->sendShippingConfirmationEventMail(1);
         } catch (Exception $exception) {
             $this->fail($exception->getMessage());
         }
@@ -83,7 +83,7 @@ class EpiserverFacadeTest extends Unit
         $facade = $this->prepareFacade();
 
         try {
-            $facade->mailPaymentNotReceivedEvent(1);
+            $facade->sendPaymentNotReceivedEventMail(1);
         } catch (Exception $exception) {
             $this->fail($exception->getMessage());
         }
@@ -97,7 +97,7 @@ class EpiserverFacadeTest extends Unit
         $facade = $this->prepareFacade();
 
         try {
-            $facade->mailOrderCanceledEvent(1);
+            $facade->sendOrderCanceledEventMail(1);
         } catch (Exception $exception) {
             $this->fail($exception->getMessage());
         }
@@ -111,7 +111,7 @@ class EpiserverFacadeTest extends Unit
         $facade = $this->prepareFacade();
 
         try {
-            $facade->mailNewOrderEvent(1);
+            $facade->sendNewOrderEventMail(1);
         } catch (Exception $exception) {
             $this->fail($exception->getMessage());
         }
