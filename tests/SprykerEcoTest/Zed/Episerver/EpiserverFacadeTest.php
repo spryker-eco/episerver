@@ -168,9 +168,7 @@ class EpiserverFacadeTest extends Unit
     protected function createOrderEventMailerMock(): OrderEventMailerInterface
     {
         $handler = $this->getMockBuilder(OrderEventMailerInterface::class)
-            ->disableOriginalConstructor()
             ->setConstructorArgs([$this->createOrderMapperMock(), $this->createAdapterMock(), $this->createSalesFacadeMock()])
-            ->enableOriginalConstructor()
             ->setMethods(['mail'])
             ->getMock();
 
