@@ -21,7 +21,9 @@ use SprykerEco\Zed\Episerver\Business\EpiserverBusinessFactory;
 use SprykerEco\Zed\Episerver\Business\EpiserverFacade;
 use SprykerEco\Zed\Episerver\Business\EpiserverFacadeInterface;
 use SprykerEco\Zed\Episerver\Business\Handler\Customer\CustomerEventMailerInterface;
+use SprykerEco\Zed\Episerver\Business\Handler\Order\OrderEventMailer;
 use SprykerEco\Zed\Episerver\Business\Handler\Order\OrderEventMailerInterface;
+use SprykerEco\Zed\Episerver\Business\Mapper\Order\OrderMapper;
 use SprykerEco\Zed\Episerver\Business\Mapper\Order\OrderMapperInterface;
 use SprykerEco\Zed\Episerver\Dependency\Facade\EpiserverToSalesFacadeInterface;
 
@@ -167,7 +169,7 @@ class EpiserverFacadeTest extends Unit
      */
     protected function createOrderEventMailerMock(): OrderEventMailerInterface
     {
-        $handler = $this->getMockBuilder(OrderEventMailerInterface::class)
+        $handler = $this->getMockBuilder(OrderEventMailer::class)
             ->setConstructorArgs([$this->createOrderMapperMock(), $this->createAdapterMock(), $this->createSalesFacadeMock()])
             ->setMethods(['mail'])
             ->getMock();
@@ -232,7 +234,7 @@ class EpiserverFacadeTest extends Unit
      */
     protected function createCustomerEventMailerMock(): CustomerEventMailerInterface
     {
-        $handler = $this->getMockBuilder(CustomerEventMailerInterface::class)
+        $handler = $this->getMockBuilder(CustomerEventMailer::class)
             ->setConstructorArgs([$this->createCustomerMapperMock(), $this->createAdapterMock()])
             ->setMethods(['mail'])
             ->getMock();
