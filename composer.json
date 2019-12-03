@@ -2,7 +2,7 @@
   "name": "spryker-eco/episerver",
   "description": "Episerver module",
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.2",
     "spryker/kernel": "^3.0.0",
     "spryker/guzzle": "^2.2.0",
     "spryker/oms": "^8.0.0 || ^10.0.0 || ^11.0.0",
