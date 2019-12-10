@@ -142,7 +142,7 @@ class EpiserverFacadeTest extends Unit
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Episerver\Business\EpiserverBusinessFactory
      */
-    protected function createEpiserverFactoryMock(): EpiserverBusinessFactory
+    protected function createEpiserverFactoryMock()
     {
         $factory = $this->getMockBuilder(EpiserverBusinessFactory::class)
             ->onlyMethods([
@@ -162,13 +162,14 @@ class EpiserverFacadeTest extends Unit
         $factory->method('createCustomerEventMailer')->willReturn($this->createCustomerEventMailerMock());
         $factory->method('createNewsletterSubscriptionEventMailer')->willReturn($this->createCustomerEventMailerMock());
 
+
         return $factory;
     }
 
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Episerver\Business\Handler\Order\OrderEventMailerInterface
      */
-    protected function createOrderEventMailerMock(): OrderEventMailerInterface
+    protected function createOrderEventMailerMock()
     {
         $handler = $this->getMockBuilder(OrderEventMailer::class)
             ->disableOriginalConstructor()
@@ -182,7 +183,7 @@ class EpiserverFacadeTest extends Unit
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Episerver\Business\Mapper\Order\OrderMapperInterface
      */
-    protected function createOrderMapperMock(): OrderMapperInterface
+    protected function createOrderMapperMock()
     {
         $mapper = $this->getMockBuilder(OrderMapperInterface::class)
             ->disableOriginalConstructor()
@@ -197,7 +198,7 @@ class EpiserverFacadeTest extends Unit
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Episerver\Business\Api\Adapter\EpiserverApiAdapterInterface
      */
-    protected function createAdapterMock(): EpiserverApiAdapterInterface
+    protected function createAdapterMock()
     {
         return $this->getMockBuilder(EpiserverApiAdapterInterface::class)
             ->disableOriginalConstructor()
@@ -208,7 +209,7 @@ class EpiserverFacadeTest extends Unit
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Episerver\Dependency\Facade\EpiserverToSalesFacadeInterface
      */
-    protected function createSalesFacadeMock(): EpiserverToSalesFacadeInterface
+    protected function createSalesFacadeMock()
     {
         $facade = $this->getMockBuilder(EpiserverToSalesFacadeInterface::class)
             ->onlyMethods(['getOrderByIdSalesOrder'])
@@ -222,7 +223,7 @@ class EpiserverFacadeTest extends Unit
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Episerver\Business\Handler\Customer\CustomerEventMailerInterface
      */
-    protected function createCustomerEventMailerMock(): CustomerEventMailerInterface
+    protected function createCustomerEventMailerMock()
     {
         $handler = $this->getMockBuilder(CustomerEventMailer::class)
             ->disableOriginalConstructor()
@@ -236,7 +237,7 @@ class EpiserverFacadeTest extends Unit
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Episerver\Business\Mapper\Customer\CustomerMapperInterface
      */
-    protected function createCustomerMapperMock(): CustomerMapperInterface
+    protected function createCustomerMapperMock()
     {
         $mapper = $this->getMockBuilder(CustomerMapperInterface::class)
             ->disableOriginalConstructor()
