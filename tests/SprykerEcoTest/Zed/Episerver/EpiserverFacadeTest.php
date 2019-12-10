@@ -10,6 +10,7 @@ namespace SprykerEcoTest\Zed\Episerver;
 use Codeception\Test\Unit;
 use Exception;
 use Generated\Shared\Transfer\AddressTransfer;
+use Generated\Shared\Transfer\CountryTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\EpiserverRequestTransfer;
 use Generated\Shared\Transfer\MailTransfer;
@@ -144,7 +145,7 @@ class EpiserverFacadeTest extends Unit
     protected function createEpiserverFactoryMock(): EpiserverBusinessFactory
     {
         $factory = $this->getMockBuilder(EpiserverBusinessFactory::class)
-            ->setMethods([
+            ->onlyMethods([
                 'createShippingConfirmationEventMailer',
                 'createPaymentNotReceivedEventMailer',
                 'createOrderCancelledEventMailer',
@@ -172,10 +173,8 @@ class EpiserverFacadeTest extends Unit
         $handler = $this->getMockBuilder(OrderEventMailer::class)
             ->disableOriginalConstructor()
             ->setConstructorArgs([$this->createOrderMapperMock(), $this->createAdapterMock(), $this->createSalesFacadeMock()])
-            ->setMethods(['mail'])
+            ->onlyMethods(['mail'])
             ->getMock();
-
-        $handler->method('mail')->willReturn($this->createStreamInterfaceMock());
 
         return $handler;
     }
@@ -187,7 +186,7 @@ class EpiserverFacadeTest extends Unit
     {
         $mapper = $this->getMockBuilder(OrderMapperInterface::class)
             ->disableOriginalConstructor()
-            ->setMethods(['mapOrderTransferToEpiserverRequestTransfer'])
+            ->onlyMethods(['mapOrderTransferToEpiserverRequestTransfer'])
             ->getMock();
 
         $mapper->method('mapOrderTransferToEpiserverRequestTransfer')->willReturn(new EpiserverRequestTransfer());
@@ -212,22 +211,12 @@ class EpiserverFacadeTest extends Unit
     protected function createSalesFacadeMock(): EpiserverToSalesFacadeInterface
     {
         $facade = $this->getMockBuilder(EpiserverToSalesFacadeInterface::class)
-            ->setMethods(['getOrderByIdSalesOrder'])
+            ->onlyMethods(['getOrderByIdSalesOrder'])
             ->getMock();
 
         $facade->method('getOrderByIdSalesOrder')->willReturn(new OrderTransfer());
 
         return $facade;
-    }
-
-    /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\Psr\Http\Message\StreamInterface
-     */
-    protected function createStreamInterfaceMock(): StreamInterface
-    {
-        return $this->getMockBuilder(StreamInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
     }
 
     /**
@@ -238,10 +227,8 @@ class EpiserverFacadeTest extends Unit
         $handler = $this->getMockBuilder(CustomerEventMailer::class)
             ->disableOriginalConstructor()
             ->setConstructorArgs([$this->createCustomerMapperMock(), $this->createAdapterMock()])
-            ->setMethods(['mail'])
+            ->onlyMethods(['mail'])
             ->getMock();
-
-        $handler->method('mail')->willReturn($this->createStreamInterfaceMock());
 
         return $handler;
     }
@@ -253,11 +240,18 @@ class EpiserverFacadeTest extends Unit
     {
         $mapper = $this->getMockBuilder(CustomerMapperInterface::class)
             ->disableOriginalConstructor()
-            ->setMethods(['mapCustomerEntityToCustomer', 'mapCustomerAddressEntityToTransfer'])
+            ->onlyMethods([
+                'mapCustomerEntityToCustomer',
+                'mapCustomerAddressEntityToTransfer',
+                'mapCustomerAddressEntityToAddressTransfer',
+                'mapCountryEntityToCountryTransfer'
+            ])
             ->getMock();
 
         $mapper->method('mapCustomerEntityToCustomer')->willReturn(new CustomerTransfer());
         $mapper->method('mapCustomerAddressEntityToTransfer')->willReturn(new AddressTransfer());
+        $mapper->method('mapCustomerAddressEntityToAddressTransfer')->willReturn(new AddressTransfer());
+        $mapper->method('mapCountryEntityToCountryTransfer')->willReturn(new CountryTransfer());
 
         return $mapper;
     }
