@@ -10,6 +10,7 @@ namespace SprykerEcoTest\Zed\Episerver;
 use Codeception\Test\Unit;
 use Exception;
 use Generated\Shared\Transfer\AddressTransfer;
+use Generated\Shared\Transfer\CountryTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\EpiserverRequestTransfer;
 use Generated\Shared\Transfer\MailTransfer;
@@ -139,9 +140,9 @@ class EpiserverFacadeTest extends Unit
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Episerver\Business\EpiserverBusinessFactory
+     * @return \PHPUnit\Framework\MockObject\MockObject|\SprykerEco\Zed\Episerver\Business\EpiserverBusinessFactory
      */
-    protected function createEpiserverFactoryMock(): EpiserverBusinessFactory
+    protected function createEpiserverFactoryMock()
     {
         $factory = $this->getMockBuilder(EpiserverBusinessFactory::class)
             ->setMethods([
@@ -165,9 +166,9 @@ class EpiserverFacadeTest extends Unit
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Episerver\Business\Handler\Order\OrderEventMailerInterface
+     * @return \PHPUnit\Framework\MockObject\MockObject|\SprykerEco\Zed\Episerver\Business\Handler\Order\OrderEventMailerInterface
      */
-    protected function createOrderEventMailerMock(): OrderEventMailerInterface
+    protected function createOrderEventMailerMock()
     {
         $handler = $this->getMockBuilder(OrderEventMailer::class)
             ->disableOriginalConstructor()
@@ -175,15 +176,13 @@ class EpiserverFacadeTest extends Unit
             ->setMethods(['mail'])
             ->getMock();
 
-        $handler->method('mail')->willReturn($this->createStreamInterfaceMock());
-
         return $handler;
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Episerver\Business\Mapper\Order\OrderMapperInterface
+     * @return \PHPUnit\Framework\MockObject\MockObject|\SprykerEco\Zed\Episerver\Business\Mapper\Order\OrderMapperInterface
      */
-    protected function createOrderMapperMock(): OrderMapperInterface
+    protected function createOrderMapperMock()
     {
         $mapper = $this->getMockBuilder(OrderMapperInterface::class)
             ->disableOriginalConstructor()
@@ -196,9 +195,9 @@ class EpiserverFacadeTest extends Unit
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Episerver\Business\Api\Adapter\EpiserverApiAdapterInterface
+     * @return \PHPUnit\Framework\MockObject\MockObject|\SprykerEco\Zed\Episerver\Business\Api\Adapter\EpiserverApiAdapterInterface
      */
-    protected function createAdapterMock(): EpiserverApiAdapterInterface
+    protected function createAdapterMock()
     {
         return $this->getMockBuilder(EpiserverApiAdapterInterface::class)
             ->disableOriginalConstructor()
@@ -207,9 +206,9 @@ class EpiserverFacadeTest extends Unit
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Episerver\Dependency\Facade\EpiserverToSalesFacadeInterface
+     * @return \PHPUnit\Framework\MockObject\MockObject|\SprykerEco\Zed\Episerver\Dependency\Facade\EpiserverToSalesFacadeInterface
      */
-    protected function createSalesFacadeMock(): EpiserverToSalesFacadeInterface
+    protected function createSalesFacadeMock()
     {
         $facade = $this->getMockBuilder(EpiserverToSalesFacadeInterface::class)
             ->setMethods(['getOrderByIdSalesOrder'])
@@ -221,19 +220,9 @@ class EpiserverFacadeTest extends Unit
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\Psr\Http\Message\StreamInterface
+     * @return \PHPUnit\Framework\MockObject\MockObject|\SprykerEco\Zed\Episerver\Business\Handler\Customer\CustomerEventMailerInterface
      */
-    protected function createStreamInterfaceMock(): StreamInterface
-    {
-        return $this->getMockBuilder(StreamInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-    }
-
-    /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Episerver\Business\Handler\Customer\CustomerEventMailerInterface
-     */
-    protected function createCustomerEventMailerMock(): CustomerEventMailerInterface
+    protected function createCustomerEventMailerMock()
     {
         $handler = $this->getMockBuilder(CustomerEventMailer::class)
             ->disableOriginalConstructor()
@@ -241,23 +230,28 @@ class EpiserverFacadeTest extends Unit
             ->setMethods(['mail'])
             ->getMock();
 
-        $handler->method('mail')->willReturn($this->createStreamInterfaceMock());
-
         return $handler;
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\SprykerEco\Zed\Episerver\Business\Mapper\Customer\CustomerMapperInterface
+     * @return \PHPUnit\Framework\MockObject\MockObject|\SprykerEco\Zed\Episerver\Business\Mapper\Customer\CustomerMapperInterface
      */
-    protected function createCustomerMapperMock(): CustomerMapperInterface
+    protected function createCustomerMapperMock()
     {
         $mapper = $this->getMockBuilder(CustomerMapperInterface::class)
             ->disableOriginalConstructor()
-            ->setMethods(['mapCustomerEntityToCustomer', 'mapCustomerAddressEntityToTransfer'])
+            ->setMethods([
+                'mapCustomerEntityToCustomer',
+                'mapCustomerAddressEntityToTransfer',
+                'mapCustomerAddressEntityToAddressTransfer',
+                'mapCountryEntityToCountryTransfer'
+            ])
             ->getMock();
 
         $mapper->method('mapCustomerEntityToCustomer')->willReturn(new CustomerTransfer());
         $mapper->method('mapCustomerAddressEntityToTransfer')->willReturn(new AddressTransfer());
+        $mapper->method('mapCustomerAddressEntityToAddressTransfer')->willReturn(new AddressTransfer());
+        $mapper->method('mapCountryEntityToCountryTransfer')->willReturn(new CountryTransfer());
 
         return $mapper;
     }
