@@ -145,7 +145,7 @@ class EpiserverFacadeTest extends Unit
     protected function createEpiserverFactoryMock()
     {
         $factory = $this->getMockBuilder(EpiserverBusinessFactory::class)
-            ->onlyMethods([
+            ->setMethods([
                 'createShippingConfirmationEventMailer',
                 'createPaymentNotReceivedEventMailer',
                 'createOrderCancelledEventMailer',
@@ -173,7 +173,7 @@ class EpiserverFacadeTest extends Unit
         $handler = $this->getMockBuilder(OrderEventMailer::class)
             ->disableOriginalConstructor()
             ->setConstructorArgs([$this->createOrderMapperMock(), $this->createAdapterMock(), $this->createSalesFacadeMock()])
-            ->onlyMethods(['mail'])
+            ->setMethods(['mail'])
             ->getMock();
 
         return $handler;
@@ -186,7 +186,7 @@ class EpiserverFacadeTest extends Unit
     {
         $mapper = $this->getMockBuilder(OrderMapperInterface::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(['mapOrderTransferToEpiserverRequestTransfer'])
+            ->setMethods(['mapOrderTransferToEpiserverRequestTransfer'])
             ->getMock();
 
         $mapper->method('mapOrderTransferToEpiserverRequestTransfer')->willReturn(new EpiserverRequestTransfer());
@@ -211,7 +211,7 @@ class EpiserverFacadeTest extends Unit
     protected function createSalesFacadeMock()
     {
         $facade = $this->getMockBuilder(EpiserverToSalesFacadeInterface::class)
-            ->onlyMethods(['getOrderByIdSalesOrder'])
+            ->setMethods(['getOrderByIdSalesOrder'])
             ->getMock();
 
         $facade->method('getOrderByIdSalesOrder')->willReturn(new OrderTransfer());
@@ -227,7 +227,7 @@ class EpiserverFacadeTest extends Unit
         $handler = $this->getMockBuilder(CustomerEventMailer::class)
             ->disableOriginalConstructor()
             ->setConstructorArgs([$this->createCustomerMapperMock(), $this->createAdapterMock()])
-            ->onlyMethods(['mail'])
+            ->setMethods(['mail'])
             ->getMock();
 
         return $handler;
@@ -240,7 +240,7 @@ class EpiserverFacadeTest extends Unit
     {
         $mapper = $this->getMockBuilder(CustomerMapperInterface::class)
             ->disableOriginalConstructor()
-            ->onlyMethods([
+            ->setMethods([
                 'mapCustomerEntityToCustomer',
                 'mapCustomerAddressEntityToTransfer',
                 'mapCustomerAddressEntityToAddressTransfer',
